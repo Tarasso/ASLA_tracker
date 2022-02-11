@@ -1,0 +1,2 @@
+module BusinessProfessionalsHelper
+end
