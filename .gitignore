@@ -36,6 +36,19 @@ yarn-debug.log*
 .yarn-integrity
 coverage
 
+# file containing google oauth env key
+/config/environments/development.rb
+
+# recommended from prev semester
+.env
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+/coverage
+/coverage/*
 /public/packs
 /public/packs-test
 /node_modules
