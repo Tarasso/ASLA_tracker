@@ -60,3 +60,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'brakeman'
 gem 'rubocop'
+gem 'google-api-client', require: 'google/apis/calendar_v3'
