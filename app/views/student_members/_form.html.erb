@@ -1,0 +1,98 @@
+<%= form_with(model: student_member) do |form| %>
+  <% if student_member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student_member.errors.count, "error") %> prohibited this student_member from being saved:</h2>
+
+      <ul>
+        <% student_member.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :uin %>
+    <%= form.text_field :uin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :class_year %>
+    <%= form.text_field :class_year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :join_date %>
+    <%= form.date_select :join_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :member_title %>
+    <%= form.select :member_title, options_for_select(StudentMember.member_titles) %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expected_graduation_date %>
+    <%= form.date_select :expected_graduation_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :social_point_amount %>
+    <%= form.text_field :social_point_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :meeting_point_amount %>
+    <%= form.text_field :meeting_point_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fundraiser_point_amount %>
+    <%= form.text_field :fundraiser_point_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :informational_point_amount %>
+    <%= form.text_field :informational_point_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :officer_title %>
+    <%= form.text_field :officer_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dues_paid %>
+    <%= form.select :dues_paid, [['No', false], ['Yes', true]] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :picture %>
+    <%= form.text_field :picture %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
