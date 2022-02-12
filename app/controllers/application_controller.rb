@@ -5,5 +5,5 @@
 # users to the login page
 
 class ApplicationController < ActionController::Base
-    before_action :authenticate_user!
-  end
+  before_action :authenticate_user!
+end

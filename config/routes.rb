@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'pages#home'
   # root to: 'dashboards#show'
-  
+
   # pass thru and a callback
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
@@ -18,6 +20,4 @@ Rails.application.routes.draw do
 
   get 'pages/about'
   get 'pages/contact'
-
 end
-  
