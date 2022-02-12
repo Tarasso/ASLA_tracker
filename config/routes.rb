@@ -16,5 +16,8 @@ Rails.application.routes.draw do
   resources :business_professionals
   resources :student_members
 
+  get 'pages/about'
+  get 'pages/contact'
+
 end
   

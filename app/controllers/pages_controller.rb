@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  def home; end
+  skip_before_action :authenticate_user!
 
-  def about; end
+  def home
+  end
 
-  def contact; end
+  def about
+  end
+
+  def contact
+  end
+  
 end
