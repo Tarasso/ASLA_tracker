@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label :member_title %>
-    <%= form.select :member_title, options_for_select(StudentMember.member_titles) %>
+    <%= form.select :member_title, options_for_select(StudentMember.member_titles.map {|key, value| [key.humanize.capitalize, StudentMember.member_titles.key(value)]}, @student_member.member_title) %>
   </div>
 
 
