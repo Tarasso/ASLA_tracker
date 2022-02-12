@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BusinessProfessionalsController < ApplicationController
-  before_action :set_business_professional, only: %i[ show edit update destroy ]
+  before_action :set_business_professional, only: %i[show edit update destroy]
 
   # GET /business_professionals or /business_professionals.json
   def index
@@ -7,8 +9,7 @@ class BusinessProfessionalsController < ApplicationController
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json
-  def show
-  end
+  def show; end
 
   # GET /business_professionals/new
   def new
@@ -16,8 +17,7 @@ class BusinessProfessionalsController < ApplicationController
   end
 
   # GET /business_professionals/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /business_professionals or /business_professionals.json
   def create
@@ -25,11 +25,11 @@ class BusinessProfessionalsController < ApplicationController
 
     respond_to do |format|
       if @business_professional.save
-        format.html { redirect_to business_professional_url(@business_professional), notice: "Business professional was successfully created." }
-        format.json { render :show, status: :created, location: @business_professional }
+        format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully created.') }
+        format.json { render(:show, status: :created, location: @business_professional) }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @business_professional.errors, status: :unprocessable_entity }
+        format.html { render(:new, status: :unprocessable_entity) }
+        format.json { render(json: @business_professional.errors, status: :unprocessable_entity) }
       end
     end
   end
@@ -38,33 +38,34 @@ class BusinessProfessionalsController < ApplicationController
   def update
     respond_to do |format|
       if @business_professional.update(business_professional_params)
-        format.html { redirect_to business_professional_url(@business_professional), notice: "Business professional was successfully updated." }
-        format.json { render :show, status: :ok, location: @business_professional }
+        format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully updated.') }
+        format.json { render(:show, status: :ok, location: @business_professional) }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @business_professional.errors, status: :unprocessable_entity }
+        format.html { render(:edit, status: :unprocessable_entity) }
+        format.json { render(json: @business_professional.errors, status: :unprocessable_entity) }
       end
     end
   end
 
   # DELETE /business_professionals/1 or /business_professionals/1.json
   def destroy
-    @business_professional.destroy
+    @business_professional.destroy!
 
     respond_to do |format|
-      format.html { redirect_to business_professionals_url, notice: "Business professional was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to(business_professionals_url, notice: 'Business professional was successfully destroyed.') }
+      format.json { head(:no_content) }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_business_professional
-      @business_professional = BusinessProfessional.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def business_professional_params
-      params.require(:business_professional).permit(:org_name, :first_name, :last_name, :phone_num, :email)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_business_professional
+    @business_professional = BusinessProfessional.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def business_professional_params
+    params.require(:business_professional).permit(:org_name, :first_name, :last_name, :phone_num, :email)
+  end
 end
