@@ -1,0 +1,84 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uin:</strong>
+  <%= @student_member.uin %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @student_member.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @student_member.last_name %>
+</p>
+
+<p>
+  <strong>Class year:</strong>
+  <%= @student_member.class_year %>
+</p>
+
+<p>
+  <strong>Join date:</strong>
+  <%= @student_member.join_date %>
+</p>
+
+<p>
+  <strong>Member title:</strong>
+  <%= @student_member.member_title %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @student_member.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @student_member.phone_number %>
+</p>
+
+<p>
+  <strong>Expected graduation date:</strong>
+  <%= @student_member.expected_graduation_date %>
+</p>
+
+<p>
+  <strong>Social point amount:</strong>
+  <%= @student_member.social_point_amount %>
+</p>
+
+<p>
+  <strong>Meeting point amount:</strong>
+  <%= @student_member.meeting_point_amount %>
+</p>
+
+<p>
+  <strong>Fundraiser point amount:</strong>
+  <%= @student_member.fundraiser_point_amount %>
+</p>
+
+<p>
+  <strong>Informational point amount:</strong>
+  <%= @student_member.informational_point_amount %>
+</p>
+
+<p>
+  <strong>Officer title:</strong>
+  <%= @student_member.officer_title %>
+</p>
+
+<p>
+  <strong>Dues paid:</strong>
+  <%= @student_member.dues_paid %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @student_member.picture %>
+</p>
+
+<%= link_to 'Edit', edit_student_member_path(@student_member) %> |
+<%= link_to 'Back', student_members_path %>
