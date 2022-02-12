@@ -257,7 +257,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
     CountComments: false
-    Max: 60
+    Max: 100
     Exclude:
         - "**/spec/**/*"
         - "**/*.rake"
