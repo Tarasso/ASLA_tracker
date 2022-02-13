@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-<<<<<<< HEAD
   resources :calendars
-=======
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -17,7 +15,6 @@ Rails.application.routes.draw do
   end
 
   resources :student_members
->>>>>>> dev
   resources :newsletters
   resources :business_professionals
   resources :student_members

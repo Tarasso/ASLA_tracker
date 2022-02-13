@@ -14,15 +14,11 @@
   </head>
 
   <body>
-<<<<<<< HEAD
-  
-=======
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
         <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
       <% end -%>
     <% end %>
     <%= yield %>
->>>>>>> dev
   </body>
 </html>
