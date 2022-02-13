@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-<<<<<<< HEAD
-  resources :newsletters
-  resources :business_professionals
-  resources :student_members
-  resources :events
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  root 'pages#home'
-=======
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -26,8 +17,8 @@ Rails.application.routes.draw do
   resources :newsletters
   resources :business_professionals
   resources :student_members
+  resources :events
 
   get 'pages/about'
   get 'pages/contact'
->>>>>>> 03ce000f0eafd6a69da7816cd3c32c438df1e6b2
 end
