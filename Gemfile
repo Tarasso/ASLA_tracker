@@ -65,5 +65,12 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'brakeman'
+<<<<<<< HEAD
 gem 'rubocop'
 gem 'google-api-client', require: 'google/apis/calendar_v3'
+=======
+
+gem 'devise'
+gem 'omniauth', '~>1.9.1'
+gem 'omniauth-google-oauth2'
+>>>>>>> dev
