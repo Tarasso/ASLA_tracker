@@ -22,4 +22,5 @@ class PagesController < ApplicationController
     group1: group1, group2: group2, group3: group3).send_mail.deliver_later
   end
 
+  def officers; end
 end

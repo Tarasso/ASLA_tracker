@@ -19,7 +19,7 @@ RSpec/ExpectActual:
     - 'business_professional_unused_test/routing/business_professionals_routing_spec.rb'
     - 'newsletter_unused_test/routing/newsletters_routing_spec.rb'
     - 'student_member_unused_test/routing/student_members_routing_spec.rb'
-
+    - 'events_unused_tests/routing/events_routing_spec.rb'
 # Offense count: 1
 # Configuration parameters: Include, CustomTransform, IgnoreMethods, SpecSuffixOnly.
 # Include: **/*_spec*rb*, **/spec/**/*
@@ -34,7 +34,7 @@ RSpec/InstanceVariable:
     - 'business_professional_unused_test/views/business_professionals/edit.html.erb_spec.rb'
     - 'newsletter_unused_test/views/newsletters/edit.html.erb_spec.rb'
     - 'student_member_unused_test/views/student_members/edit.html.erb_spec.rb'
-
+    - 'events_unused_tests/views/events/edit.html.erb_spec.rb'
 # Offense count: 11
 # Configuration parameters: IgnoreSharedExamples.
 RSpec/NamedSubject:
