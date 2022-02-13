@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Org name:</strong>
+  <%= @business_professional.org_name %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @business_professional.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @business_professional.last_name %>
+</p>
+
+<p>
+  <strong>Phone num:</strong>
+  <%= @business_professional.phone_num %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @business_professional.email %>
+</p>
+
+<%= link_to 'Edit', edit_business_professional_path(@business_professional) %> |
+<%= link_to 'Back', business_professionals_path %>

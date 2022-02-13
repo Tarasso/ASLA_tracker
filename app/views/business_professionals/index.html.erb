@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Business Professionals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Org name</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Phone num</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @business_professionals.each do |business_professional| %>
+      <tr>
+        <td><%= business_professional.org_name %></td>
+        <td><%= business_professional.first_name %></td>
+        <td><%= business_professional.last_name %></td>
+        <td><%= business_professional.phone_num %></td>
+        <td><%= business_professional.email %></td>
+        <td><%= link_to 'Show', business_professional %></td>
+        <td><%= link_to 'Edit', edit_business_professional_path(business_professional) %></td>
+        <td><%= link_to 'Destroy', business_professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Business Professional', new_business_professional_path %>
