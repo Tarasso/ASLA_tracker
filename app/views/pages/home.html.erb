@@ -34,20 +34,26 @@
               <%= link_to "View all members", student_members_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
+                <%= link_to "About", 'pages/about', class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Officers", 'pages/officers', class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Contact Us", 'pages/contact', class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
               <%= link_to "View all business professionals", business_professionals_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
               <%= link_to "Newletters", newsletters_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Officers</a>
+                <%= link_to "Events", events_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Events</a>
-              </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="#">Gallery</a>
-              </li>
+              </li> -->
               <li class="nav-item">
               <%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class:'nav-link' %>
               </li>
