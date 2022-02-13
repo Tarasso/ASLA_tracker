@@ -20,4 +20,8 @@ Rails.application.routes.draw do
 
   get 'pages/about'
   get 'pages/contact'
+  get 'pages/home'
+  get 'pages/mail'
+  get 'pages/send_mail'
+
 end
