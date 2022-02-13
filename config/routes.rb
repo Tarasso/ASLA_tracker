@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :newsletters
   resources :business_professionals
   resources :student_members
+  resources :events
 
   get 'pages/about'
   get 'pages/contact'
