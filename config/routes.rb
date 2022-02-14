@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :business_professionals
   resources :student_members
   resources :events
+  resources :calendars
 
   get 'pages/about'
   get 'pages/contact'
