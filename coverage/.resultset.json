@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/csce431/ASLA_tracker/spec/student/feature/integration_spec.rb": {
+      "/csce431/spec/student/feature/integration_spec.rb": {
         "lines": [
           null,
           null,
@@ -114,11 +114,10 @@
           1,
           1,
           null,
-          null,
           null
         ]
       },
-      "/csce431/ASLA_tracker/spec/rails_helper.rb": {
+      "/csce431/spec/rails_helper.rb": {
         "lines": [
           null,
           null,
@@ -188,7 +187,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/environment.rb": {
+      "/csce431/config/environment.rb": {
         "lines": [
           null,
           null,
@@ -199,7 +198,7 @@
           1
         ]
       },
-      "/csce431/ASLA_tracker/config/application.rb": {
+      "/csce431/config/application.rb": {
         "lines": [
           null,
           null,
@@ -227,7 +226,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/boot.rb": {
+      "/csce431/config/boot.rb": {
         "lines": [
           null,
           null,
@@ -239,7 +238,7 @@
           1
         ]
       },
-      "/csce431/ASLA_tracker/config/environments/test.rb": {
+      "/csce431/config/environments/test.rb": {
         "lines": [
           null,
           null,
@@ -348,7 +347,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/application_controller_renderer.rb": {
+      "/csce431/config/initializers/application_controller_renderer.rb": {
         "lines": [
           null,
           null,
@@ -361,7 +360,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/assets.rb": {
+      "/csce431/config/initializers/assets.rb": {
         "lines": [
           null,
           null,
@@ -381,7 +380,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/backtrace_silencers.rb": {
+      "/csce431/config/initializers/backtrace_silencers.rb": {
         "lines": [
           null,
           null,
@@ -395,7 +394,7 @@
           1
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/content_security_policy.rb": {
+      "/csce431/config/initializers/content_security_policy.rb": {
         "lines": [
           null,
           null,
@@ -430,7 +429,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/cookies_serializer.rb": {
+      "/csce431/config/initializers/cookies_serializer.rb": {
         "lines": [
           null,
           null,
@@ -441,7 +440,7 @@
           1
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/devise.rb": {
+      "/csce431/config/initializers/devise.rb": {
         "lines": [
           null,
           null,
@@ -758,7 +757,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/filter_parameter_logging.rb": {
+      "/csce431/config/initializers/filter_parameter_logging.rb": {
         "lines": [
           null,
           null,
@@ -770,7 +769,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/inflections.rb": {
+      "/csce431/config/initializers/inflections.rb": {
         "lines": [
           null,
           null,
@@ -791,7 +790,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/mime_types.rb": {
+      "/csce431/config/initializers/mime_types.rb": {
         "lines": [
           null,
           null,
@@ -800,7 +799,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/permissions_policy.rb": {
+      "/csce431/config/initializers/permissions_policy.rb": {
         "lines": [
           null,
           null,
@@ -816,7 +815,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/initializers/wrap_parameters.rb": {
+      "/csce431/config/initializers/wrap_parameters.rb": {
         "lines": [
           null,
           null,
@@ -836,7 +835,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/config/routes.rb": {
+      "/csce431/config/routes.rb": {
         "lines": [
           null,
           null,
@@ -870,7 +869,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/models/user.rb": {
+      "/csce431/app/models/user.rb": {
         "lines": [
           null,
           null,
@@ -885,7 +884,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/models/application_record.rb": {
+      "/csce431/app/models/application_record.rb": {
         "lines": [
           null,
           null,
@@ -894,7 +893,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/application_helper.rb": {
+      "/csce431/app/helpers/application_helper.rb": {
         "lines": [
           null,
           null,
@@ -902,7 +901,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/business_professionals_helper.rb": {
+      "/csce431/app/helpers/business_professionals_helper.rb": {
         "lines": [
           null,
           null,
@@ -910,7 +909,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/calendars_helper.rb": {
+      "/csce431/app/helpers/calendars_helper.rb": {
         "lines": [
           null,
           null,
@@ -918,7 +917,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/events_helper.rb": {
+      "/csce431/app/helpers/events_helper.rb": {
         "lines": [
           null,
           null,
@@ -926,7 +925,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/newsletters_helper.rb": {
+      "/csce431/app/helpers/newsletters_helper.rb": {
         "lines": [
           null,
           null,
@@ -934,7 +933,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/pages_helper.rb": {
+      "/csce431/app/helpers/pages_helper.rb": {
         "lines": [
           null,
           null,
@@ -942,7 +941,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/helpers/student_members_helper.rb": {
+      "/csce431/app/helpers/student_members_helper.rb": {
         "lines": [
           null,
           null,
@@ -950,8 +949,10 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/spec/student/unit/unit_spec.rb": {
+      "/csce431/spec/student/unit/student_member_unit_spec.rb": {
         "lines": [
+          null,
+          null,
           null,
           1,
           null,
@@ -965,6 +966,7 @@
           null,
           null,
           null,
+          null,
           1,
           1,
           null,
@@ -997,12 +999,11 @@
           1,
           1,
           1,
-          null,
           null,
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/models/student_member.rb": {
+      "/csce431/app/models/student_member.rb": {
         "lines": [
           null,
           null,
@@ -1012,7 +1013,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/controllers/student_members_controller.rb": {
+      "/csce431/app/controllers/student_members_controller.rb": {
         "lines": [
           null,
           null,
@@ -1091,7 +1092,7 @@
           null
         ]
       },
-      "/csce431/ASLA_tracker/app/controllers/application_controller.rb": {
+      "/csce431/app/controllers/application_controller.rb": {
         "lines": [
           null,
           null,
@@ -1105,6 +1106,6 @@
         ]
       }
     },
-    "timestamp": 1644861159
+    "timestamp": 1644867454
   }
 }

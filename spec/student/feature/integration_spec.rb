@@ -22,7 +22,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     # end
   end
 
-  it 'valid inputs' do
+  it 'valid inputs create' do
     visit new_student_member_path
 
     fill_in 'Uin', with: '328004941'
@@ -66,8 +66,8 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('Hello'))
   end
 
-  #similar test, but different choices for drop down menus and testing for the show page
-  it 'valid inputs' do
+  # similar test, but different choices for drop down menus and testing for the show page
+  it 'valid inputs show' do
     visit new_student_member_path
 
     fill_in 'Uin', with: '1336443725'
@@ -109,5 +109,4 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('true'))
     expect(page).to(have_content('Handsome photo'))
   end
-  
 end
