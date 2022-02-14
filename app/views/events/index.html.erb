@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Events</h1>
-
 <table>
   <thead>
     <tr>
@@ -75,6 +73,9 @@
       </div>
     </nav>
   </header>
+
+<h1>Events</h1>
+
     <% @events.each do |event| %>
       <tr>
         <td><%= event.date.strftime('%B %-d, %Y') %></td>

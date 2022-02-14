@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :calendars
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -19,8 +18,13 @@ Rails.application.routes.draw do
   resources :business_professionals
   resources :student_members
   resources :events
+  resources :calendars
 
   get 'pages/about'
   get 'pages/contact'
+  get 'pages/home'
+  get 'pages/mail'
+  get 'pages/send_mail'
+
   get 'pages/officers'
 end
