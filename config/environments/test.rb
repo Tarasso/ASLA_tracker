@@ -62,4 +62,44 @@ Rails.application.configure do
 
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '253461508452-hgfsauo8s8u7oge681735l5h92dkf704.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+
+  # have mock information for OmniAuth
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:google_user] = OmniAuth::AuthHash.new({
+    provider: 'google_oauth2',
+    uid: '123456789',
+    info: {
+      name: 'User Doe',
+      email: 'userdoe@example.com',
+      first_name: 'User',
+      last_name: 'Doe',
+      image: 'https://lh3.googleusercontent.com/url/photo.jpg'
+    },
+    credentials: {
+      token: 'token',
+      refresh_token: 'another_token',
+      expires_at: 1_354_920_555,
+      expires: true
+    }
+  }
+                                                                  )
+
+  OmniAuth.config.mock_auth[:google_admin] = OmniAuth::AuthHash.new({
+    provider: 'google_oauth2',
+    uid: '234567890',
+    info: {
+      name: 'Admin Doe',
+      email: 'admindoe@example.com',
+      first_name: 'Admin',
+      last_name: 'Doe',
+      image: 'https://lh3.googleusercontent.com/url/photo.jpg'
+    },
+    credentials: {
+      token: 'token',
+      refresh_token: 'another_token',
+      expires_at: 1_354_920_555,
+      expires: true
+    }
+  }
+  )
 end
