@@ -101,5 +101,5 @@ Rails.application.configure do
       expires: true
     }
   }
-  )
+                                                                   )
 end
