@@ -1,15 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-
-
 <table>
   <thead>
     <tr>
-      <th>Org name</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Phone num</th>
-      <th>Email</th>
       <th colspan="3"></th>
     </tr>
     <!-- Bootstrap CSS -->
@@ -21,9 +14,19 @@
             background-size: auto;
         }
     </style>
+    <title>ASLA | Calendar</title>
   </thead>
 
   <tbody>
+    <% @calendars.each do |calendar| %>
+      <tr>
+        <td><%= link_to 'Show', calendar %></td>
+        <td><%= link_to 'Edit', edit_calendar_path(calendar) %></td>
+        <td><%= link_to 'Destroy', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000">
       <div class="container-fluid">
@@ -74,24 +77,12 @@
       </div>
     </nav>
   </header>
+  <h1>Google Calendar</h1>
 
-<h1>Business Professionals</h1>
-
-    <% @business_professionals.each do |business_professional| %>
-      <tr>
-        <td><%= business_professional.org_name %></td>
-        <td><%= business_professional.first_name %></td>
-        <td><%= business_professional.last_name %></td>
-        <td><%= business_professional.phone_num %></td>
-        <td><%= business_professional.email %></td>
-        <td><%= link_to 'Show', business_professional %></td>
-        <td><%= link_to 'Edit', edit_business_professional_path(business_professional) %></td>
-        <td><%= link_to 'Destroy', business_professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+  <div>
+    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23616161&ctz=America%2FChicago&showTitle=0&showPrint=0&showTz=0&showCalendars=0&src=bWNhZGlldXgyMDIzQHRhbXUuZWR1&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%230B8043" 
+      style="border:solid 1px #777; position:relative; left: 25%; width: 50%; height: 500px;" frameborder="0" scrolling="no" >
+    </iframe>
+  </div>
 <br>
 
-<%= link_to 'New Business Professional', new_business_professional_path %>

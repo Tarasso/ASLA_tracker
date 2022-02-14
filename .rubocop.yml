@@ -41,6 +41,14 @@ AllCops:
         - "**/spec_helper.rb"
         - "node_modules/**/*"
         - "bin/*"
+        - "business_professional_unused_test/**/*.rb"
+        - "events_unused_tests/**/*.rb"
+        - "newsletter_unused_test/**/*.rb"
+        - "pages_unused_test/**/*.rb"
+        - "student_member_unused_test/**/*.rb"
+        - "calendar_unused_test/**/*.rb"
+        # - "**/*_unused_test*/*.rb"
+
 
 ###########################################################
 ###################### RuboCop ############################
