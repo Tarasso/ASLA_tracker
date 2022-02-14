@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 require 'rails_helper'
 
 RSpec.describe('Creating a Newsletter', type: :feature) do
@@ -15,18 +14,19 @@ RSpec.describe('Creating a Newsletter', type: :feature) do
     #  Admin.create!(email: 'userdoe@example.com', full_name: 'User Doe', uid: '123456789', avatar_url: 'https://lh3.googleusercontent.com/url/photo.jpg')
     # end
   end
-  scenario 'valid inputs' do
+
+  it 'valid inputs' do
     visit new_newsletter_path
     fill_in 'Title', with: 'Intro'
     fill_in 'Message', with: 'Howdy we are ASLA'
-    select '2022', :from => 'newsletter_date_posted_1i'      
-    select 'June', :from => 'newsletter_date_posted_2i'  
-    select '8', :from => 'newsletter_date_posted_3i'        
+    select '2022', from: 'newsletter_date_posted_1i'
+    select 'June', from: 'newsletter_date_posted_2i'
+    select '8', from: 'newsletter_date_posted_3i'
 
     click_on 'Create Newsletter'
     visit newsletters_path
-    expect(page).to have_content('Intro')
-    expect(page).to have_content('Howdy we are ASLA')
-    expect(page).to have_content('2022-06-08')
+    expect(page).to(have_content('Intro'))
+    expect(page).to(have_content('Howdy we are ASLA'))
+    expect(page).to(have_content('2022-06-08'))
   end
 end

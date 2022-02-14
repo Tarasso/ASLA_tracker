@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 require 'rails_helper'
 
 RSpec.describe('Creating a Business professional', type: :feature) do
@@ -15,6 +14,7 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     #  Admin.create!(email: 'userdoe@example.com', full_name: 'User Doe', uid: '123456789', avatar_url: 'https://lh3.googleusercontent.com/url/photo.jpg')
     # end
   end
+
   it 'valid inputs' do
     visit new_business_professional_path
 
