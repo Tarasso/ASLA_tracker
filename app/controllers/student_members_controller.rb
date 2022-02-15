@@ -2,6 +2,7 @@
 
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy]
+  # skip_before_action :authenticate_user!
 
   # GET /student_members or /student_members.json
   def index
