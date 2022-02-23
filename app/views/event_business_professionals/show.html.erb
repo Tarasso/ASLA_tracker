@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @event_business_professional.organization_id %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @event_business_professional.event_id %>
+</p>
+
+<%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) %> |
+<%= link_to 'Back', event_business_professionals_path %>

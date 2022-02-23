@@ -1,0 +1,2 @@
+class EventBusinessProfessional < ApplicationRecord
+end

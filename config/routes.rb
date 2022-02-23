@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :event_business_professionals
   root 'pages#home'
   # root to: 'dashboards#show'
 
