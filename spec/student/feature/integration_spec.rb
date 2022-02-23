@@ -8,7 +8,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
     visit root_path
-    click_on "Sign in"
+    click_on 'Sign in'
   end
 
   it 'valid inputs create' do
