@@ -1,0 +1,2 @@
+class EventStudentMember < ApplicationRecord
+end
