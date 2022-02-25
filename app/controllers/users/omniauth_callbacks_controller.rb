@@ -21,7 +21,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || root_path
+    Rails.logger.debug('HERE 2')
+    Rails.logger.debug(resource_or_scope)
+    request.env['omniauth.origin'] || stored_location_for(resource_or_scope) || root_path
   end
 
   private
