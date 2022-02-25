@@ -22,8 +22,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def after_sign_in_path_for(resource_or_scope)
     Rails.logger.debug('HERE 2')
-    Rails.logger.debug(resource_or_scope)
-    request.env['omniauth.origin'] || stored_location_for(resource_or_scope) || root_path
+    Rails.logger.debug(resource_or_scope.inspect)
+    puts 'UID TEST'
+    puts resource_or_scope.uid
+    puts StudentMember.where("uid = ?", resource_or_scope.uid).inspect
+    if StudentMember.where("uid = ?", resource_or_scope.uid).empty?
+      puts 'found new user'
+      new_student_member_path
+    else
+      request.env['omniauth.origin'] || stored_location_for(resource_or_scope) || root_path
+    end
   end
 
   private
