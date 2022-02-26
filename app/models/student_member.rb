@@ -8,8 +8,10 @@ class StudentMember < ApplicationRecord
   after_create :update_google_params
 
   def update_google_params
-    self.uid = User.where("email = ?", self.email).first.getUID
-    # TODO:
+    self.uid = (User.find_by "email = ?", self.email)
+    puts "RIP"
+    puts (User.find_by "email = ?", self.email)
+    # TODO
     # self.picture
     self.save
   end

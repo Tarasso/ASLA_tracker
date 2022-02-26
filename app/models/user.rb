@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  attr_reader :uid
+  attr_accessor :uid
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   def self.from_google(email:, full_name:, uid:, avatar_url:)
@@ -10,7 +10,7 @@ class User < ApplicationRecord
     create_with(uid: uid, full_name: full_name, avatar_url: avatar_url).find_or_create_by!(email: email)
   end
 
-  def getUID
+  def self.getUID
     return self.uid
   end
 end
