@@ -25,10 +25,6 @@ class StudentMembersController < ApplicationController
   def create
     @student_member = StudentMember.new(student_member_params)
 
-    #Test code, messing around.
-    #auth
-    #@student_member.uid = @auth.uid
-
     respond_to do |format|
       if @student_member.save
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
