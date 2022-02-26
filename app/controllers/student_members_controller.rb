@@ -26,8 +26,8 @@ class StudentMembersController < ApplicationController
     @student_member = StudentMember.new(student_member_params)
 
     #Test code, messing around.
-    auth
-    @student_member.uid = @auth.uid
+    #auth
+    #@student_member.uid = @auth.uid
 
     respond_to do |format|
       if @student_member.save
@@ -78,8 +78,6 @@ class StudentMembersController < ApplicationController
     )
   end
 
-  def auth
-    @auth ||= Rails.application.env_config['omniauth.auth'] || request.env['omniauth.auth']
-  end
+
 
 end
