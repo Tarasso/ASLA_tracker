@@ -26,7 +26,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select '2022', from: 'student_member_expected_graduation_date_1i'
     select 'May', from: 'student_member_expected_graduation_date_2i'
     select '6', from: 'student_member_expected_graduation_date_3i'
-    fill_in 'Picture', with: 'Hello'
     click_on 'Create Student member'
 
     visit student_members_path
@@ -38,7 +37,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('piercefi@tamu.edu'))
     expect(page).to(have_content('5127309368'))
     expect(page).to(have_content('2022-05-06'))
-    expect(page).to(have_content('Hello'))
   end
 
   # similar test, but different choices for drop down menus and testing for the show page
@@ -57,7 +55,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select '2025', from: 'student_member_expected_graduation_date_1i'
     select 'May', from: 'student_member_expected_graduation_date_2i'
     select '6', from: 'student_member_expected_graduation_date_3i'
-    fill_in 'Picture', with: 'Handsome photo'
     click_on 'Create Student member'
 
     expect(page).to(have_content('1336443725'))
@@ -68,6 +65,5 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('fu.pierce123@gmail.edu'))
     expect(page).to(have_content('13991328204'))
     expect(page).to(have_content('2025-05-06'))
-    expect(page).to(have_content('Handsome photo'))
   end
 end
