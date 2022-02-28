@@ -21,7 +21,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select '2022', from: 'student_member_join_date_1i'
     select 'May', from: 'student_member_join_date_2i'
     select '5', from: 'student_member_join_date_3i'
-    select 'Member', from: 'student_member_member_title'
     fill_in 'Email', with: 'piercefi@tamu.edu'
     fill_in 'Phone number', with: '5127309368'
     select '2022', from: 'student_member_expected_graduation_date_1i'
