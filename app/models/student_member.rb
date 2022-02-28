@@ -9,8 +9,9 @@ class StudentMember < ApplicationRecord
   def update_google_params
     self.uid = User.where(email: email).pick(:uid)
     # SELECT uid FROM user WHERE email = email
-    # TODO
+
     # self.picture
+    self.picture = User.where(email: email).pick(:avatar_url)
     save!
   end
 end
