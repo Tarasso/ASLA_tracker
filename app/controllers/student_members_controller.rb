@@ -13,6 +13,10 @@ class StudentMembersController < ApplicationController
   # GET /student_members/1 or /student_members/1.json
   def show; end
 
+  def dashboard
+    @student_member = StudentMember.find(params[:id])
+  end
+
   # GET /student_members/new
   def new
     @student_member = StudentMember.new
