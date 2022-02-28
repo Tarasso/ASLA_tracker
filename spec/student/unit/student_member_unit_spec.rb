@@ -38,11 +38,6 @@ RSpec.describe(StudentMember, type: :model) do
     expect(student).not_to(be_valid)
   end
 
-  it 'is not valid without a member title' do
-    student.member_title = nil
-    expect(student).not_to(be_valid)
-  end
-
   it 'is not valid without an email' do
     student.email = nil
     expect(student).not_to(be_valid)

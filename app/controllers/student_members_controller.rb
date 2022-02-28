@@ -73,7 +73,4 @@ class StudentMembersController < ApplicationController
                                            :informational_point_amount, :officer_title, :dues_paid, :picture, :uid
     )
   end
-
-
-
 end
