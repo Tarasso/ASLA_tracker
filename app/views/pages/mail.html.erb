@@ -61,9 +61,8 @@
     </nav>
   </header>
 
-
-<form action="/pages/send_mail" method="get" id="mail_form">
-  <label for="emails">Enter emails</label>
+<form action="/pages/mail" method="get" id="mail_form">
+  <label for="emails">Enter emails</label><br>
   <input type="text" id="emails" name="emails"><br><br>
 
   <input type="checkbox" id="group1" name="group1" value="officers">
@@ -71,14 +70,22 @@
   <input type="checkbox" id="group2" name="group2" value="non_officers">
   <label for="group2">Email non-officer students</label><br>
   <input type="checkbox" id="group3" name="group3" value="business">
-  <label for="group3">Email business professionals</label><br>
+  <label for="group3">Email business professionals</label><br><br>
 
-  <label for="subject">Enter subject</label>
-  <input type="text" id="subject" name="subject"><br><br>
-
-  <label for="body">Enter text</label>
-  <textarea rows="4" cols="50" name="body" form="mail_form"></textarea><br><br>
-
-  <input type="submit" value="Submit">
+  <input type="submit" value="Copy Emails">
 </form>
-  
+
+<br>
+<p id="success"></p>
+
+<% if @recipients_str %>
+
+  <script>
+  navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+
+    document.querySelector("#success").innerHTML = "Copied Emails";
+  });
+  </script>
+
+<% end %>
+

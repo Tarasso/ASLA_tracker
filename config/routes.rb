@@ -24,7 +24,5 @@ Rails.application.routes.draw do
   get 'pages/contact'
   get 'pages/home'
   get 'pages/mail'
-  get 'pages/send_mail'
-
   get 'pages/officers'
 end
