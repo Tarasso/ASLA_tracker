@@ -94,7 +94,9 @@
             <h6>Time: 3pm-5pm, 02/31/2022</h5>
             <p>Google shares about internship oppurtunities for landscape architects.</p>
             <p>3 Points: Informational</p>
-            <a class="btn col-6 btn-primary mx-auto" href="#" role="button">Register Now</a>
+            <% @student_members = StudentMember.find(1) %>
+            <% @events = Event.find(1) %>
+            <%= button_to "Register", event_student_members_path, { class: "btn col-6 btn-primary mx-auto" } %>
             
           </div>
           <div class="col-4 card">

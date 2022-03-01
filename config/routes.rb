@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :event_business_professionals
+  resources :event_student_members
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -20,7 +21,8 @@ Rails.application.routes.draw do
   resources :student_members
   resources :events
   resources :calendars
-
+  
+  
   get 'pages/about'
   get 'pages/contact'
   get 'pages/home'

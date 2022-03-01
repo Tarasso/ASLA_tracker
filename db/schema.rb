@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_12_223054) do
+ActiveRecord::Schema.define(version: 2022_03_01_030639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 2022_02_12_223054) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "event_business_professionals", force: :cascade do |t|
+    t.integer "organization_id"
+    t.integer "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "event_student_members", force: :cascade do |t|
+    t.integer "member_id"
+    t.integer "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.date "date"
     t.string "name"
@@ -40,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_02_12_223054) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.time "finish_time"
+    t.integer "event_code"
   end
 
   create_table "newsletters", force: :cascade do |t|
