@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Member</th>
+      <th>Member Email</th>
       <th>Event</th>
       <th colspan="3"></th>
     </tr>
@@ -14,8 +15,9 @@
   <tbody>
     <% @event_student_members.each do |event_student_member| %>
       <tr>
-        <td><%= StudentMember.where(id: event_student_member.member_id ).last.first_name%></td>
-        <td><%= Event.where(id: event_student_member.event_id).last.name %></td>
+        <td><%= StudentMember.find(event_student_member.member_id).first_name%></td>
+        <td><%= StudentMember.find(event_student_member.member_id).email%></td>
+        <td><%= Event.find(event_student_member.event_id).name %></td>
         <td><%= link_to 'Show', event_student_member %></td>
         <td><%= link_to 'Edit', edit_event_student_member_path(event_student_member) %></td>
         <td><%= link_to 'Destroy', event_student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>

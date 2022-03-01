@@ -84,7 +84,7 @@
         <td><%= event.event_type %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Register', register_event_student_member_path(mid: @student_member.id, eid: event.id) %></td>
-        <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id) %></td>
+        <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id), data: { confirm: 'Are you sure?' } %></td>
         <% @event_student_member = EventStudentMember.find_by(member_id: @student_member.id, event_id: event.id) %>
         <% if @event_student_member %>
             <td>Registered</td>
