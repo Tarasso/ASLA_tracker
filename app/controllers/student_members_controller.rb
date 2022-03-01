@@ -2,6 +2,7 @@
 
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy]
+  before_action :authenticate_user!
   # skip_before_action :authenticate_user!
 
   # GET /student_members or /student_members.json
@@ -11,6 +12,10 @@ class StudentMembersController < ApplicationController
 
   # GET /student_members/1 or /student_members/1.json
   def show; end
+
+  def dashboard
+    @student_member = StudentMember.find(params[:id])
+  end
 
   # GET /student_members/new
   def new
@@ -69,7 +74,7 @@ class StudentMembersController < ApplicationController
   def student_member_params
     params.require(:student_member).permit(:uin, :first_name, :last_name, :class_year, :join_date, :member_title, :email, :phone_number,
                                            :expected_graduation_date, :social_point_amount, :meeting_point_amount, :fundraiser_point_amount,
-                                           :informational_point_amount, :officer_title, :dues_paid, :picture
+                                           :informational_point_amount, :officer_title, :dues_paid, :picture, :uid
     )
   end
 end

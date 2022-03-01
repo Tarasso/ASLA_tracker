@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Social point amount:</strong>
+  <%= @student_member.social_point_amount %>
+</p>
+
+<p>
+  <strong>Meeting point amount:</strong>
+  <%= @student_member.meeting_point_amount %>
+</p>
+
+<p>
+  <strong>Fundraiser point amount:</strong>
+  <%= @student_member.fundraiser_point_amount %>
+</p>
+
+<p>
+  <strong>Informational point amount:</strong>
+  <%= @student_member.informational_point_amount %>
+</p>
+<%= link_to 'Edit', edit_student_member_path(@student_member) %> |
+<%= link_to 'Back', student_members_path %>

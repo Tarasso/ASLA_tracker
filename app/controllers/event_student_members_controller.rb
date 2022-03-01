@@ -22,8 +22,8 @@ class EventStudentMembersController < ApplicationController
   # POST /event_student_members or /event_student_members.json
   def create
     #@event_student_member = EventStudentMember.new(event_student_member_params)
-    @student_members = StudentMember.find(1)
-    @events = Event.find(1)
+    @student_members = StudentMember.find(params[:id])
+    @events = Event.find(params[:id])
     @event_student_member = EventStudentMember.new(member_id: @student_members.id, event_id: @events.id)
     @event_student_member.save!
     respond_to do |format|

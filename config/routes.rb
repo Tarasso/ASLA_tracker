@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   resources :student_members
   resources :newsletters
   resources :business_professionals
-  resources :student_members
+  resources :student_members do
+    member do
+      get :dashboard
+    end
+  end
   resources :events
   resources :calendars
   
