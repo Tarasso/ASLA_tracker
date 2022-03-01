@@ -9,9 +9,8 @@ class PagesController < ApplicationController
 
   def contact; end
 
-  def mail;
-
-    if (params.has_key?(:emails))
+  def mail
+    if params.key?(:emails)
 
       @emails = params[:emails]
       @group1 = params[:group1]
@@ -26,7 +25,7 @@ class PagesController < ApplicationController
       recipients += StudentMember.where(member_title: '0').pluck(:email) if @group2 == 'non_officers'
 
       recipients += BusinessProfessional.pluck(:email) if @group3 == 'business'
-      
+
       recipients = recipients.uniq
 
       @recipients_str = recipients.join('\n')
