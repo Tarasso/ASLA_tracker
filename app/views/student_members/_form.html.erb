@@ -37,12 +37,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :member_title %>
-    <%= form.select :member_title, options_for_select(StudentMember.member_titles.map {|key, value| [key.humanize.capitalize, StudentMember.member_titles.key(value)]}, @student_member.member_title) %>
-  </div>
-
-
-  <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email %>
   </div>
@@ -58,38 +52,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :social_point_amount %>
-    <%= form.text_field :social_point_amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :meeting_point_amount %>
-    <%= form.text_field :meeting_point_amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fundraiser_point_amount %>
-    <%= form.text_field :fundraiser_point_amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :informational_point_amount %>
-    <%= form.text_field :informational_point_amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :officer_title %>
-    <%= form.text_field :officer_title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :dues_paid %>
-    <%= form.select :dues_paid, [['No', false], ['Yes', true]] %>
-  </div>
-
-  <div class="field">
     <%= form.label :picture %>
     <%= form.text_field :picture %>
+  </div>
+
+    <div class="field">
+    <%= form.label :uid %>
+    <%= form.text_field :uid %>
   </div>
 
   <div class="actions">
