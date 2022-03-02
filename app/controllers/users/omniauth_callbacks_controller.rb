@@ -31,6 +31,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # must log out then back in for officer promotion to take effect
     else
       session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
+      session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
       request.env['omniauth.origin'] || stored_location_for(resource_or_scope) || root_path
     end
   end

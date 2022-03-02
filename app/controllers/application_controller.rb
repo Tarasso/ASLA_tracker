@@ -12,13 +12,20 @@ class ApplicationController < ActionController::Base
     # puts 'UID'
     # puts session[:uid]
     Rails.logger.debug(session[:profile_pic])
+    puts 'ID:'
+    puts session[:memberID]
   end
 
   def admin?
-    authenticate_user!
     unless session[:isAdmin]
       Rails.logger.debug('NOT AN ADMIN')
       redirect_to('/pages/unauthorized')
+    end
+  end
+
+  def allowedToView?
+    if params[:id].to_i != session[:memberID] && !session[:isAdmin]
+      redirect_to '/pages/unauthorized'
     end
   end
 end
