@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
     # puts 'UID'
     # puts session[:uid]
     Rails.logger.debug(session[:profile_pic])
-    puts 'ID:'
-    puts session[:memberID]
+    Rails.logger.debug('ID:')
+    Rails.logger.debug(session[:memberID])
   end
 
   def admin?
@@ -23,9 +23,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def allowedToView?
-    if params[:id].to_i != session[:memberID] && !session[:isAdmin]
-      redirect_to '/pages/unauthorized'
-    end
+  def allowed_to_view?
+    redirect_to('/pages/unauthorized') if Integer(params[:id], 10) != session[:memberID] && !session[:isAdmin]
   end
 end

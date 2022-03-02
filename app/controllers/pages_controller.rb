@@ -36,5 +36,5 @@ class PagesController < ApplicationController
 
   def unauthorized; end
 
-  def userDashboard; end
+  def user_dashboard; end
 end

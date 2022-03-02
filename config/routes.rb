@@ -26,5 +26,5 @@ Rails.application.routes.draw do
   get 'pages/mail'
   get 'pages/officers'
   get 'pages/unauthorized'
-  get 'pages/userDashboard'
+  get 'pages/user_dashboard'
 end

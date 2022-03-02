@@ -3,7 +3,7 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
-  before_action :allowedToView?, only: [:show, :edit, :update]
+  before_action :allowed_to_view?, only: %i[show edit update]
 
   # GET /student_members or /student_members.json
   def index
