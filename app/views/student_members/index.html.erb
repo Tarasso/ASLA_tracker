@@ -86,9 +86,11 @@
         <td><%= student_member.email %></td>
         <td><%= student_member.formatted_phone %></td>
         <td><%= read_bool(student_member.dues_paid) %></td>
-        <td><%= link_to 'Show', student_member %></td>
-        <td><%= link_to 'Edit', edit_student_member_path(student_member) %></td>
-        <td><%= link_to 'Destroy', student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if session[:isAdmin] %>
+          <td><%= link_to 'Show', student_member %></td>
+          <td><%= link_to 'Edit', edit_student_member_path(student_member) %></td>
+          <td><%= link_to 'Destroy', student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

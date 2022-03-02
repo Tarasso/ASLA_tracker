@@ -4,9 +4,9 @@ class StudentMember < ApplicationRecord
   enum member_title: { member: 1, officer: 2 }
   validates :uin, :first_name, :last_name, :class_year, :email, presence: true
 
-  validates :uin, format: { with: /\A[0-9]{9}\z/, message: "should be a 9 digit number" }
-  validates :class_year, format: { with: /\A[0-9]{4}\z/, message: "should be in the form of YYYY" }
-  validates :first_name, :last_name, format: { with: /\A[a-zA-Z]*\z/, message: "should only contain letters"}
+  validates :uin, format: { with: /\A[0-9]{9}\z/, message: 'should be a 9 digit number' }
+  validates :class_year, format: { with: /\A[0-9]{4}\z/, message: 'should be in the form of YYYY' }
+  validates :first_name, :last_name, format: { with: /\A[a-zA-Z]*\z/, message: 'should only contain letters' }
 
   validates :phone_number, phone: true
 
@@ -31,23 +31,22 @@ class StudentMember < ApplicationRecord
     return phone_number if parsed_phone.invalid?
 
     formatted =
-      if parsed_phone.country_code == "1" # NANP
-        parsed_phone.full_national # (415) 555-2671;123
+      if parsed_phone.country_code == '1'
+        parsed_phone.full_national
       else
-        parsed_phone.full_international # +44 20 7183 8750
+        parsed_phone.full_international
       end
-    formatted.gsub!(";", " x") # (415) 555-2671 x123
+    formatted.gsub!(';', ' x')
     formatted
   end
 
   def set_defaults
-    self.member_title = 1
+    # self.member_title = 1
     self.social_point_amount = 0
     self.meeting_point_amount = 0
-    self.fundraiser_point_amount = 0 
+    self.fundraiser_point_amount = 0
     self.informational_point_amount = 0
     self.dues_paid = 0
     save!
   end
-
 end

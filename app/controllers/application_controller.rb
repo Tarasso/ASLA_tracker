@@ -6,4 +6,19 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :print_session
+
+  def print_session
+    # puts 'UID'
+    # puts session[:uid]
+    Rails.logger.debug(session[:profile_pic])
+  end
+
+  def admin?
+    authenticate_user!
+    unless session[:isAdmin]
+      Rails.logger.debug('NOT AN ADMIN')
+      redirect_to('/pages/unauthorized')
+    end
+  end
 end

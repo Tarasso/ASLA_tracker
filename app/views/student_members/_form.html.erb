@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, value: session[:email], readonly: true %>
   </div>
 
   <div class="field">
@@ -49,6 +49,11 @@
   <div class="field">
     <%= form.label :expected_graduation_date %>
     <%= form.date_select :expected_graduation_date, { :discard_day => true} %>
+  </div>
+
+    <div class="field">
+    <%= form.label :member_title %>
+    <%= form.select :member_title, options_for_select(StudentMember.member_titles.map {|key, value| [key.humanize.capitalize, StudentMember.member_titles.key(value)]}, @student_member.member_title) %>
   </div>
 
   <div class="actions">

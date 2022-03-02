@@ -33,4 +33,6 @@ class PagesController < ApplicationController
   end
 
   def officers; end
+
+  def unauthorized; end
 end
