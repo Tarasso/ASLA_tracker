@@ -67,6 +67,11 @@
               <% else %>
                 <li class="nav-item">
                 <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
+                </li>
+                <li class="nav-item">
+                <%= link_to image_tag(session[:profile_pic], class:'nav-link profile-pic'), 'pages/userDashboard' %>
+                  <!-- <img src = "<%= session[:profile_pic]%>", style="border-radius: 50%;width: 50%"/> -->
+                </li>
               <% end %>
             </ul>
           </div>

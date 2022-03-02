@@ -35,4 +35,6 @@ class PagesController < ApplicationController
   def officers; end
 
   def unauthorized; end
+
+  def userDashboard; end
 end
