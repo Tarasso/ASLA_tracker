@@ -16,19 +16,9 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Class year</th>
-      <th>Join date</th>
-      <th>Member title</th>
       <th>Email</th>
       <th>Phone number</th>
-      <th>Expected graduation date</th>
-      <th>Social point amount</th>
-      <th>Meeting point amount</th>
-      <th>Fundraiser point amount</th>
-      <th>Informational point amount</th>
-      <th>Officer title</th>
       <th>Dues paid</th>
-      <th>Picture</th>
-      <th>UID</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -85,7 +75,7 @@
     </nav>
   </header>
 
-<h1>Student Members</h1>
+<h1>Members</h1>
 
     <% @student_members.each do |student_member| %>
       <tr>
@@ -93,19 +83,9 @@
         <td><%= student_member.first_name %></td>
         <td><%= student_member.last_name %></td>
         <td><%= student_member.class_year %></td>
-        <td><%= student_member.join_date %></td>
-        <td><%= student_member.member_title %></td>
         <td><%= student_member.email %></td>
-        <td><%= student_member.phone_number %></td>
-        <td><%= student_member.expected_graduation_date %></td>
-        <td><%= student_member.social_point_amount %></td>
-        <td><%= student_member.meeting_point_amount %></td>
-        <td><%= student_member.fundraiser_point_amount %></td>
-        <td><%= student_member.informational_point_amount %></td>
-        <td><%= student_member.officer_title %></td>
-        <td><%= student_member.dues_paid %></td>
-        <td><%= student_member.picture %></td>
-        <td><%= student_member.uid %></td>
+        <td><%= student_member.formatted_phone %></td>
+        <td><%= read_bool(student_member.dues_paid) %></td>
         <td><%= link_to 'Show', student_member %></td>
         <td><%= link_to 'Edit', edit_student_member_path(student_member) %></td>
         <td><%= link_to 'Destroy', student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
