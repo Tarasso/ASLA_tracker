@@ -21,7 +21,7 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)
-    @event.event_code = rand(10000..99999)
+    @event.event_code = rand(10_000..99_999)
     respond_to do |format|
       if @event.save
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully created.') }

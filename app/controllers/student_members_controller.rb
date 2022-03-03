@@ -22,6 +22,7 @@ class StudentMembersController < ApplicationController
     @events = Event.all
     @event_student_members = EventStudentMember.all
   end
+
   # GET /student_members/new
   def new
     @student_member = StudentMember.new

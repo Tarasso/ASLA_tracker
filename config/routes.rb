@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :event_business_professionals
-  resources :event_student_members do 
+  resources :event_student_members do
     member do
       get :register
       get :unregister
@@ -31,8 +31,7 @@ Rails.application.routes.draw do
   end
   resources :events
   resources :calendars
-  
-  
+
   get 'pages/about'
   get 'pages/contact'
   get 'pages/home'
