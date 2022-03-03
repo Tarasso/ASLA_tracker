@@ -7,10 +7,10 @@ RSpec.describe(StudentMember, type: :model) do
   subject(:student) do
     described_class.new(uin: '328004941', first_name: 'Jiaming', last_name: 'Fu',
                         class_year: '2077', join_date: Date.new(2002, 5, 4), member_title: 1,
-                        email: 'happy.boi@gmail.com', phone_number: '13991328204',
+                        email: 'happy.boi@gmail.com', phone_number: '1399132820',
                         expected_graduation_date: Date.new(2078, 2, 4), social_point_amount: 3,
                         fundraiser_point_amount: 4, informational_point_amount: 5, meeting_point_amount: 6,
-                        officer_title: 'joker', dues_paid: true, picture: 'lol'
+                        officer_title: 'joker', dues_paid: true
     )
   end
 

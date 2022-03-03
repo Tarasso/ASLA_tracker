@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
   def admin?
     unless session[:isAdmin]
       Rails.logger.debug('NOT AN ADMIN')
-      redirect_to('/pages/unauthorized')
+      redirect_to(pages_unauthorized_path)
     end
   end
 
   def allowed_to_view?
-    redirect_to('/pages/unauthorized') if Integer(params[:id], 10) != session[:memberID] && !session[:isAdmin]
+    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:memberID] && !session[:isAdmin]
   end
 end
