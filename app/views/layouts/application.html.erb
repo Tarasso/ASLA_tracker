@@ -48,7 +48,7 @@
               <li class="nav-item">
                 <%= link_to "Home", root_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
               <%= link_to "View all members", student_members_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
@@ -56,7 +56,7 @@
               </li>
               <li class="nav-item">
               <%= link_to "Mail", pages_mail_path, class: 'nav-link' %>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <%= link_to "About", pages_about_path, class: 'nav-link' %>
               </li>
@@ -94,6 +94,34 @@
           </div>
         </div>
       </nav>
+
+      <% if session[:isAdmin] %><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
+        <div class="container-fluid">
+          <h2>Officer Tools</h2>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <%= link_to "Members", student_members_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+              <%= link_to "Professionals", business_professionals_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+              <%= link_to "Mail", pages_mail_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+              <%= link_to "Newletters", newsletters_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Events", events_path, class: 'nav-link' %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <% end %>
     </header>
 
     <%= yield %>
