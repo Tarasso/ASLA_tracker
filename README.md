@@ -63,7 +63,9 @@ There are currently two envrionment variables that need to be configured. They c
 
 ## Deployment ##
 
-** Add instructions about how to deploy to Heroku
+A Heroku pipeline is automatically connected to the Github repository and configured such that updates are continually deployed when changes are detected. The `procfile` gives instructions to Heroku on how to configure the deployment such as creating and migrating the database. Additionally, all envrionmental variables listed in the previous section must be added manually to the Heroku app in Settings>Config Vars. Currently there are two live deployments of this web app:
+* [Testing Envrionment](https://asla-test-adyypybxlxi8pcvf4xj9.herokuapp.com/)
+* [Production Envrionment](https://tamu-asla.herokuapp.com/)
 
 
 ## CI/CD ##
