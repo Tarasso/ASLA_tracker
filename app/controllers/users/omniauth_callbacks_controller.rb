@@ -26,6 +26,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # Rails.logger.debug('UID TEST')
     # Rails.logger.debug(resource_or_scope.uid)
     # Rails.logger.debug(StudentMember.where(uid: resource_or_scope.uid).inspect)
+    
 
     if StudentMember.where(uid: resource_or_scope.uid).empty?
       Rails.logger.debug('found new user')

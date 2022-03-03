@@ -8,6 +8,9 @@ class Users::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource_or_scope)
     # Rails.logger.debug('HERE')
     # Rails.logger.debug(resource_or_scope.inspect)
+    session[:uid] = resource_or_scope.uid
+    session[:picture] = resource_or_scope.avatar_url
+    
     stored_location_for(resource_or_scope) || root_path
   end
 end
