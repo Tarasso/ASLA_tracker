@@ -27,6 +27,8 @@ class StudentMembersController < ApplicationController
 
     respond_to do |format|
       if @student_member.save
+        session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
+        session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
         format.json { render(:show, status: :created, location: @student_member) }
       else

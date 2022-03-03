@@ -27,8 +27,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if StudentMember.where(uid: resource_or_scope.uid).empty?
       new_student_member_path
-      # assumes not an admin upon account creation
-      # must log out then back in for officer promotion to take effect
     else
       session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
       session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
