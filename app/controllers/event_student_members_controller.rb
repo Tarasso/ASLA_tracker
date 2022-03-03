@@ -19,13 +19,36 @@ class EventStudentMembersController < ApplicationController
   def edit
   end
 
+  def register
+    @student_member = StudentMember.find(params[:mid])
+    @event = Event.find(params[:eid])
+    @event_student_member = EventStudentMember.new(member_id: @student_member.id, event_id: @event.id)
+    respond_to do |format|
+      if @event_student_member.save
+        format.html { redirect_to events_student_member_path(@student_member), notice: "You have registered." }
+        format.json { render :show, status: :created, location: @event_student_member }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @event_student_member.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def unregister
+    @student_member = StudentMember.find(params[:mid])
+    @event = Event.find(params[:eid])
+    @event_student_member = EventStudentMember.find_by(member_id: @student_member.id, event_id: @event.id)
+    @event_student_member.destroy
+
+    respond_to do |format|
+      format.html { redirect_to events_student_member_path(@student_member), notice: "You have unregistered." }
+      format.json { head :no_content }
+    end
+  end
   # POST /event_student_members or /event_student_members.json
   def create
-    #@event_student_member = EventStudentMember.new(event_student_member_params)
-    @student_members = StudentMember.find(params[:id])
-    @events = Event.find(params[:id])
-    @event_student_member = EventStudentMember.new(member_id: @student_members.id, event_id: @events.id)
-    @event_student_member.save!
+    @event_student_member = EventStudentMember.new(event_student_member_params)
+
     respond_to do |format|
       if @event_student_member.save
         format.html { redirect_to event_student_member_url(@event_student_member), notice: "Event student member was successfully created." }
@@ -49,6 +72,7 @@ class EventStudentMembersController < ApplicationController
       end
     end
   end
+
 
   # DELETE /event_student_members/1 or /event_student_members/1.json
   def destroy

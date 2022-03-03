@@ -17,6 +17,11 @@ class StudentMembersController < ApplicationController
     @student_member = StudentMember.find(params[:id])
   end
 
+  def events
+    @student_member = StudentMember.find(params[:id])
+    @events = Event.all
+    @event_student_members = EventStudentMember.all
+  end
   # GET /student_members/new
   def new
     @student_member = StudentMember.new
