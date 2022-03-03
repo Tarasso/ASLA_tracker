@@ -6,7 +6,7 @@ class StudentMember < ApplicationRecord
 
   validates :uin, format: { with: /\A[0-9]{9}\z/, message: 'should be a 9 digit number' }
   validates :class_year, format: { with: /\A[0-9]{4}\z/, message: 'should be in the form of YYYY' }
-  validates :first_name, :last_name, format: { with: /\A[a-zA-Z]*\z/, message: 'should only contain letters' }
+  validates :first_name, :last_name, format: { with: /\A[a-zA-Z ,.'-]+\z/, message: 'should only contain letters' }
 
   validates :phone_number, phone: true
 
