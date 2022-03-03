@@ -31,9 +31,9 @@
     <%= form.text_field :phone_num %>
   </div>
 
-  <div class="field">
+  <div class="field disabled">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, value: @business_professional.email || session[:email], readonly: true %>
   </div>
 
   <div class="actions">
