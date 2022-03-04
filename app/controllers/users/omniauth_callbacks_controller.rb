@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def google_oauth2
     user = User.from_google(**from_google_params)
 
@@ -26,6 +27,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # Rails.logger.debug('UID TEST')
     # Rails.logger.debug(resource_or_scope.uid)
     # Rails.logger.debug(StudentMember.where(uid: resource_or_scope.uid).inspect)
+
+    session[:uid] = resource_or_scope.uid
 
     if StudentMember.where(uid: resource_or_scope.uid).empty?
       Rails.logger.debug('found new user')

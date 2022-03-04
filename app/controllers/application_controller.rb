@@ -6,4 +6,12 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+
+  before_action :print_member_type
+  
+  def print_member_type
+    Rails.logger.debug("UID")
+    Rails.logger.debug(session[:uid])
+  end
+
 end
