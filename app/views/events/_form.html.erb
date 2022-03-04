@@ -46,6 +46,11 @@
     <%= form.select :event_type, options_for_select(Event.event_types.map {|key, value| [key.humanize.capitalize, Event.event_types.key(value)]}, @event.event_type) %>
   </div>
 
+  <div class="field">
+  <%= form.label :image %>
+  <%= form.file_field :image %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
