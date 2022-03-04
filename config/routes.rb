@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   get 'pages/officers'
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
+  get 'pages/select_account_type'
 end

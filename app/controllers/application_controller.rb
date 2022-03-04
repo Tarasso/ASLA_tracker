@@ -9,11 +9,9 @@ class ApplicationController < ActionController::Base
   before_action :print_session
 
   def print_session
-    # puts 'UID'
-    # puts session[:uid]
     Rails.logger.debug(session[:profile_pic])
     Rails.logger.debug('ID:')
-    Rails.logger.debug(session[:memberID])
+    Rails.logger.debug(session[:userID])
   end
 
   def admin?
@@ -24,6 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   def allowed_to_view?
-    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:memberID] && !session[:isAdmin]
+    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]
   end
 end
