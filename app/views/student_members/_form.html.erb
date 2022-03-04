@@ -55,9 +55,14 @@
     <%= form.label :member_title %>
     <%= form.select :member_title, options_for_select(StudentMember.member_titles.map {|key, value| [key.humanize.capitalize, StudentMember.member_titles.key(value)]}, @student_member.member_title) %>
   </div>
-
+  
   <div class="actions">
-    <%= form.submit "Create account"%>
+
+  <% if session[:isMember] %>
+    <%= form.submit "Update account"%>
+  <% else %>
+      <%= form.submit "Create account"%>
+  <% end %>
   </div>
 
   <!-- TODO: if admin, show extra fields such as dues, role, point totals, etc-->

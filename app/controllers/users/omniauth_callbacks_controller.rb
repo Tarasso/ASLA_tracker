@@ -30,6 +30,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
       session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
+      session[:isMember] = StudentMember.find_by(uid: session[:uid])
       request.env['omniauth.origin'] || stored_location_for(resource_or_scope) || root_path
     end
   end

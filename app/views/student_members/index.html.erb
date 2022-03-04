@@ -18,59 +18,6 @@
   </thead>
 
   <tbody>
-<<<<<<< HEAD
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= link_to "Home", '/', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "View all members", student_members_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "About", 'pages/about', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Officers", 'pages/officers', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Contact Us", 'pages/contact', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "View all business professionals", business_professionals_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Events", events_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Gallery</a>
-            </li> -->
-            <li class="nav-item">
-            <%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class:'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-=======
->>>>>>> dev
 
 <h1>Members</h1>
 
@@ -81,23 +28,6 @@
         <td><%= student_member.last_name %></td>
         <td><%= student_member.class_year %></td>
         <td><%= student_member.email %></td>
-<<<<<<< HEAD
-        <td><%= student_member.phone_number %></td>
-        <td><%= student_member.expected_graduation_date %></td>
-        <td><%= student_member.social_point_amount %></td>
-        <td><%= student_member.meeting_point_amount %></td>
-        <td><%= student_member.fundraiser_point_amount %></td>
-        <td><%= student_member.informational_point_amount %></td>
-        <td><%= student_member.officer_title %></td>
-        <td><%= student_member.dues_paid %></td>
-        
-        <td><%= link_to 'Show', student_member %></td>
-        <td><%= link_to 'Edit', edit_student_member_path(student_member) %></td>
-        <td><%= link_to 'Dashboard', dashboard_student_member_path(student_member.id) %></td>   
-        <td><%= link_to 'Events', events_student_member_path(student_member) %></td> 
-        <td><%= link_to 'Destroy', student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td colspan="3"></td>
-=======
         <td><%= student_member.formatted_phone %></td>
         <td><%= read_bool(student_member.dues_paid) %></td>
         <% if session[:isAdmin] %>
@@ -105,7 +35,6 @@
           <td><%= link_to 'Edit', edit_student_member_path(student_member) %></td>
           <td><%= link_to 'Destroy', student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
->>>>>>> dev
       </tr>
     <% end %>
   </tbody>
