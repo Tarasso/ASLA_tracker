@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class StudentMembersController < ApplicationController
-  before_action :set_student_member, only: %i[show edit update destroy]
-  before_action :authenticate_user!
-  # skip_before_action :authenticate_user!
+  before_action :set_student_member, only: %i[show edit update destroy dashboard events]
+  before_action :admin?, only: [:destroy]
+  before_action :allowed_to_view?, only: %i[show edit update]
 
   # GET /student_members or /student_members.json
   def index
@@ -22,8 +22,11 @@ class StudentMembersController < ApplicationController
     @events = Event.all
     @event_student_members = EventStudentMember.all
   end
+
   # GET /student_members/new
   def new
+    # nobody is allowed to create an account if their account already exists
+    redirect_to(pages_unauthorized_path) unless session[:memberID].nil?
     @student_member = StudentMember.new
   end
 
@@ -36,6 +39,9 @@ class StudentMembersController < ApplicationController
 
     respond_to do |format|
       if @student_member.save
+        session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
+        session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
+        session[:isMember] = StudentMember.find_by(uid: session[:uid])
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
         format.json { render(:show, status: :created, location: @student_member) }
       else

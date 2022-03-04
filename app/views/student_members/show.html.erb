@@ -37,7 +37,7 @@
 
 <p>
   <strong>Phone number:</strong>
-  <%= @student_member.phone_number %>
+  <%= @student_member.formatted_phone %>
 </p>
 
 <p>
@@ -86,4 +86,4 @@
 </p>
 
 <%= link_to 'Edit', edit_student_member_path(@student_member) %> |
-<%= link_to 'Back', student_members_path %>
+<%= link_to 'Back to dashboard', pages_user_dashboard_path %>

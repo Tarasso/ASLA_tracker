@@ -1,7 +1,7 @@
 <%= form_with(model: student_member) do |form| %>
   <% if student_member.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(student_member.errors.count, "error") %> prohibited this student_member from being saved:</h2>
+      <h2><%= pluralize(student_member.errors.count, "error") %> prohibited this account from being created:</h2>
 
       <ul>
         <% student_member.errors.each do |error| %>
@@ -33,12 +33,12 @@
 
   <div class="field">
     <%= form.label :join_date %>
-    <%= form.date_select :join_date %>
+    <%= form.date_select :join_date, order: [:month, :day, :year] %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, value: session[:email], readonly: true %>
   </div>
 
   <div class="field">
@@ -48,20 +48,22 @@
 
   <div class="field">
     <%= form.label :expected_graduation_date %>
-    <%= form.date_select :expected_graduation_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :picture %>
-    <%= form.text_field :picture %>
+    <%= form.date_select :expected_graduation_date, { :discard_day => true} %>
   </div>
 
     <div class="field">
-    <%= form.label :uid %>
-    <%= form.text_field :uid %>
+    <%= form.label :member_title %>
+    <%= form.select :member_title, options_for_select(StudentMember.member_titles.map {|key, value| [key.humanize.capitalize, StudentMember.member_titles.key(value)]}, @student_member.member_title) %>
+  </div>
+  
+  <div class="actions">
+
+  <% if session[:isMember] %>
+    <%= form.submit "Update account"%>
+  <% else %>
+      <%= form.submit "Create account"%>
+  <% end %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <!-- TODO: if admin, show extra fields such as dues, role, point totals, etc-->
 <% end %>
