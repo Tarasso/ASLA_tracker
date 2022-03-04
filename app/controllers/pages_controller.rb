@@ -33,4 +33,10 @@ class PagesController < ApplicationController
   end
 
   def officers; end
+
+  def unauthorized; end
+
+  def user_dashboard; end
+
+  def select_account_type; end
 end
