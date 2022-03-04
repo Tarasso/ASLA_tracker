@@ -18,3 +18,11 @@
     border-radius: 50%;
     width: 50%
  }
+
+ .disabled input{
+   background: #dddddd;
+   border-color: #bbbbbb;
+   pointer-events:none;
+ }
+
+ 

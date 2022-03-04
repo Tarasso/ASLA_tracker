@@ -2,6 +2,8 @@
 
 class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
+  before_action :admin?, only: [:destroy]
+  before_action :allowed_to_view?, only: %i[show edit update]
 
   # GET /business_professionals or /business_professionals.json
   def index
@@ -13,6 +15,7 @@ class BusinessProfessionalsController < ApplicationController
 
   # GET /business_professionals/new
   def new
+    redirect_to(pages_unauthorized_path) unless session[:userID].nil?
     @business_professional = BusinessProfessional.new
   end
 
@@ -25,6 +28,8 @@ class BusinessProfessionalsController < ApplicationController
 
     respond_to do |format|
       if @business_professional.save
+        session[:isAdmin] = false
+        session[:userID] = BusinessProfessional.where(uid: session[:uid]).pick(:id)
         format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully created.') }
         format.json { render(:show, status: :created, location: @business_professional) }
       else
