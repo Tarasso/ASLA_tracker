@@ -40,7 +40,6 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if @student_member.save
         session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
-        session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
         session[:isMember] = StudentMember.find_by(uid: session[:uid])
         session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id)
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
