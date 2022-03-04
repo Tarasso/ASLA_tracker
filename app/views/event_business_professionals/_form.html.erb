@@ -1,0 +1,27 @@
+<%= form_with(model: event_business_professional) do |form| %>
+  <% if event_business_professional.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event_business_professional.errors.count, "error") %> prohibited this event_business_professional from being saved:</h2>
+
+      <ul>
+        <% event_business_professional.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :organization_id %>
+    <%= form.number_field :organization_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.number_field :event_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

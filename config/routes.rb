@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :event_business_professionals
+  resources :event_student_members do
+    member do
+      get :register
+      get :unregister
+    end
+  end
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -16,7 +23,12 @@ Rails.application.routes.draw do
   resources :student_members
   resources :newsletters
   resources :business_professionals
-  resources :student_members
+  resources :student_members do
+    member do
+      get :dashboard
+      get :events
+    end
+  end
   resources :events
   resources :calendars
 

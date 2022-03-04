@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(version: 2022_03_03_200246) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "event_business_professionals", force: :cascade do |t|
+    t.integer "organization_id"
+    t.integer "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "event_student_members", force: :cascade do |t|
+    t.integer "member_id"
+    t.integer "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.date "date"
     t.string "name"
@@ -42,6 +56,7 @@ ActiveRecord::Schema.define(version: 2022_03_03_200246) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.time "finish_time"
+    t.integer "event_code"
   end
 
   create_table "newsletters", force: :cascade do |t|
