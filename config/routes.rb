@@ -21,11 +21,11 @@ Rails.application.routes.draw do
   end
 
   resources :student_members do
-    get "search", on: :collection
+    get 'search', on: :collection
   end
   resources :newsletters
   resources :business_professionals do
-    get "search", on: :collection
+    get 'search', on: :collection
   end
   resources :student_members do
     member do

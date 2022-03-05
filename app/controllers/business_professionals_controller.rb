@@ -64,7 +64,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def search
     @business_professionals = BusinessProfessional.search(params[:q])
-    render "index"
+    render('index')
   end
 
   private

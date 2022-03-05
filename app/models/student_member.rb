@@ -50,12 +50,9 @@ class StudentMember < ApplicationRecord
 
   class << self
     def search(query)
-      rel = order("id")
-      if query.present?
-        rel = rel.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", "%#{query}%")
-      end
+      rel = order('id')
+      rel = rel.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", "%#{query}%") if query.present?
       rel
     end
   end
-
 end
