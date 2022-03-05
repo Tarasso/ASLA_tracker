@@ -20,9 +20,13 @@ Rails.application.routes.draw do
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :student_members
+  resources :student_members do
+    get 'search', on: :collection
+  end
   resources :newsletters
-  resources :business_professionals
+  resources :business_professionals do
+    get 'search', on: :collection
+  end
   resources :student_members do
     member do
       get :dashboard
@@ -40,4 +44,5 @@ Rails.application.routes.draw do
   get 'pages/officers'
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
+  get 'pages/select_account_type'
 end

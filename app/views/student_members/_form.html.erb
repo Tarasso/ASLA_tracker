@@ -36,9 +36,9 @@
     <%= form.date_select :join_date, order: [:month, :day, :year] %>
   </div>
 
-  <div class="field">
+  <div class="field disabled">
     <%= form.label :email %>
-    <%= form.text_field :email, value: session[:email], readonly: true %>
+    <%= form.text_field :email, value: @student_member.email || session[:email], readonly: true %>
   </div>
 
   <div class="field">

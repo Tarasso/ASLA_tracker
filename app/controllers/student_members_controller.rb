@@ -26,7 +26,7 @@ class StudentMembersController < ApplicationController
   # GET /student_members/new
   def new
     # nobody is allowed to create an account if their account already exists
-    redirect_to(pages_unauthorized_path) unless session[:memberID].nil?
+    redirect_to(pages_unauthorized_path) unless session[:userID].nil?
     @student_member = StudentMember.new
   end
 
@@ -40,8 +40,8 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if @student_member.save
         session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
-        session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
         session[:isMember] = StudentMember.find_by(uid: session[:uid])
+        session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id)
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
         format.json { render(:show, status: :created, location: @student_member) }
       else
@@ -55,7 +55,7 @@ class StudentMembersController < ApplicationController
   def update
     respond_to do |format|
       if @student_member.update(student_member_params)
-        format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully updated.') }
+        format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
         format.json { render(:show, status: :ok, location: @student_member) }
       else
         format.html { render(:edit, status: :unprocessable_entity) }
@@ -103,6 +103,11 @@ class StudentMembersController < ApplicationController
       format.html { redirect_to(student_members_url, notice: 'Student member was successfully destroyed.') }
       format.json { head(:no_content) }
     end
+  end
+
+  def search
+    @student_members = StudentMember.search(params[:q])
+    render('index')
   end
 
   private

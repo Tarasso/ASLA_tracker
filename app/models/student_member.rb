@@ -7,7 +7,7 @@ class StudentMember < ApplicationRecord
 
   validates :uin, format: { with: /\A[0-9]{9}\z/, message: 'should be a 9 digit number' }
   validates :class_year, format: { with: /\A[0-9]{4}\z/, message: 'should be in the form of YYYY' }
-  validates :first_name, :last_name, format: { with: /\A[a-zA-Z ,.'-]+\z/, message: 'should only contain letters' }
+  validates :first_name, :last_name, format: { with: /\A[a-zA-Z ,.'-]+\z/, message: 'contains invalid characters' }
 
   validates :phone_number, phone: true
 
@@ -16,9 +16,6 @@ class StudentMember < ApplicationRecord
 
   def update_google_params
     self.uid = User.where(email: email).pick(:uid)
-    # SELECT uid FROM user WHERE email = email
-
-    # self.picture
     self.picture = User.where(email: email).pick(:avatar_url)
     save!
   end
@@ -49,5 +46,13 @@ class StudentMember < ApplicationRecord
     self.informational_point_amount = 0
     self.dues_paid = 0
     save!
+  end
+
+  class << self
+    def search(query)
+      rel = order('id')
+      rel = rel.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", "%#{query}%") if query.present?
+      rel
+    end
   end
 end

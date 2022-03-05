@@ -36,5 +36,20 @@ class PagesController < ApplicationController
 
   def unauthorized; end
 
-  def user_dashboard; end
+  def user_dashboard
+    @is_student = !StudentMember.where(uid: session[:uid]).empty?
+    @user = if @is_student
+              StudentMember.find(session[:userID])
+            else
+              BusinessProfessional.find(session[:userID])
+            end
+  end
+
+  def select_account_type; end
+
+  # def is_student?
+  #   puts 'check'
+  #   puts !StudentMember.where(uid: session[:uid]).empty?
+  #   return !StudentMember.where(uid: session[:uid]).empty?
+  # end
 end

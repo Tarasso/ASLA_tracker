@@ -24,13 +24,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     session[:uid] = resource_or_scope.uid
     session[:email] = resource_or_scope.email
     session[:profile_pic] = resource_or_scope.avatar_url
-
-    if StudentMember.where(uid: resource_or_scope.uid).empty?
-      new_student_member_path
+    if StudentMember.where(uid: resource_or_scope.uid).empty? && BusinessProfessional.where(uid: resource_or_scope.uid).empty?
+      pages_select_account_type_path
     else
-      session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
-      session[:memberID] = StudentMember.where(uid: session[:uid]).pick(:id)
       session[:isMember] = StudentMember.find_by(uid: session[:uid])
+      session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer' || false
+      session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id) || BusinessProfessional.where(uid: session[:uid]).pick(:id)
       request.env['omniauth.origin'] || stored_location_for(resource_or_scope) || root_path
     end
   end
