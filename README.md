@@ -83,3 +83,8 @@ CI/CD is handled by Google Actions and executes a series of tests on every push 
 Admins looking for support should first look at the application help page.
 Users looking for help seek out assistance from the customer.
 
+## Credit ##
+
+Referenced Justin Cypret's blog post for validating and normalizing phone numbers: [Link](https://justincypret.com/blog/validating-normalizing-and-formatting-phone-numbers-in-rails)
+
+
