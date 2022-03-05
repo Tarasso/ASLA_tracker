@@ -9,6 +9,4 @@ class Event < ApplicationRecord
   validates :finish_time, presence: true
   validates :description, presence: true
   validates :event_type, presence: true
-
-  has_one_attached :image
 end
