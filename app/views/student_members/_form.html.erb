@@ -51,10 +51,45 @@
     <%= form.date_select :expected_graduation_date, { :discard_day => true} %>
   </div>
 
+  <% if session[:isAdmin] %>
+    <h4>Admin adjustments:</h4>
+
+    <div class="field">
+    <%= form.label :dues_paid %>
+    <%= form.select :dues_paid, [['Yes', true], ['No', false]] %>
+    </div>
+
     <div class="field">
     <%= form.label :member_title %>
     <%= form.select :member_title, options_for_select(StudentMember.member_titles.map {|key, value| [key.humanize.capitalize, StudentMember.member_titles.key(value)]}, @student_member.member_title) %>
-  </div>
+    </div>
+
+    <div class="field">
+    <%= form.label :officer_title %>
+    <%= form.text_field :officer_title %>
+    </div>
+
+    <div class="field">
+    <%= form.label :social_point_amount %>
+    <%= form.text_field :social_point_amount %>
+    </div>
+
+    <div class="field">
+    <%= form.label :meeting_point_amount %>
+    <%= form.text_field :meeting_point_amount %>
+    </div>
+
+    <div class="field">
+    <%= form.label :fundraiser_point_amount %>
+    <%= form.text_field :fundraiser_point_amount %>
+    </div>
+
+    <div class="field">
+    <%= form.label :informational_point_amount %>
+    <%= form.text_field :informational_point_amount %>
+    </div>
+
+  <% end %>
   
   <div class="actions">
 
