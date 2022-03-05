@@ -3,7 +3,7 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
-  before_action :allowed_to_view?, only: %i[show edit update]
+  before_action :allowed_to_view?, only: %i[show edit update dashboard]
 
   # GET /student_members or /student_members.json
   def index
@@ -55,8 +55,12 @@ class StudentMembersController < ApplicationController
   def update
     respond_to do |format|
       if @student_member.update(student_member_params)
-        format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
         format.json { render(:show, status: :ok, location: @student_member) }
+        if Integer(params[:id], 10) == session[:userID]
+          format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
+        else
+          format.html { redirect_to(student_member_path(@student_member), notice: 'Account was successfully updated.') }
+        end
       else
         format.html { render(:edit, status: :unprocessable_entity) }
         format.json { render(json: @student_member.errors, status: :unprocessable_entity) }

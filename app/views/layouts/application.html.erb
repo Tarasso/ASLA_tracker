@@ -66,12 +66,12 @@
               <li class="nav-item">
                 <%= link_to "Contact Us", pages_contact_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
               <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to "Events", events_path, class: 'nav-link' %>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
               </li>
@@ -95,9 +95,9 @@
         </div>
       </nav>
 
-      <% if session[:isAdmin] %><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
+      <% if session[:userID] != 0 %><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
         <div class="container-fluid">
-          <h2>Officer Tools</h2>
+          <h5>Member Tools</h5>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -108,9 +108,9 @@
               <li class="nav-item">
               <%= link_to "Professionals", business_professionals_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
               <%= link_to "Mail", pages_mail_path, class: 'nav-link' %>
-              </li>
+              </li> -->
               <li class="nav-item">
               <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
               </li>
@@ -126,7 +126,7 @@
       </nav>
       <% end %>
 
-      <% if session[:isMember] %>
+      <!-- <% if session[:isMember] %>
       <% @student_member = StudentMember.find_by(uid: session[:uid])  %>
       <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
         <div class="container-fluid">
@@ -148,7 +148,7 @@
           </div>
         </div>
       </nav>
-      <% end %>
+      <% end %> -->
 
 
     </header>

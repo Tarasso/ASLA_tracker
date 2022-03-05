@@ -26,11 +26,6 @@
 </p>
 
 <p>
-  <strong>Member title:</strong>
-  <%= @student_member.member_title %>
-</p>
-
-<p>
   <strong>Email:</strong>
   <%= @student_member.email %>
 </p>
@@ -44,6 +39,13 @@
   <strong>Expected graduation date:</strong>
   <%= @student_member.expected_graduation_date %>
 </p>
+
+<p>
+  <strong>Dues paid:</strong>
+  <%= read_bool(@student_member.dues_paid) %>
+</p>
+
+<br/>
 
 <p>
   <strong>Social point amount:</strong>
@@ -65,25 +67,18 @@
   <%= @student_member.informational_point_amount %>
 </p>
 
+<br/>
+
+<p>
+  <strong>Member title:</strong>
+  <%= @student_member.member_title %>
+</p>
+
 <p>
   <strong>Officer title:</strong>
   <%= @student_member.officer_title %>
 </p>
 
-<p>
-  <strong>Dues paid:</strong>
-  <%= @student_member.dues_paid %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= @student_member.picture %>
-</p>
-
-<p>
-  <strong>uid:</strong>
-  <%= @student_member.uid %>
-</p>
-
+<%= link_to 'All members', student_members_path%> |
 <%= link_to 'Edit', edit_student_member_path(@student_member) %> |
-<%= link_to 'Back to dashboard', pages_user_dashboard_path %>
+<%= link_to 'Back', :back %>
