@@ -34,4 +34,12 @@ class BusinessProfessional < ApplicationRecord
     formatted.gsub!(';', ' x')
     formatted
   end
+
+  class << self
+    def search(query)
+      rel = order('id')
+      rel = rel.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", "%#{query}%") if query.present?
+      rel
+    end
+  end
 end
