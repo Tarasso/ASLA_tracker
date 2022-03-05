@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2022_03_03_200246) do
     t.integer "informational_point_amount"
     t.string "officer_title"
     t.boolean "dues_paid"
-    t.binary "picture"
+    t.string "picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "uid"
