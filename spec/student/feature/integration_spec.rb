@@ -24,7 +24,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     fill_in 'Phone number', with: '5127309368'
     select '2022', from: 'student_member_expected_graduation_date_1i'
     select 'May', from: 'student_member_expected_graduation_date_2i'
-    click_on 'Create account'
+    click_on 'Create/update account'
 
     visit student_members_path
     expect(page).to(have_content('328004941'))
@@ -49,7 +49,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     fill_in 'Phone number', with: '5127309368'
     select '2025', from: 'student_member_expected_graduation_date_1i'
     select 'May', from: 'student_member_expected_graduation_date_2i'
-    click_on 'Create account'
+    click_on 'Create/update account'
 
     expect(page).to(have_content('133644372'))
     expect(page).to(have_content('Pierce'))
