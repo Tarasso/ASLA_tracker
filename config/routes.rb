@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     member do
       get :dashboard
       get :events
+      get :eventcode
     end
   end
   resources :events
