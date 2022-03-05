@@ -74,6 +74,11 @@ class StudentMembersController < ApplicationController
     end
   end
 
+  def search
+    @student_members = StudentMember.search(params[:q])
+    render "index"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -88,4 +93,5 @@ class StudentMembersController < ApplicationController
                                            :informational_point_amount, :officer_title, :dues_paid, :picture, :uid
     )
   end
+
 end

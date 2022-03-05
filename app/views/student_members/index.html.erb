@@ -21,6 +21,11 @@
 
 <h1>Members</h1>
 
+<%= form_tag :search_student_members, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "Search" %>
+<% end %>
+
     <% @student_members.each do |student_member| %>
       <tr>
         <td><%= student_member.uin %></td>

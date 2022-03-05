@@ -18,6 +18,11 @@
 
 <h1>Business Professionals</h1>
 
+<%= form_tag :search_business_professionals, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "Search" %>
+<% end %>
+
     <% @business_professionals.each do |business_professional| %>
       <tr>
         <td><%= business_professional.org_name %></td>

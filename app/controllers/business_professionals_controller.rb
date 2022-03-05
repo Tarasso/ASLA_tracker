@@ -62,6 +62,11 @@ class BusinessProfessionalsController < ApplicationController
     end
   end
 
+  def search
+    @business_professionals = BusinessProfessional.search(params[:q])
+    render "index"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
