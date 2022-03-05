@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :carousels
+  resources :officer_pics
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   resources :student_members
   resources :events
   resources :calendars
+  resources :officer_pics
+  resources :carousels
 
   get 'pages/about'
   get 'pages/contact'

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Officer Pics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Officer title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @officer_pics.each do |officer_pic| %>
+      <tr>
+        <td><%= officer_pic.name %></td>
+        <td><%= officer_pic.officer_title %></td>
+        <%= image_tag(officer_pic.image, style:'width:10%') %>
+        <td><%= link_to 'Show', officer_pic %></td>
+        <td><%= link_to 'Edit', edit_officer_pic_path(officer_pic) %></td>
+        <td><%= link_to 'Destroy', officer_pic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Officer Pic', new_officer_pic_path %>

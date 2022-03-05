@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_03_03_020920) do
-=======
-ActiveRecord::Schema.define(version: 2022_03_03_200246) do
->>>>>>> dev
+ActiveRecord::Schema.define(version: 2022_03_05_192910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +60,12 @@ ActiveRecord::Schema.define(version: 2022_03_03_200246) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "carousels", force: :cascade do |t|
+    t.string "pic_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.date "date"
     t.string "name"
@@ -80,6 +82,13 @@ ActiveRecord::Schema.define(version: 2022_03_03_200246) do
     t.date "date_posted"
     t.string "message"
     t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "officer_pics", force: :cascade do |t|
+    t.string "name"
+    t.string "officer_title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
