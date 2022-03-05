@@ -43,7 +43,7 @@ class BusinessProfessionalsController < ApplicationController
   def update
     respond_to do |format|
       if @business_professional.update(business_professional_params)
-        format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully updated.') }
+        format.html { redirect_to(pages_user_dashboard_path(@business_professional), notice: 'Account was successfully updated.') }
         format.json { render(:show, status: :ok, location: @business_professional) }
       else
         format.html { render(:edit, status: :unprocessable_entity) }

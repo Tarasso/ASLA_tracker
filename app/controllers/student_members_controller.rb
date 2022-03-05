@@ -55,7 +55,7 @@ class StudentMembersController < ApplicationController
   def update
     respond_to do |format|
       if @student_member.update(student_member_params)
-        format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully updated.') }
+        format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
         format.json { render(:show, status: :ok, location: @student_member) }
       else
         format.html { render(:edit, status: :unprocessable_entity) }
