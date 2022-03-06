@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class StudentMembersController < ApplicationController
-  before_action :set_student_member, only: %i[show edit update destroy]
+  before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
-  before_action :allowed_to_view?, only: %i[show edit update]
+  before_action :allowed_to_view?, only: %i[show edit update dashboard]
 
   # GET /student_members or /student_members.json
   def index
@@ -12,6 +12,16 @@ class StudentMembersController < ApplicationController
 
   # GET /student_members/1 or /student_members/1.json
   def show; end
+
+  def dashboard
+    @student_member = StudentMember.find(params[:id])
+  end
+
+  def events
+    @student_member = StudentMember.find(params[:id])
+    @events = Event.all
+    @event_student_members = EventStudentMember.all
+  end
 
   # GET /student_members/new
   def new
@@ -30,6 +40,7 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if @student_member.save
         session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
+        session[:isMember] = StudentMember.find_by(uid: session[:uid])
         session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id)
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
         format.json { render(:show, status: :created, location: @student_member) }
@@ -44,8 +55,12 @@ class StudentMembersController < ApplicationController
   def update
     respond_to do |format|
       if @student_member.update(student_member_params)
-        format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully updated.') }
         format.json { render(:show, status: :ok, location: @student_member) }
+        if Integer(params[:id], 10) == session[:userID]
+          format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
+        else
+          format.html { redirect_to(student_member_path(@student_member), notice: 'Account was successfully updated.') }
+        end
       else
         format.html { render(:edit, status: :unprocessable_entity) }
         format.json { render(json: @student_member.errors, status: :unprocessable_entity) }
@@ -61,6 +76,11 @@ class StudentMembersController < ApplicationController
       format.html { redirect_to(student_members_url, notice: 'Student member was successfully destroyed.') }
       format.json { head(:no_content) }
     end
+  end
+
+  def search
+    @student_members = StudentMember.search(params[:q])
+    render('index')
   end
 
   private

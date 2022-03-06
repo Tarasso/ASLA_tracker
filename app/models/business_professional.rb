@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class BusinessProfessional < ApplicationRecord
+  has_many :event
   validates :org_name, :first_name, :last_name, :phone_num, :email, presence: true
 
   validates :org_name, :first_name, :last_name, format: { with: /\A[a-zA-Z0-9 ,.'-]+\z/, message: 'contains invalid characters' }
@@ -32,5 +33,13 @@ class BusinessProfessional < ApplicationRecord
       end
     formatted.gsub!(';', ' x')
     formatted
+  end
+
+  class << self
+    def search(query)
+      rel = order('id')
+      rel = rel.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", "%#{query}%") if query.present?
+      rel
+    end
   end
 end

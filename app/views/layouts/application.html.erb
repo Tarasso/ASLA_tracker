@@ -5,8 +5,8 @@
     <title>GoogleOauthDevise</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>    <style>
+    <%= stylesheet_link_tag    'application', media: 'all'%>
+    <%= javascript_pack_tag 'application'%>    <style>
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
         .flash__success { color: green; }
@@ -24,6 +24,15 @@
             background-image: url("<%= asset_path('bg.jpg') %>");
             background-repeat: no-repeat;
             background-size: auto;
+        }
+        .overlay { 
+          color:#fff;
+          position:absolute;
+          z-index:12;
+          top:35%;
+          left:0;
+          width:100%;
+          text-align:center;
         }
     </style>
     <title>ASLA | Home</title>
@@ -66,12 +75,12 @@
               <li class="nav-item">
                 <%= link_to "Contact Us", pages_contact_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item">
-              <%= link_to "Newletters", newsletters_path, class: 'nav-link' %>
+              <!-- <li class="nav-item">
+              <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to "Events", events_path, class: 'nav-link' %>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
               </li>
@@ -95,9 +104,9 @@
         </div>
       </nav>
 
-      <% if session[:isAdmin] %><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
+      <% if session[:userID] != 0 &&  session[:userID] != nil%><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
         <div class="container-fluid">
-          <h2>Officer Tools</h2>
+          <h5>Member Tools</h5>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -107,21 +116,54 @@
               </li>
               <li class="nav-item">
               <%= link_to "Professionals", business_professionals_path, class: 'nav-link' %>
+              
+              <% if session[:isAdmin] %>
               </li>
               <li class="nav-item">
               <%= link_to "Mail", pages_mail_path, class: 'nav-link' %>
               </li>
+              <% end %>
+
               <li class="nav-item">
-              <%= link_to "Newletters", newsletters_path, class: 'nav-link' %>
+              <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to "Events", events_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Event Registrations", event_student_members_path, class: 'nav-link' %>
               </li>
             </ul>
           </div>
         </div>
       </nav>
       <% end %>
+
+      <!-- <% if session[:isMember] %>
+      <% @student_member = StudentMember.find_by(uid: session[:uid])  %>
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
+        <div class="container-fluid">
+          <h2>Member Tools</h2>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <%= link_to "Your Profile", @student_member, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+              <%= link_to "Your Events", events_student_member_path(@student_member), class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+              <%= link_to "Points", dashboard_student_member_path(@student_member.id), class: 'nav-link' %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <% end %> -->
+
+
     </header>
 
     <%= yield %>

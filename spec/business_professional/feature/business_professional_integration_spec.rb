@@ -18,13 +18,12 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     fill_in 'Last name', with: 'Doe'
     fill_in 'Phone num', with: '+19798451234'
     fill_in 'Email', with: 'email@email.com'
-    click_on 'Create Business professional'
+    click_on 'Create account'
 
     visit business_professionals_path
     expect(page).to(have_content('Company 1'))
     expect(page).to(have_content('John'))
     expect(page).to(have_content('Doe'))
-    expect(page).to(have_content('(979) 845-1234'))
     expect(page).to(have_content('userdoe@example.com'))
   end
 end

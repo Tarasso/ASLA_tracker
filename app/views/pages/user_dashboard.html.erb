@@ -4,6 +4,48 @@
     <title>ASLA | Home</title>
   </head>
   <body>    
+  
     <h1> Welcome to your home page!</h1>
+    <br/>
+
+    <h2>Your info:</h2>
+
+    <% if @is_student%>
+    <p><%= link_to 'Edit your information', edit_student_member_path(@user) %></p>
+    <% else %>
+    <p><%= link_to 'Edit your information', edit_business_professional_path(@user) %></p>
+    <% end %>
+
+
+    <p>First name: <%= @user.first_name %></p>
+    <p>Last name: <%= @user.last_name %></p>
+    <p>Email: <%= @user.email %></p>
+    <p>Phone: <%= @user.formatted_phone %></p>
+
+
+      
+    <% if @is_student%>
+      <p>UIN: <%= @user.uin %></p>
+      <p>Class year: <%= @user.class_year %></p>
+      <p>Expected Graduation Date: <%= @user.expected_graduation_date %></p>     
+      <p>Dues paid: <%= read_bool(@user.dues_paid) %></p>
+      <% if session[:isAdmin] %>
+        <p><%= @user.officer_title %></p>
+      <% end %>
+      <br/>
+      <br/>
+      <h2>Point totals</h2>
+      <p>Social Points: <%= @user.social_point_amount %></p>
+      <p>Meeting Points: <%= @user.meeting_point_amount %></p>
+      <p>Fundraiser Points: <%= @user.fundraiser_point_amount %></p>
+      <p>Informational Points: <%= @user.informational_point_amount %></p> 
+
+    <% else %>
+      <p>Organization: <%= @user.org_name %></p>
+    <% end %>
+
+    <br/>
+    <br/>
+
   </body>
 </html>
