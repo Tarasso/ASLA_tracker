@@ -95,7 +95,7 @@
         </div>
       </nav>
 
-      <% if session[:userID] != 0 %><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
+      <% if session[:userID] != 0 &&  session[:userID] != nil%><nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #707070">
         <div class="container-fluid">
           <h5>Member Tools</h5>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
