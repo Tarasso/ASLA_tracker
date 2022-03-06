@@ -24,7 +24,7 @@ RSpec.describe('Creating/Editing a Newsletter', type: :feature) do
     visit newsletters_path
     expect(page).to(have_content('Intro'))
     expect(page).to(have_content('Howdy we are ASLA'))
-    expect(page).to(have_content(Date.current()))
+    expect(page).to(have_content(Date.current))
   end
 
   # tests if invalid inputs do not create newsletter

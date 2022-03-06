@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :admin?, only: %i[mail]
 
-  def home;
+  def home
     @newsletter = Newsletter.order(:created_at).reverse_order.first
     @carousel_pics = Carousel.all
   end
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
   def mail
     if params.key?(:group1)
-      
+
       @group1 = params[:group1]
       @group2 = params[:group2]
       @group3 = params[:group3]

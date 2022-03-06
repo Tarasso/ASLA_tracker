@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::SessionsController < Devise::SessionsController  
+class Users::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(_resource_or_scope)
     reset_session
     root_path

@@ -23,7 +23,7 @@ class NewslettersController < ApplicationController
   # POST /newsletters or /newsletters.json
   def create
     @newsletter = Newsletter.new(newsletter_params)
-    @newsletter[:date_posted] = Date.current()
+    @newsletter[:date_posted] = Date.current
 
     respond_to do |format|
       if @newsletter.save

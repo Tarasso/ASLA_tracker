@@ -61,7 +61,7 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # access session variables
-  config.middleware.use RackSessionAccess::Middleware
+  config.middleware.use(RackSessionAccess::Middleware)
 
   # have mock information for OmniAuth
   OmniAuth.config.test_mode = true
@@ -101,5 +101,5 @@ Rails.application.configure do
       expires: true
     }
   }
-                                                                 )
+                                                                   )
 end

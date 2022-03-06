@@ -72,5 +72,5 @@ gem 'omniauth', '~>1.9.1'
 gem 'omniauth-google-oauth2'
 
 gem 'phonelib'
-gem 'seed_dump'
 gem 'rack_session_access'
+gem 'seed_dump'
