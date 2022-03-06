@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class StudentMember < ApplicationRecord
+  has_many :event
   enum member_title: { member: 1, officer: 2 }
   validates :uin, :first_name, :last_name, :class_year, :email, presence: true
 
@@ -39,12 +40,20 @@ class StudentMember < ApplicationRecord
   end
 
   def set_defaults
-    # self.member_title = 1
+    self.member_title = 1
     self.social_point_amount = 0
     self.meeting_point_amount = 0
     self.fundraiser_point_amount = 0
     self.informational_point_amount = 0
     self.dues_paid = 0
     save!
+  end
+
+  class << self
+    def search(query)
+      rel = order('id')
+      rel = rel.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", "%#{query}%") if query.present?
+      rel
+    end
   end
 end

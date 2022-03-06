@@ -43,8 +43,12 @@ class BusinessProfessionalsController < ApplicationController
   def update
     respond_to do |format|
       if @business_professional.update(business_professional_params)
-        format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully updated.') }
         format.json { render(:show, status: :ok, location: @business_professional) }
+        if Integer(params[:id], 10) == session[:userID]
+          format.html { redirect_to(pages_user_dashboard_path(@business_professional), notice: 'Account was successfully updated.') }
+        else
+          format.html { redirect_to(business_professional_path(@business_professional), notice: 'Account was successfully updated.') }
+        end
       else
         format.html { render(:edit, status: :unprocessable_entity) }
         format.json { render(json: @business_professional.errors, status: :unprocessable_entity) }
@@ -60,6 +64,11 @@ class BusinessProfessionalsController < ApplicationController
       format.html { redirect_to(business_professionals_url, notice: 'Business professional was successfully destroyed.') }
       format.json { head(:no_content) }
     end
+  end
+
+  def search
+    @business_professionals = BusinessProfessional.search(params[:q])
+    render('index')
   end
 
   private
