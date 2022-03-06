@@ -2,7 +2,7 @@
 
 class NewslettersController < ApplicationController
   before_action :set_newsletter, only: %i[show edit update destroy]
-  before_action :admin?, only: %i[edit update destroy new]
+  before_action :admin?, only: %i[edit create update destroy new]
 
   # GET /newsletters or /newsletters.json
   def index
@@ -23,7 +23,7 @@ class NewslettersController < ApplicationController
   # POST /newsletters or /newsletters.json
   def create
     @newsletter = Newsletter.new(newsletter_params)
-    @newsletter[:date_posted] = Date.today 
+    @newsletter[:date_posted] = Date.current()
 
     respond_to do |format|
       if @newsletter.save
