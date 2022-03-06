@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-User.create!([
-  { email: 'kylemrosko@gmail.com', full_name: 'Kyle Mrosko', uid: '112182193838019104439', avatar_url: 'https://lh3.googleusercontent.com/a-/AOh14GiO-O_u8o96IYdrk8a3EkABsLm5aqClsyIGg3Ovmw=s96-c' }
-]
+User.find_or_create_by(
+  email: 'kylemrosko@gmail.com', full_name: 'Kyle Mrosko', uid: '112182193838019104439', avatar_url: 'https://lh3.googleusercontent.com/a-/AOh14GiO-O_u8o96IYdrk8a3EkABsLm5aqClsyIGg3Ovmw=s96-c'
+
             )
-StudentMember.create!([
-  {
+StudentMember.find_or_create_by(
+  
     uin: '928003182',
     first_name: 'Kyle',
     last_name: 'Mrosko',
@@ -23,6 +23,6 @@ StudentMember.create!([
     dues_paid: true,
     picture: 'https://lh3.googleusercontent.com/a-/AOh14GiO-O_u8o96IYdrk8a3EkABsLm5aqClsyIGg3Ovmw=s96-c',
     uid: '112182193838019104439'
-  }
-]
+  
+
                      )
