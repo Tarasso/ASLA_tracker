@@ -481,4 +481,6 @@ RSpec/MultipleExpectations:
 
 Rails/HasManyOrHasOneDependent:
   Exclude:
+    - 'app/models/business_professional.rb'
+    - 'app/models/student_member.rb'
     - 'app/models/event.rb'
