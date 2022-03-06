@@ -22,6 +22,12 @@ class BusinessProfessionalsController < ApplicationController
   # GET /business_professionals/1/edit
   def edit; end
 
+  def events
+    @business_professional = BusinessProfessional.find(params[:id])
+    @events = Event.all
+    @event_busines_professional = EventBusinessProfessional.all
+  end
+
   # POST /business_professionals or /business_professionals.json
   def create
     @business_professional = BusinessProfessional.new(business_professional_params)
