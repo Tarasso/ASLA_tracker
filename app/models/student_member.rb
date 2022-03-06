@@ -39,7 +39,7 @@ class StudentMember < ApplicationRecord
   end
 
   def set_defaults
-    self.member_title = 1
+    self.member_title ||= 1
     self.social_point_amount = 0
     self.meeting_point_amount = 0
     self.fundraiser_point_amount = 0

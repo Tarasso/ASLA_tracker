@@ -11,7 +11,7 @@ StudentMember.find_or_create_by(
     last_name: 'Mrosko',
     class_year: '2023',
     join_date: '2022-03-05',
-    member_title: 'officer',
+    member_title: 2,
     email: 'kylemrosko@gmail.com',
     phone_number: '+19362306244',
     expected_graduation_date: '2023-05-01',
