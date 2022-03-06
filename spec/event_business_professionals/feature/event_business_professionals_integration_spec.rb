@@ -9,23 +9,14 @@ RSpec.describe('Registering business professional for event', type: :feature) do
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
     visit root_path
     click_on 'Sign in'
-  end
 
-  it 'register business professional' do
     visit new_business_professional_path
-
     fill_in 'Org name', with: 'Company 1'
     fill_in 'First name', with: 'John'
     fill_in 'Last name', with: 'Doe'
     fill_in 'Phone num', with: '+19798451234'
     fill_in 'Email', with: 'email@email.com'
     click_on 'Create account'
-
-    visit business_professionals_path
-    expect(page).to(have_content('Company 1'))
-    expect(page).to(have_content('John'))
-    expect(page).to(have_content('Doe'))
-    expect(page).to(have_content('userdoe@example.com'))
 
     visit new_event_path
     select '2022', from: 'event_date_1i'
@@ -40,21 +31,9 @@ RSpec.describe('Registering business professional for event', type: :feature) do
     fill_in 'Description', with: 'Having fun'
     select 'Social', from: 'event_event_type'
     click_on 'Create Event'
+  end
 
-    visit events_path
-    expect(page).to(have_content('2022'))
-    expect(page).to(have_content('November'))
-    expect(page).to(have_content('22'))
-    expect(page).to(have_content('2022'))
-    expect(page).to(have_content('Football'))
-    expect(page).to(have_content('Kyle Field'))
-    expect(page).to(have_content('13'))
-    expect(page).to(have_content('30'))
-    expect(page).to(have_content('16'))
-    expect(page).to(have_content('30'))
-    expect(page).to(have_content('Having fun'))
-    expect(page).to(have_content('social')) 
-
+  it 'register business professional' do
     visit events_business_professional_path(id: 1)
     click_on 'Register'
     expect(page).to(have_content('You are registered.'))
