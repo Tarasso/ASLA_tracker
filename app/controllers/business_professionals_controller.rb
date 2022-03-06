@@ -25,7 +25,7 @@ class BusinessProfessionalsController < ApplicationController
   def events
     @business_professional = BusinessProfessional.find(params[:id])
     @events = Event.all
-    @event_busines_professional = EventBusinessProfessional.all
+    @event_business_professional = EventBusinessProfessional.all
   end
 
   # POST /business_professionals or /business_professionals.json

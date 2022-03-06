@@ -9,6 +9,8 @@ RSpec.describe('Registering business professional for event', type: :feature) do
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
     visit root_path
     click_on 'Sign in'
+    visit pages_select_account_type_path
+    click_on 'Business Professional'
 
     visit new_business_professional_path
     fill_in 'Org name', with: 'Company 1'
@@ -34,8 +36,19 @@ RSpec.describe('Registering business professional for event', type: :feature) do
   end
 
   it 'register business professional' do
-    visit events_business_professional_path(id: 1)
-    click_on 'Register'
-    expect(page).to(have_content('You are registered.'))
+    visit new_event_business_professional_path
+    fill_in 'Organization', with: 1
+    fill_in 'Event', with: 1
+    click_on 'Create Event business professional'
+    expect(page).to(have_content('Event business professional was successfully created.'))
+    click_on 'Back'
+    click_on 'Destroy'
+    expect(page).to(have_content('Event business professional was successfully destroyed.'))
+
+    visit events_business_professional_path(BusinessProfessional.last)
+    click_on "Register"
+    expect(page).to(have_content('You have registered.'))
+    click_on "Unregister"
+    expect(page).to(have_content('You have unregistered.'))
   end
 end
