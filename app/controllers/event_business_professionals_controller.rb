@@ -19,6 +19,33 @@ class EventBusinessProfessionalsController < ApplicationController
   # GET /event_business_professionals/1/edit
   def edit; end
 
+  def register
+    @business_professional = BusinessProfessional.find(params[:bid])
+    @event = Event.find(params[:eid])
+    @event_business_professional = EventBusinessProfessional.new(organization_id: @business_professional.id, event_id: @event.id)
+    respond_to do |format|
+      if @event_business_professional.save
+        format.html { redirect_to(events_business_professional_path(@business_professional), notice: 'You have registered.') }
+        format.json { render(:show, status: :created, location: @event_business_professional) }
+      else
+        format.html { render(:new, status: :unprocessable_entity) }
+        format.json { render(json: @event_business_professional.errors, status: :unprocessable_entity) }
+      end
+    end
+  end
+
+  def unregister
+    @business_professional = BusinessProfessional.find(params[:bid])
+    @event = Event.find(params[:eid])
+    @event_business_professional = EventBusinessProfessional.find_by(organization_id: @business_professional.id, event_id: @event.id)
+    @event_business_professional.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to(events_business_professional_path(@business_professional), notice: 'You have unregistered.') }
+      format.json { head(:no_content) }
+    end
+  end
+
   # POST /event_business_professionals or /event_business_professionals.json
   def create
     @event_business_professional = EventBusinessProfessional.new(event_business_professional_params)

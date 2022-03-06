@@ -62,6 +62,10 @@ ActiveRecord::Schema.define(version: 2022_03_05_192910) do
 
   create_table "carousels", force: :cascade do |t|
     t.string "pic_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "event_business_professionals", force: :cascade do |t|
     t.integer "organization_id"
     t.integer "event_id"
