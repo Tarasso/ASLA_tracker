@@ -46,7 +46,6 @@ class EventBusinessProfessionalsController < ApplicationController
     end
   end
 
-
   # POST /event_business_professionals or /event_business_professionals.json
   def create
     @event_business_professional = EventBusinessProfessional.new(event_business_professional_params)

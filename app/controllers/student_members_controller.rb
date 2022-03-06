@@ -4,6 +4,7 @@ class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
   before_action :allowed_to_view?, only: %i[show edit update dashboard]
+  before_action :points_add, only: %i[eventcode]
 
   # GET /student_members or /student_members.json
   def index
@@ -68,36 +69,38 @@ class StudentMembersController < ApplicationController
     end
   end
 
-  
-  def eventcode 
-    @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered];
-    @ec_i = @ec.to_i
+  def points_add
     @student_member = StudentMember.find(params[:mid])
     @meeting_points = @student_member.meeting_point_amount + 1
     @social_points = @student_member.social_point_amount + 1
     @informational_points = @student_member.informational_point_amount + 1
     @fundraising_points = @student_member.fundraiser_point_amount + 1
+  end
+
+  def eventcode
+    @event = Event.find(params[:eid])
+    @ec = params[:event_code_entered]
+    @ec_i = Integer(@ec, 10)
+    @student_member = StudentMember.find(params[:mid])
     respond_to do |format|
-      if (@ec_i == @event.event_code) && (@event.event_type == "meeting")
-        @student_member.update(meeting_point_amount: @meeting_points);
+      if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
+        @student_member.update!(meeting_point_amount: @meeting_points)
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
-      elsif (@ec_i == @event.event_code) && (@event.event_type == "social")
-        @student_member.update(social_point_amount: @social_points);
+      elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
+        @student_member.update!(social_point_amount: @social_points)
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
-      elsif (@ec_i == @event.event_code) && (@event.event_type == "informational")
-        @student_member.update(informational_point_amount: @informational_points);
+      elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
+        @student_member.update!(informational_point_amount: @informational_points)
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
-      elsif (@ec_i == @event.event_code) && (@event.event_type == "fundraising")
-        @student_member.update(fundraiser_point_amount: @fundraising_points);
+      elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
+        @student_member.update!(fundraiser_point_amount: @fundraising_points)
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
-      else 
-        puts @event.event_type
+      else
+        Rails.logger.debug(@event.event_type)
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
       end
     end
   end
-
 
   # DELETE /student_members/1 or /student_members/1.json
   def destroy
