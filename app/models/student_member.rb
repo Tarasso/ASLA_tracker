@@ -17,6 +17,7 @@ class StudentMember < ApplicationRecord
   def update_google_params
     self.uid = User.where(email: email).pick(:uid)
     self.picture = User.where(email: email).pick(:avatar_url)
+    # self.picture = session[:picture]
     save!
   end
 

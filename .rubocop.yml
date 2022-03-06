@@ -31,6 +31,7 @@ require:
 AllCops:
     TargetRubyVersion: 2.7
     TargetRailsVersion: 6.0
+    NewCops: enable
     Exclude:
         - "**/db/migrate/*"
         - "db/schema.rb"
@@ -47,6 +48,8 @@ AllCops:
         - "pages_unused_test/**/*.rb"
         - "student_member_unused_test/**/*.rb"
         - "calendar_unused_test/**/*.rb"
+        - "professional_registration_unused_test/**/*.rb"
+        - "active_storage_unused_tests/**/*.rb"
         # - "**/*_unused_test*/*.rb"
 
 
@@ -475,3 +478,9 @@ RSpec/IdenticalEqualityAssertion: # (new in 2.4)
 
 RSpec/MultipleExpectations:
     Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/business_professional.rb'
+    - 'app/models/student_member.rb'
+    - 'app/models/event.rb'

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # resources :carousels
+  # resources :officer_pics
   resources :event_business_professionals
   resources :event_student_members do
     member do
@@ -35,6 +37,8 @@ Rails.application.routes.draw do
   end
   resources :events
   resources :calendars
+  resources :officer_pics
+  resources :carousels
 
   get 'pages/about'
   get 'pages/contact'
