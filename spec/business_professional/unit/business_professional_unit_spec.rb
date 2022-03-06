@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe(BusinessProfessional, type: :model) do
   subject do
-    described_class.new(org_name: 'Company 1', first_name: 'John', last_name: 'Doe', phone_num: '999-999-9999', email: 'email@email.com')
+    described_class.new(org_name: 'Company 1', first_name: 'John', last_name: 'Doe', phone_num: '+19798451234', email: 'email@email.com')
   end
 
   it 'is valid with valid attributes' do

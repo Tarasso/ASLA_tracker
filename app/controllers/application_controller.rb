@@ -6,12 +6,22 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :print_session
 
-  before_action :print_member_type
-  
-  def print_member_type
-    Rails.logger.debug("UID")
-    Rails.logger.debug(session[:uid])
+  def print_session
+    Rails.logger.debug(session[:profile_pic])
+    Rails.logger.debug('ID:')
+    Rails.logger.debug(session[:userID])
   end
 
+  def admin?
+    unless session[:isAdmin]
+      Rails.logger.debug('NOT AN ADMIN')
+      redirect_to(pages_unauthorized_path)
+    end
+  end
+
+  def allowed_to_view?
+    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]
+  end
 end
