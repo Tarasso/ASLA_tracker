@@ -10,6 +10,12 @@ Rails.application.routes.draw do
       get :unregister
     end
   end
+  resources :event_business_professionals do
+    member do
+      get :register
+      get :unregister
+    end
+  end
   root 'pages#home'
   # root to: 'dashboards#show'
 
@@ -29,10 +35,16 @@ Rails.application.routes.draw do
   resources :business_professionals do
     get 'search', on: :collection
   end
+  resources :business_professionals do
+    member do
+      get :events
+    end
+  end
   resources :student_members do
     member do
       get :dashboard
       get :events
+      get :eventcode
     end
   end
   resources :events
