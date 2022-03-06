@@ -61,16 +61,46 @@ There are currently two envrionment variables that need to be configured. They c
 * `GOOGLE_OAUTH_CLIENT_ID`
 * `GOOGLE_OAUTH_CLIENT_SECRET`
 
+A more in depth guide for user authentication can be found in [this](https://medium.com/craft-academy/encrypted-credentials-in-ruby-on-rails-9db1f36d8570) Medium article.
+
 ## Deployment ##
 
-A Heroku pipeline is automatically connected to the Github repository and configured such that updates are continually deployed when changes are detected. The `procfile` gives instructions to Heroku on how to configure the deployment such as creating and migrating the database. Additionally, all envrionmental variables listed in the previous section must be added manually to the Heroku app in Settings>Config Vars. Currently there are two live deployments of this web app:
-* [Testing Envrionment](https://asla-test-adyypybxlxi8pcvf4xj9.herokuapp.com/)
-* [Production Envrionment](https://tamu-asla.herokuapp.com/)
+A Heroku pipeline is currently connected to this Github repository and configured such that updates are continually deployed when changes are detected. The `procfile` gives instructions to Heroku on how to configure the deployment such as creating, migrating, and seeding the database. Additionally, all envrionmental variables listed in the previous section must be added manually to the Heroku app in Settings>Config Vars.
+
+Below are more detailed instructions for how to set this up:
+
+Follow these instructions to create a Heroku account: https://signup.heroku.com/
+
+From the heroku dashboard select `New` -> `Create New Pipline`
+ 
+Name the pipeline, and link the respective git repo to the pipline
+ 
+Our application does not need any extra options, so select `Enable Review Apps` right away
+ 
+Click `New app` under review apps, and link your test branch from your repo
+ 
+Under staging app, select `Create new app` and link your main branch from your repo
+
+To add enviornment variables to enable google oauth2 functionality, head over to the settings tab on the pipeline dashboard
+ 
+Scroll down until `Reveal config vars`
+ 
+Add both your client id and your secret id, with fields `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` respectively
+ 
+Now once your pipeline has built the apps, select `Open app` to open the app
+ 
+With the staging app, if you would like to move the app to production, click the two up and down arrows and select `Move to production`
+ 
+And now your application is setup and in production mode!
 
 
 ## CI/CD ##
 
-CI/CD is handled by Google Actions and executes a series of tests on every push and PR
+For continuous development, we set up Heroku to automatically deploy our apps when their respective github branches are updated. Currently there are two live deployments of this web app:
+* [Testing Envrionment](https://asla-test-rz8igoalpfq53fy3oqfi.herokuapp.com/)
+* [Production Envrionment](https://tamu-asla.herokuapp.com/)
+
+For continuous integration, we set up a Github action to run our specs, security checks, linter, etc. after every push or pull-request. This allows us to automatically ensure that our code is working as intended. The following are ran on every deployment, push, and PR:
 * Rspec tests
   * executes all unit and integration tests located in `./spec`
 * Brakeman
@@ -84,6 +114,8 @@ Admins looking for support should first look at the application help page.
 Users looking for help seek out assistance from the customer.
 
 ## Credit ##
+
+Thomas Ochman's [guide](https://medium.com/craft-academy/encrypted-credentials-in-ruby-on-rails-9db1f36d8570) for Google Auth for Rails
 
 Referenced Justin Cypret's blog post for validating and normalizing phone numbers: [Link](https://justincypret.com/blog/validating-normalizing-and-formatting-phone-numbers-in-rails)
 
