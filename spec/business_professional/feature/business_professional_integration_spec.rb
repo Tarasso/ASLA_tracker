@@ -24,7 +24,6 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     expect(page).to(have_content('Company 1'))
     expect(page).to(have_content('John'))
     expect(page).to(have_content('Doe'))
-    expect(page).to(have_content('(979) 845-1234'))
     expect(page).to(have_content('userdoe@example.com'))
   end
 end

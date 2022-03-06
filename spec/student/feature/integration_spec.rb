@@ -27,12 +27,10 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     click_on 'Create account'
 
     visit student_members_path
-    expect(page).to(have_content('328004941'))
     expect(page).to(have_content('Jiaming'))
     expect(page).to(have_content('Fu'))
     expect(page).to(have_content('2023'))
     expect(page).to(have_content('userdoe@example.com'))
-    expect(page).to(have_content('(512) 730-9368'))
   end
 
   # similar test, but different choices for drop down menus and testing for the show page
