@@ -1,3 +1,33 @@
-<h1>Pages#officers</h1>
+<section class="py-4 text-center container">
+    <div class="row py-lg-4">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>Our Officers</h1>
+        <p class="lead text-muted">Meet our wonderful Officers!</p>
+      </div>
+    </div>
+  </section>
 
-<p>Find me in app/views/pages/officers.html.erb</p>
+
+<div class = "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+
+    <% @officer_pics.each do |officer_pic| %>
+        
+        
+        <div class="col text-center container">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                <div class = "py-3">
+                    <%= image_tag(officer_pic.image, style:'height:200px;width:200px;') %>
+                </div>
+                    <h4 class="card-text"> <%= officer_pic.name %></h4>
+                    <h5><%= officer_pic.officer_title %></h5>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
+</div>
+
+<% if session[:isAdmin] %>
+    <%= link_to "Manage Officers", officer_pics_path, class: 'btn btn-primary mx-auto' %>
+<% end %>
