@@ -19,7 +19,11 @@ class StudentMembersController < ApplicationController
   end
 
   def events
-    @student_member = StudentMember.find(params[:id])
+    @student_member = if StudentMember.find_by(id: params[:id])
+                        StudentMember.find(params[:id])
+                      else
+                        StudentMember.find_by(uid: session[:uid])
+                      end
     @events = Event.all
     @event_student_members = EventStudentMember.all
   end
@@ -121,7 +125,11 @@ class StudentMembersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_student_member
-    @student_member = StudentMember.find(params[:id])
+    @student_member = if StudentMember.find_by(id: params[:id])
+                        StudentMember.find(params[:id])
+                      else
+                        StudentMember.find_by(uid: session[:uid])
+                      end
   end
 
   # Only allow a list of trusted parameters through.
