@@ -72,8 +72,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     create_student_member(page)
     click_on 'Sign Out'
 
-    other_account_id = StudentMember.last.id
-
     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
     visit root_path
@@ -174,17 +172,17 @@ RSpec.describe('Creating a Student Member', type: :feature) do
   end
 
   def create_student_member(page)
-    visit new_student_member_path
-    fill_in 'Uin', with: '328004941'
-    fill_in 'First name', with: 'Jiaming'
-    fill_in 'Last name', with: 'Fu'
-    fill_in 'Class year', with: '2023'
-    select '2022', from: 'student_member_join_date_1i'
-    select 'May', from: 'student_member_join_date_2i'
-    select '5', from: 'student_member_join_date_3i'
-    fill_in 'Phone number', with: '5127309368'
-    select '2022', from: 'student_member_expected_graduation_date_1i'
-    select 'May', from: 'student_member_expected_graduation_date_2i'
-    click_on 'Create account'
+    visit(new_student_member_path)
+    fill_in('Uin', with: '328004941')
+    fill_in('First name', with: 'Jiaming')
+    fill_in('Last name', with: 'Fu')
+    fill_in('Class year', with: '2023')
+    select('2022', from: 'student_member_join_date_1i')
+    select('May', from: 'student_member_join_date_2i')
+    select('5', from: 'student_member_join_date_3i')
+    fill_in('Phone number', with: '5127309368')
+    select('2022', from: 'student_member_expected_graduation_date_1i')
+    select('May', from: 'student_member_expected_graduation_date_2i')
+    click_on('Create account')
   end
 end

@@ -105,7 +105,7 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     visit business_professional_path(other_account_id)
 
     expect(page).to(have_content('You do not have the permission to access this page'))
-    end
+  end
 
   it 'members cannot edit a bpro details' do
     create_business_professional(page)
@@ -122,7 +122,7 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     visit edit_business_professional_path(other_account_id)
 
     expect(page).to(have_content('You do not have the permission to access this page'))
-    end
+  end
 
   it 'valid inputs' do
     create_business_professional(page)
@@ -152,29 +152,29 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     expect(page).not_to(have_content('John'))
   end
 
-  def create_business_professional(page)
-    visit new_business_professional_path
+  def create_business_professional(_page)
+    visit(new_business_professional_path)
 
-    fill_in 'Org name', with: 'Company 1'
-    fill_in 'First name', with: 'John'
-    fill_in 'Last name', with: 'Doe'
-    fill_in 'Phone num', with: '+19798451234'
-    fill_in 'Email', with: 'bpro@email.com'
-    click_on 'Create account'
+    fill_in('Org name', with: 'Company 1')
+    fill_in('First name', with: 'John')
+    fill_in('Last name', with: 'Doe')
+    fill_in('Phone num', with: '+19798451234')
+    fill_in('Email', with: 'bpro@email.com')
+    click_on('Create account')
   end
 
-  def create_student_member(page)
-    visit new_student_member_path
-    fill_in 'Uin', with: '328004941'
-    fill_in 'First name', with: 'Jiaming'
-    fill_in 'Last name', with: 'Fu'
-    fill_in 'Class year', with: '2023'
-    select '2022', from: 'student_member_join_date_1i'
-    select 'May', from: 'student_member_join_date_2i'
-    select '5', from: 'student_member_join_date_3i'
-    fill_in 'Phone number', with: '5127309368'
-    select '2022', from: 'student_member_expected_graduation_date_1i'
-    select 'May', from: 'student_member_expected_graduation_date_2i'
-    click_on 'Create account'
+  def create_student_member(_page)
+    visit(new_student_member_path)
+    fill_in('Uin', with: '328004941')
+    fill_in('First name', with: 'Jiaming')
+    fill_in('Last name', with: 'Fu')
+    fill_in('Class year', with: '2023')
+    select('2022', from: 'student_member_join_date_1i')
+    select('May', from: 'student_member_join_date_2i')
+    select('5', from: 'student_member_join_date_3i')
+    fill_in('Phone number', with: '5127309368')
+    select('2022', from: 'student_member_expected_graduation_date_1i')
+    select('May', from: 'student_member_expected_graduation_date_2i')
+    click_on('Create account')
   end
 end
