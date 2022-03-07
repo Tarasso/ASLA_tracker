@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :student_members do
     get 'search', on: :collection
+    get :events
   end
   resources :newsletters
   resources :business_professionals do
