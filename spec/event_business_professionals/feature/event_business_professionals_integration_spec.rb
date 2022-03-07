@@ -46,9 +46,9 @@ RSpec.describe('Registering business professional for event', type: :feature) do
     expect(page).to(have_content('Event business professional was successfully destroyed.'))
 
     visit events_business_professional_path(BusinessProfessional.last)
-    click_on "Register"
+    click_on 'Register'
     expect(page).to(have_content('You have registered.'))
-    click_on "Unregister"
+    click_on 'Unregister'
     expect(page).to(have_content('You have unregistered.'))
   end
 end
