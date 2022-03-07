@@ -47,6 +47,8 @@ AllCops:
         - "pages_unused_test/**/*.rb"
         - "student_member_unused_test/**/*.rb"
         - "calendar_unused_test/**/*.rb"
+        - "professional_registration_unused_test/**/*.rb"
+        - "active_storage_unused_tests/**/*.rb"
         # - "**/*_unused_test*/*.rb"
 
 
@@ -255,13 +257,15 @@ Lint/UnusedMethodArgument:
 
 Lint/UselessMethodDefinition:
     Enabled: true
+    Exclude:
+    - 'spec/student/feature/integration_spec.rb'
 
 ###########################################################
 ######################## Metric ###########################
 ###########################################################
 
 Metrics/AbcSize:
-    Max: 45
+    Max: 49
 
 Metrics/BlockLength:
     CountComments: false
@@ -475,3 +479,14 @@ RSpec/IdenticalEqualityAssertion: # (new in 2.4)
 
 RSpec/MultipleExpectations:
     Enabled: false
+
+RSpec/NamedSubject:
+  Exclude:
+    - 'spec/business_professional/unit/business_professional_unit_spec.rb'
+    - 'spec/newsletter/unit/newsletter_unit_spec.rb'
+
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/business_professional.rb'
+    - 'app/models/student_member.rb'
+    - 'app/models/event.rb'

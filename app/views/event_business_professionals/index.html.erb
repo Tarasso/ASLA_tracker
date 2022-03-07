@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Event Business Professionals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Event</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_business_professionals.each do |event_business_professional| %>
+      <tr>
+        <td><%= event_business_professional.organization_id %></td>
+        <td><%= event_business_professional.event_id %></td>
+        <td><%= link_to 'Show', event_business_professional %></td>
+        <td><%= link_to 'Edit', edit_event_business_professional_path(event_business_professional) %></td>
+        <td><%= link_to 'Destroy', event_business_professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event Business Professional', new_event_business_professional_path %>

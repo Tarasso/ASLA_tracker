@@ -16,7 +16,7 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -70,3 +70,7 @@ gem 'google-api-client', require: 'google/apis/calendar_v3'
 gem 'devise'
 gem 'omniauth', '~>1.9.1'
 gem 'omniauth-google-oauth2'
+
+gem 'phonelib'
+gem 'rack_session_access'
+gem 'seed_dump'

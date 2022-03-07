@@ -1,84 +1,32 @@
-<thead>
-<!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <style>
-        .hero-background{
-            background-image: url("<%= asset_path('bg.jpg') %>");
-            background-repeat: no-repeat;
-            background-size: auto;
-        }
-    </style>
-</thead>
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= link_to "Home", '/', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "View all members", student_members_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "About", 'about', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Officers", 'officers', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Contact Us", 'contact', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "View all business professionals", business_professionals_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "Newletters", newsletters_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Events", events_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Gallery</a>
-            </li> -->
-            <li class="nav-item">
-            <%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class:'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+<br>
+<div style="margin-left: 30px">
+<h4>Copy emails of:</h4>
 
-
-<form action="/pages/send_mail" method="get" id="mail_form">
-  <label for="emails">Enter emails</label>
-  <input type="text" id="emails" name="emails"><br><br>
+<form action="/pages/mail" method="get" id="mail_form">
 
   <input type="checkbox" id="group1" name="group1" value="officers">
-  <label for="group1">Email officers</label><br>
+  <label for="group1">officers</label><br>
   <input type="checkbox" id="group2" name="group2" value="non_officers">
-  <label for="group2">Email non-officer students</label><br>
+  <label for="group2">non-officer students</label><br>
   <input type="checkbox" id="group3" name="group3" value="business">
-  <label for="group3">Email business professionals</label><br>
+  <label for="group3">business professionals</label><br><br>
 
-  <label for="subject">Enter subject</label>
-  <input type="text" id="subject" name="subject"><br><br>
-
-  <label for="body">Enter text</label>
-  <textarea rows="4" cols="50" name="body" form="mail_form"></textarea><br><br>
-
-  <input type="submit" value="Submit">
+  <input type="submit" value="Copy to Clipboard">
 </form>
-  
+
+<br>
+<p id="success"></p>
+<div>
+
+<% if @recipients_str %>
+
+  <script>
+  navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+
+    document.querySelector("#success").innerHTML = "Copied Emails";
+  });
+  </script>
+
+<% end %>
+
