@@ -108,6 +108,9 @@
       <% if session[:isMember] %>
         <% @student_member = StudentMember.find_by(uid: session[:uid])  %>
       <% end %>
+      <% if session[:isBusinessProfessional] %>
+        <% @business_professional = BusinessProfessional.find_by(uid: session[:uid])  %>
+      <% end %>
         <div class="container-fluid">
           <h5>Member Tools</h5>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,23 +128,29 @@
               <li class="nav-item">
               <%= link_to "Mail", pages_mail_path, class: 'nav-link' %>
               </li>
-              <% end %>
-
-              <li class="nav-item">
-              <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
-              </li>
               <li class="nav-item">
                 <%= link_to "Events", events_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to "Event Registrations", event_student_members_path, class: 'nav-link' %>
               </li>
+              <% end %>
+
+              <li class="nav-item">
+              <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
+              </li>
+
               <% if session[:isMember] %>
                 <li class="nav-item">
                 <%= link_to "Your Events", events_student_member_path(@student_member), class: 'nav-link' %>
                 </li>
               <% end %>
               
+              <% if session[:isBusinessProfessional] %>
+                <li class="nav-item">
+                <%= link_to "Your Events", events_business_professional_path(@business_professional), class: 'nav-link' %>
+                </li>
+              <% end %>
             </ul>
           </div>n
         </div>
