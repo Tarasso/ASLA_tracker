@@ -102,4 +102,23 @@ Rails.application.configure do
     }
   }
                                                                    )
+
+  OmniAuth.config.mock_auth[:google_bpro] = OmniAuth::AuthHash.new({
+  provider: 'google_oauth2',
+  uid: '234567898',
+  info: {
+    name: 'BPro Doe',
+    email: 'bpro@example.com',
+    first_name: 'Bpro',
+    last_name: 'Doe',
+    image: 'https://lh3.googleusercontent.com/url/photo.jpg'
+  },
+  credentials: {
+    token: 'token',
+    refresh_token: 'another_token',
+    expires_at: 1_354_920_555,
+    expires: true
+  }
+}
+                                                                  )                              
 end
