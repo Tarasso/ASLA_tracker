@@ -23,6 +23,21 @@ RSpec.describe(StudentMember, type: :model) do
     expect(student).not_to(be_valid)
   end
 
+  it 'is not valid with a uin that is too long' do
+    student.uin = '9280031820'
+    expect(student).not_to(be_valid)
+  end
+
+  it 'is not valid with a uin that is too short' do
+    student.uin = '92800318'
+    expect(student).not_to(be_valid)
+  end
+
+  it 'is not valid with a uin that contains letters' do
+    student.uin = '92800318K'
+    expect(student).not_to(be_valid)
+  end
+
   it 'is not valid without a first name' do
     student.first_name = nil
     expect(student).not_to(be_valid)
@@ -33,8 +48,33 @@ RSpec.describe(StudentMember, type: :model) do
     expect(student).not_to(be_valid)
   end
 
+  it 'is valid with a two last names' do
+    student.last_name = 'Jones Smith'
+    expect(student).to(be_valid)
+  end
+
+  it 'is valid with a junior title' do
+    student.last_name = 'Jones Jr.'
+    expect(student).to(be_valid)
+  end
+
+  it 'is valid with a hypenated last name' do
+    student.last_name = 'Jones-Smith'
+    expect(student).to(be_valid)
+  end
+
+  it 'is valid with a \' in the last name' do
+    student.last_name = 'O\'Connor'
+    expect(student).to(be_valid)
+  end
+
   it 'is not valid without a class year' do
     student.class_year = nil
+    expect(student).not_to(be_valid)
+  end
+
+  it 'is not valid with a 2 digit class year' do
+    student.class_year = '23'
     expect(student).not_to(be_valid)
   end
 
