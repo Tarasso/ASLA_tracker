@@ -36,7 +36,7 @@
     <%= form.text_field :email, value: @business_professional.email || session[:email], readonly: true %>
   </div>
 
-  <% if session[:isMember] %>
+  <% if session[:isBusinessProfessional] %>
     <%= form.submit "Update account"%>
   <% else %>
       <%= form.submit "Create account"%>
