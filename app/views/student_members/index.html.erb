@@ -20,7 +20,7 @@
 <h1>Members</h1>
 
 <%= form_tag :search_student_members, method: :get, class: "search" do %>
-  <%= text_field_tag "q", params[:q] %>
+  <%= text_field_tag "q", params[:q], placeholder: "Full name"%>
   <%= submit_tag "Search" %>
 <% end %>
 

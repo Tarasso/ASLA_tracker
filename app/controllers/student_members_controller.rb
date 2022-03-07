@@ -4,6 +4,7 @@ class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
   before_action :allowed_to_view?, only: %i[show edit update dashboard]
+  before_action :points_add, only: %i[eventcode]
 
   # GET /student_members or /student_members.json
   def index
@@ -18,7 +19,11 @@ class StudentMembersController < ApplicationController
   end
 
   def events
-    @student_member = StudentMember.find(params[:id])
+    @student_member = if StudentMember.find_by(id: params[:id])
+                        StudentMember.find(params[:id])
+                      else
+                        StudentMember.find_by(uid: session[:uid])
+                      end
     @events = Event.all
     @event_student_members = EventStudentMember.all
   end
@@ -68,6 +73,39 @@ class StudentMembersController < ApplicationController
     end
   end
 
+  def points_add
+    @student_member = StudentMember.find(params[:mid])
+    @meeting_points = @student_member.meeting_point_amount + 1
+    @social_points = @student_member.social_point_amount + 1
+    @informational_points = @student_member.informational_point_amount + 1
+    @fundraising_points = @student_member.fundraiser_point_amount + 1
+  end
+
+  def eventcode
+    @event = Event.find(params[:eid])
+    @ec = params[:event_code_entered]
+    @ec_i = Integer(@ec, 10)
+    @student_member = StudentMember.find(params[:mid])
+    respond_to do |format|
+      if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
+        @student_member.update!(meeting_point_amount: @meeting_points)
+        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+      elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
+        @student_member.update!(social_point_amount: @social_points)
+        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+      elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
+        @student_member.update!(informational_point_amount: @informational_points)
+        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+      elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
+        @student_member.update!(fundraiser_point_amount: @fundraising_points)
+        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+      else
+        Rails.logger.debug(@event.event_type)
+        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
+      end
+    end
+  end
+
   # DELETE /student_members/1 or /student_members/1.json
   def destroy
     @student_member.destroy!
@@ -87,7 +125,11 @@ class StudentMembersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_student_member
-    @student_member = StudentMember.find(params[:id])
+    @student_member = if StudentMember.find_by(id: params[:id])
+                        StudentMember.find(params[:id])
+                      else
+                        StudentMember.find_by(uid: session[:uid])
+                      end
   end
 
   # Only allow a list of trusted parameters through.
