@@ -2,8 +2,10 @@
 
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!
+  before_action :admin?, only: %i[mail]
 
   def home
+    @newsletter = Newsletter.order(:created_at).reverse_order.first
     @carousel_pics = Carousel.all
   end
 
@@ -12,19 +14,18 @@ class PagesController < ApplicationController
   def contact; end
 
   def mail
-    if params.key?(:emails)
+    if params.key?(:group1)
 
-      @emails = params[:emails]
       @group1 = params[:group1]
       @group2 = params[:group2]
       @group3 = params[:group3]
 
       # recipients is an array
-      recipients = @emails.split(', ')
+      recipients = []
 
-      recipients += StudentMember.where(member_title: '1').pluck(:email) if @group1 == 'officers'
+      recipients += StudentMember.where(member_title: 'officer').pluck(:email) if @group1 == 'officers'
 
-      recipients += StudentMember.where(member_title: '0').pluck(:email) if @group2 == 'non_officers'
+      recipients += StudentMember.where(member_title: 'member').pluck(:email) if @group2 == 'non_officers'
 
       recipients += BusinessProfessional.pluck(:email) if @group3 == 'business'
 

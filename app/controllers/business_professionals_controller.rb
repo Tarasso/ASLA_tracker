@@ -25,7 +25,7 @@ class BusinessProfessionalsController < ApplicationController
   def events
     @business_professional = BusinessProfessional.find(params[:id])
     @events = Event.all
-    @event_busines_professional = EventBusinessProfessional.all
+    @event_business_professional = EventBusinessProfessional.all
   end
 
   # POST /business_professionals or /business_professionals.json
@@ -35,6 +35,7 @@ class BusinessProfessionalsController < ApplicationController
     respond_to do |format|
       if @business_professional.save
         session[:isAdmin] = false
+        session[:isBusinessProfessional] = BusinessProfessional.find_by(uid: session[:uid])
         session[:userID] = BusinessProfessional.where(uid: session[:uid]).pick(:id)
         format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully created.') }
         format.json { render(:show, status: :created, location: @business_professional) }

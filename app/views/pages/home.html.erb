@@ -65,10 +65,19 @@
       </div>
     </div>
 
-    <div class="container_fluid text-center mt-5 mb-5">
-      <h2 class = "container-fluid"> Newsletter</h2>
-      <p class = "container-fluid col-7">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-    </div>
+
+    <% if @newsletter%>
+      <div class="container_fluid text-center mt-5 mb-5">
+        <h2>Most Recent Newsletter</h2>
+        <div class="card mx-auto" style="width: 40rem;">
+        <div class="card-body">
+          <h3 class="card-title"><%= @newsletter.title %></h3>
+          <h6 class="card-subtitle mb-2 text-muted"><%= @newsletter.date_posted %></h6>
+          <p class="card-text"><%= @newsletter.message %></p>
+        </div>
+        </div>
+      </div>
+    <% end %>
 
     <% if session[:isAdmin] %>
       <%= link_to "Edit Carousel", carousels_path, class: 'btn btn-primary mx-auto text-white' %>
