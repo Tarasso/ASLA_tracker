@@ -16,6 +16,16 @@ RSpec.describe(BusinessProfessional, type: :model) do
     expect(subject).not_to(be_valid)
   end
 
+  it 'is valid with org name with spaces' do
+    subject.org_name = 'Chevron Inc'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with org name with hyphen' do
+    subject.org_name = 'Jones-Smith'
+    expect(subject).to(be_valid)
+  end
+
   it 'is not valid without an first name' do
     subject.first_name = nil
     expect(subject).not_to(be_valid)
@@ -24,6 +34,26 @@ RSpec.describe(BusinessProfessional, type: :model) do
   it 'is not valid without a last name' do
     subject.last_name = nil
     expect(subject).not_to(be_valid)
+  end
+
+  it 'is valid with a two last names' do
+    subject.last_name = 'Jones Smith'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with a junior title' do
+    subject.last_name = 'Jones Jr.'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with a hypenated last name' do
+    subject.last_name = 'Jones-Smith'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with a \' in the last name' do
+    subject.last_name = 'O\'Connor'
+    expect(subject).to(be_valid)
   end
 
   it 'is not valid without a phone number' do
