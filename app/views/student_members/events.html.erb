@@ -26,13 +26,13 @@
         <td><%= event.start_time.strftime('%H:%M %p')%> - <%=event.finish_time.strftime('%H:%M %p') %></td>
         <td><%= event.description %></td>
         <td><%= event.event_type %></td>  
-        <% @event_student_member = EventStudentMember.find_by(member_id: @student_member.id, event_id: event.id) %>
+        <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_member.id, event_id: event.id) %>
         <% if @event_student_member %>
             <td>Registered</td>
-            <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), data: { confirm: 'Are you sure?' }, class: "registration-button" %></td>
+            <td><%= link_to 'Unregister', unregister_event_student_member_path(eid: event.id, id: @student_member.id), data: { confirm: 'Are you sure?' }, class: "registration-button" %></td>
         <% else %>
             <td>Not registered</td>
-            <td><%= link_to 'Register', register_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), class: "registration-button" %></td>
+            <td><%= link_to 'Register', register_event_student_member_path( eid: event.id, id: @student_member.id), class: "registration-button" %></td>
         <% end %>
         <% @ev = Event.find(event.id) %>
         <% if @event_student_member %>
