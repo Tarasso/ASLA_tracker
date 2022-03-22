@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Member Attendances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Event</th>
+      <th>Point type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @member_attendances.each do |member_attendance| %>
+      <tr>
+        <td><%= member_attendance.member_id %></td>
+        <td><%= member_attendance.event_id %></td>
+        <td><%= member_attendance.point_type %></td>
+        <td><%= link_to 'Show', member_attendance %></td>
+        <td><%= link_to 'Edit', edit_member_attendance_path(member_attendance) %></td>
+        <td><%= link_to 'Destroy', member_attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Member Attendance', new_member_attendance_path %>

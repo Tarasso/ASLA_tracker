@@ -5,6 +5,7 @@ class StudentMembersController < ApplicationController
   before_action :admin?, only: [:destroy]
   before_action :allowed_to_view?, only: %i[show edit update dashboard]
   before_action :points_add, only: %i[eventcode]
+  after_action :attended, only: %i[eventcode]
 
   # GET /student_members or /student_members.json
   def index
@@ -79,6 +80,23 @@ class StudentMembersController < ApplicationController
     @social_points = @student_member.social_point_amount + 1
     @informational_points = @student_member.informational_point_amount + 1
     @fundraising_points = @student_member.fundraiser_point_amount + 1
+  end
+
+  def attended
+    @event = Event.find(params[:eid])
+    @ec = params[:event_code_entered]
+    @ec_i = Integer(@ec, 10)
+    @student_member = StudentMember.find(params[:mid])
+    @mem_attendance = MemberAttendance.new(member_id: params[:mid], event_id: params[:eid])
+    if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
+      @mem_attendance.update!(point_type: 0)
+    elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
+      @mem_attendance.update!(point_type: 1)
+    elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
+      @mem_attendance.update!(point_type: 2)
+    elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
+      @mem_attendance.update!(point_type: 3)
+    end
   end
 
   def eventcode

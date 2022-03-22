@@ -27,15 +27,16 @@ RSpec.describe('Creating an Event', type: :feature) do
     click_on 'Create Event'
 
     visit events_path
+    print page.html
     expect(page).to(have_content('2022'))
     expect(page).to(have_content('November'))
     expect(page).to(have_content('22'))
     expect(page).to(have_content('2022'))
     expect(page).to(have_content('Football'))
     expect(page).to(have_content('Kyle Field'))
-    expect(page).to(have_content('13'))
+    expect(page).to(have_content('12'))
     expect(page).to(have_content('30'))
-    expect(page).to(have_content('16'))
+    expect(page).to(have_content('15'))
     expect(page).to(have_content('30'))
     expect(page).to(have_content('Having fun'))
     expect(page).to(have_content('social'))
