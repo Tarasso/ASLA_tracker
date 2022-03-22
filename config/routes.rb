@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :business_attendances
+  resources :member_attendances
   # resources :carousels
   # resources :officer_pics
   resources :event_business_professionals
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
   resources :student_members do
     get 'search', on: :collection
     get :events
+    get :attended_events
   end
   resources :newsletters
   resources :business_professionals do

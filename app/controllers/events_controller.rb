@@ -4,19 +4,25 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   # GET /events or /events.json
   def index
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     @events = Event.all
   end
 
   # GET /events/1 or /events/1.json
-  def show; end
+  def show
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
+  end
 
   # GET /events/new
   def new
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     @event = Event.new
   end
 
   # GET /events/1/edit
-  def edit; end
+  def edit
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
+  end
 
   # POST /events or /events.json
   def create
