@@ -42,7 +42,7 @@ RSpec.describe('Registering business professional for event', type: :feature) do
     click_on 'Create Event business professional'
     expect(page).to(have_content('Event business professional was successfully created.'))
     click_on 'Back'
-    click_on 'Destroy'
+    click_on 'Delete'
     expect(page).to(have_content('Event business professional was successfully destroyed.'))
 
     visit events_business_professional_path(BusinessProfessional.last)

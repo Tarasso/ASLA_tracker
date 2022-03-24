@@ -49,7 +49,7 @@ RSpec.describe('Creating a Business professional', type: :feature) do
 
     expect(page).to(have_content('Show'))
     expect(page).to(have_content('Edit'))
-    expect(page).to(have_content('Destroy'))
+    expect(page).to(have_content('Delete'))
   end
 
   it 'officers can see a bpro details' do

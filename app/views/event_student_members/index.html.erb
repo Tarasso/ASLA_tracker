@@ -20,7 +20,7 @@
         <td><%= Event.find(event_student_member.event_id).name %></td>
         <td><%= link_to 'Show', event_student_member %></td>
         <td><%= link_to 'Edit', edit_event_student_member_path(event_student_member) %></td>
-        <td><%= link_to 'Destroy', event_student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', event_student_member, method: :delete, data: { confirm: 'Are you sure you would like to delete this registration entry?' } %></td>
       </tr>
     <% end %>
   </tbody>

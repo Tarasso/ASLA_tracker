@@ -19,7 +19,7 @@
         <%= image_tag(officer_pic.image, style:'width:10%') %>
         <td><%= link_to 'Show', officer_pic %></td>
         <td><%= link_to 'Edit', edit_officer_pic_path(officer_pic) %></td>
-        <td><%= link_to 'Destroy', officer_pic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', officer_pic, method: :delete, data: { confirm: 'Are you sure you want to delete the picture: ' + officer_pic.name + '?' } %></td>
       </tr>
     <% end %>
   </tbody>
