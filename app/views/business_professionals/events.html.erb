@@ -28,7 +28,7 @@
         <% @event_business_professional = EventBusinessProfessional.find_by(organization_id: @business_professional.id, event_id: event.id) %>
         <% if @event_business_professional %>
             <td>Registered</td>
-            <td><%= link_to 'Unregister', unregister_event_business_professional_path(bid: @business_professional.id, eid: event.id), data: { confirm: 'Are you sure?' }, class: "registration-button" %></td>
+            <td><%= link_to 'Unregister', unregister_event_business_professional_path(bid: @business_professional.id, eid: event.id), data: { confirm: 'Are you sure you would like to delete the event: ' + event.name + '?' }, class: "registration-button" %></td>
         <% else %>
             <td>Not registered</td>
             <td><%= link_to 'Register', register_event_business_professional_path(bid: @business_professional.id, eid: event.id), class: "registration-button" %></td>

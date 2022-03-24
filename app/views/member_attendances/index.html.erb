@@ -20,7 +20,7 @@
         <td><%= member_attendance.point_type %></td>
         <td><%= link_to 'Show', member_attendance %></td>
         <td><%= link_to 'Edit', edit_member_attendance_path(member_attendance) %></td>
-        <td><%= link_to 'Destroy', member_attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', member_attendance, method: :delete, data: { confirm: 'Are you sure you want to delete this attendence entry?' } %></td>
       </tr>
     <% end %>
   </tbody>

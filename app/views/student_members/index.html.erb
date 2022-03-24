@@ -34,7 +34,7 @@
         <% if session[:isAdmin] %>
           <td><%= link_to 'Show', student_member %></td>
           <td><%= link_to 'Edit', edit_student_member_path(student_member) %></td>
-          <td><%= link_to 'Destroy', student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Delete', student_member, method: :delete, data: { confirm: 'Are you sure you want to delete the student: ' + student_member.first_name + ' ' + student_member.last_name + '?' } %></td>
         <% end %>
       </tr>
     <% end %>

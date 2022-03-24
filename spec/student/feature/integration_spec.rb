@@ -24,7 +24,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
 
     expect(page).to(have_content('Show'))
     expect(page).to(have_content('Edit'))
-    expect(page).to(have_content('Destroy'))
+    expect(page).to(have_content('Delete'))
   end
 
   it 'officer can show someone else\'s information' do
@@ -92,7 +92,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
 
     expect(page).not_to(have_content('Show'))
     expect(page).not_to(have_content('Edit'))
-    expect(page).not_to(have_content('Destroy'))
+    expect(page).not_to(have_content('Delete'))
   end
 
   it 'user cannot show someone else\'s information' do
