@@ -74,3 +74,5 @@ gem 'omniauth-google-oauth2'
 gem 'phonelib'
 gem 'rack_session_access'
 gem 'seed_dump'
+
+gem "aws-sdk-s3", require: false
