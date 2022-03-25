@@ -31,7 +31,7 @@
         <% if session[:isAdmin] %>
         <td><%= link_to 'Show', business_professional %></td>
         <td><%= link_to 'Edit', edit_business_professional_path(business_professional) %></td>
-        <td><%= link_to 'Destroy', business_professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', business_professional, method: :delete, data: { confirm: 'Are you sure you would like to delete the account of ' + business_professional.first_name + ' ' + business_professional.last_name + '? This cannot be undone.' } %></td>
         <% end %>
       </tr>
     <% end %>

@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_03_12_152310) do
+=======
+ActiveRecord::Schema.define(version: 2022_03_22_061458) do
+>>>>>>> dev
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +45,13 @@ ActiveRecord::Schema.define(version: 2022_03_12_152310) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "business_attendances", force: :cascade do |t|
+    t.integer "organization_id"
+    t.integer "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "business_professionals", force: :cascade do |t|
@@ -91,6 +102,14 @@ ActiveRecord::Schema.define(version: 2022_03_12_152310) do
     t.datetime "updated_at", precision: 6, null: false
     t.time "finish_time"
     t.integer "event_code"
+  end
+
+  create_table "member_attendances", force: :cascade do |t|
+    t.integer "member_id"
+    t.integer "event_id"
+    t.integer "point_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "newsletters", force: :cascade do |t|

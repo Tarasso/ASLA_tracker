@@ -1,0 +1,32 @@
+<%= form_with(model: member_attendance) do |form| %>
+  <% if member_attendance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(member_attendance.errors.count, "error") %> prohibited this member_attendance from being saved:</h2>
+
+      <ul>
+        <% member_attendance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :member_id %>
+    <%= form.number_field :member_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.number_field :event_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :point_type %>
+    <%= form.number_field :point_type %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
