@@ -45,12 +45,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     click_on 'Register'
     visit event_student_members_path
     print page.html
-<<<<<<< HEAD
-    #expect(page).to(have_content('Jiaming'))
-    #expect(page).to(have_content('Football'))
-=======
     # expect(page).to(have_content('Jiaming'))
     # expect(page).to(have_content('Football'))
->>>>>>> dev
   end
 end
