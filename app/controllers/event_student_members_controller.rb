@@ -5,7 +5,11 @@ class EventStudentMembersController < ApplicationController
 
   # GET /event_student_members or /event_student_members.json
   def index
-    @event_student_members = EventStudentMember.all
+    @page_size = Integer((params[:page_size] || 10), 10)
+    @event_student_members = EventStudentMember.select('event_student_members.id as id, first_name, name, uin, last_name, email, date').joins(:event).joins(:student_member)
+    @event_student_members = @event_student_members.page(params[:page]).per(@page_size)
+    @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @event_student_members = @event_student_members.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /event_student_members/1 or /event_student_members/1.json
@@ -20,9 +24,10 @@ class EventStudentMembersController < ApplicationController
   def edit; end
 
   def register
-    @student_member = StudentMember.find(params[:mid])
+    @student_member = StudentMember.find_by(uid: session[:uid])
     @event = Event.find(params[:eid])
-    @event_student_member = EventStudentMember.new(member_id: @student_member.id, event_id: @event.id)
+    @event_student_member = EventStudentMember.new(student_member_id: @student_member.id, event_id: params[:eid])
+    @event_student_member.save!
     respond_to do |format|
       if @event_student_member.save
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'You have registered.') }
@@ -35,9 +40,9 @@ class EventStudentMembersController < ApplicationController
   end
 
   def unregister
-    @student_member = StudentMember.find(params[:mid])
+    @student_member = StudentMember.find(params[:id])
     @event = Event.find(params[:eid])
-    @event_student_member = EventStudentMember.find_by(member_id: @student_member.id, event_id: @event.id)
+    @event_student_member = EventStudentMember.find_by(student_member_id: @student_member.id, event_id: @event.id)
     @event_student_member.destroy!
 
     respond_to do |format|
@@ -93,6 +98,6 @@ class EventStudentMembersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_student_member_params
-    params.require(:event_student_member).permit(:member_id, :event_id)
+    params.require(:event_student_member).permit(:student_member_id, :event_id)
   end
 end

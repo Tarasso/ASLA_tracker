@@ -16,7 +16,7 @@
         <td><%= carousel.pic_name %></td>
         <td><%= link_to 'Show', carousel %></td>
         <td><%= link_to 'Edit', edit_carousel_path(carousel) %></td>
-        <td><%= link_to 'Destroy', carousel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', carousel, method: :delete, data: { confirm: 'Are you sure you would like to delete the photo: ' + carousel.pic_name + '?' } %></td>
       </tr>
     <% end %>
   </tbody>
