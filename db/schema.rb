@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_03_22_061458) do
   end
 
   create_table "event_student_members", force: :cascade do |t|
-    t.integer "member_id"
+    t.integer "student_member_id"
     t.integer "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
