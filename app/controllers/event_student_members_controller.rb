@@ -5,15 +5,11 @@ class EventStudentMembersController < ApplicationController
 
   # GET /event_student_members or /event_student_members.json
   def index
-    @page_size = (params[:page_size] || 10).to_i
+    @page_size = Integer((params[:page_size] || 10), 10)
     @event_student_members = EventStudentMember.select('event_student_members.id as id, first_name, name, uin, last_name, email, date').joins(:event).joins(:student_member)
-    @event_student_members   = @event_student_members.page(params[:page]).per(@page_size)
-    if params[:sort].present?
-      @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir])
-    end
-    if params[:q].present?
-      @event_student_members= @event_student_members.where('LOWER(name) LIKE ?', "%#{params[:q]}%")
-    end
+    @event_student_members = @event_student_members.page(params[:page]).per(@page_size)
+    @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @event_student_members = @event_student_members.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /event_student_members/1 or /event_student_members/1.json
@@ -30,8 +26,8 @@ class EventStudentMembersController < ApplicationController
   def register
     @student_member = StudentMember.find_by(uid: session[:uid])
     @event = Event.find(params[:eid])
-    @event_student_member = EventStudentMember.new(student_member_id: @student_member.id, event_id:params[:eid])
-    @event_student_member.save
+    @event_student_member = EventStudentMember.new(student_member_id: @student_member.id, event_id: params[:eid])
+    @event_student_member.save!
     respond_to do |format|
       if @event_student_member.save
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'You have registered.') }
