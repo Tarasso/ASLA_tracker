@@ -75,5 +75,5 @@ gem 'phonelib'
 gem 'rack_session_access'
 gem 'seed_dump'
 
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 gem 'kaminari'
