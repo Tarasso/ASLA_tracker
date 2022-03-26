@@ -16,10 +16,14 @@
         { title: 'Id', name: 'id' },
         { title: 'First Name', name: 'first_name' },
         { title: 'Last Name', name: 'last_name' },
-        { title: 'UIN', name: 'uin' },
+        { title: 'Title', name: 'member_title' },
         { title: 'Class Year', name: 'class_year' },
         { title: 'Email', name: 'email' },
-        { title: 'Title', name: 'officer_title' }
+        {title: 'Graduation Date', name:'expected_graduation_date'},
+        { title: 'Meeting Points', name: 'meeting_point_amount' },
+        { title: 'Social Points', name: 'social_point_amount' },
+        { title: 'Fundraiser Points', name: 'fundraiser_point_amount' },
+        { title: 'Informational Points', name: 'informational_point_amount' }
         <% if session[:isAdmin] %>
           ,{ title: '', name: 'show_link', sort: false },
           { title: '', name: 'show_link1', sort: false },

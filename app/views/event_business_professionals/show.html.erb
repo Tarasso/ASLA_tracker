@@ -2,12 +2,12 @@
 
 <p>
   <strong>Business Professional:</strong>
-  <%= @event_business_professional.business_professional_id %>
+  <%= BusinessProfessional.find(@event_business_professional.business_professional_id).first_name%>
 </p>
 
 <p>
   <strong>Event:</strong>
-  <%= @event_business_professional.event_id %>
+  <%= Event.find(@event_business_professional.event_id).name %>
 </p>
 
 <%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) %> |
