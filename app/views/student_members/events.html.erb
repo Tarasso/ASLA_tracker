@@ -21,7 +21,7 @@
     <% @events.each do |event| %>
       <tr>
         <% @ev = Event.find(event.id) %>
-        <% @attended = MemberAttendance.find_by(member_id: @student_member.id, event_id: event.id)%>
+        <% @attended = MemberAttendance.find_by(student_member_id: @student_member.id, event_id: event.id)%>
         <% if !@attended %>
           <td><%= event.date.strftime('%B %-d, %Y') %></td>
           <td><%= event.name %></td>

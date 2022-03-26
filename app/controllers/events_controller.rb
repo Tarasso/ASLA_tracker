@@ -4,7 +4,10 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   # GET /events or /events.json
   def index
-    @events = Event.all
+    @page_size = Integer((params[:page_size] || 10))
+    @events = Event.page(params[:page]).per(@page_size)
+    @events = @events.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @events  = @events.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /events/1 or /events/1.json

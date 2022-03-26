@@ -114,7 +114,7 @@ Layout/LineEndStringConcatenationIndentation: # (new in 1.18)
     Enabled: true
 
 Layout/LineLength:
-    Max: 200
+    Max: 300
     Exclude:
         - "**/spec/**/*"
 

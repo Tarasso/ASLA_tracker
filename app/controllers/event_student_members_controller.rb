@@ -8,8 +8,8 @@ class EventStudentMembersController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @event_student_members = EventStudentMember.select('event_student_members.id as id, first_name, name, uin, last_name, email, date').joins(:event).joins(:student_member)
     @event_student_members = @event_student_members.page(params[:page]).per(@page_size)
-    @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @event_student_members = @event_student_members.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+    @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
+    @event_student_members = @event_student_members.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_student_members/1 or /event_student_members/1.json
