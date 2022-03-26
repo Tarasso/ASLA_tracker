@@ -12,7 +12,7 @@
       <th>Event Type</th>
     </tr>
   </thead>
-<% @records = MemberAttendance.where(member_id: session[:userID]) %>
+<% @records = MemberAttendance.where(student_member_id: session[:userID]) %>
 <% @records.each do |record| %>
     <% @event = Event.find(record.event_id) %>
     <tr>

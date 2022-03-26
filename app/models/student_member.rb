@@ -3,6 +3,7 @@
 class StudentMember < ApplicationRecord
   has_many :event
   has_many :event_student_member
+  has_many :member_attendance
   enum member_title: { member: 1, officer: 2 }
   validates :uin, :first_name, :last_name, :class_year, :email, presence: true
 

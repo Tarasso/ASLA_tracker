@@ -9,7 +9,10 @@ class StudentMembersController < ApplicationController
 
   # GET /student_members or /student_members.json
   def index
-    @student_members = StudentMember.all
+    @page_size = Integer((params[:page_size] || 10))
+    @student_members = StudentMember.page(params[:page]).per(@page_size)
+    @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @student_members = @student_members.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /student_members/1 or /student_members/1.json
@@ -87,7 +90,7 @@ class StudentMembersController < ApplicationController
     @ec = params[:event_code_entered]
     @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
-    @mem_attendance = MemberAttendance.new(member_id: params[:mid], event_id: params[:eid])
+    @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
     if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
       @mem_attendance.update!(point_type: 0)
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')

@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :organization_id %>
-    <%= form.number_field :organization_id %>
+    <%= form.label :business_professional_id %>
+    <%= form.select :business_professional_id, BusinessProfessional.order(:first_name).map { |business_professional| [business_professional.first_name, business_professional.id] }, include_blank: true, id: "id_of_the_business_professional_id_select_box" %>
   </div>
 
   <div class="field">
     <%= form.label :event_id %>
-    <%= form.number_field :event_id %>
+    <%= form.select :event_id, Event.order(:name).map { |event| [event.name, event.id] }, include_blank: true, id: "id_of_the_event_id_select_box" %>
   </div>
 
   <div class="actions">
