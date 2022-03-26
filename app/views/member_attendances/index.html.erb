@@ -1,30 +1,27 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Member Attendances</h1>
+<div id="tabular" class="tabular-demo"></div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Member</th>
-      <th>Event</th>
-      <th>Point type</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @member_attendances.each do |member_attendance| %>
-      <tr>
-        <td><%= member_attendance.member_id %></td>
-        <td><%= member_attendance.event_id %></td>
-        <td><%= member_attendance.point_type %></td>
-        <td><%= link_to 'Show', member_attendance %></td>
-        <td><%= link_to 'Edit', edit_member_attendance_path(member_attendance) %></td>
-        <td><%= link_to 'Delete', member_attendance, method: :delete, data: { confirm: 'Are you sure you want to delete this attendence entry?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<script>
+  $(function() {
+    tabular.start('#tabular', {
+      columns: [
+        { title: 'Id', name: 'id' },
+        { title: 'Event Name', name: 'name' },
+        { title: 'Event Date', name: 'date' },
+        { title: 'Point Type', name: 'point_type' },
+        { title: 'UIN', name: 'uin' },
+        { title: 'First Name', name: 'first_name' },
+        { title: 'Last Name', name: 'last_name' },
+        { title: 'Email', name: 'email' },
+        { title: '', name: 'show_link', sort: false },
+        { title: '', name: 'show_link1', sort: false },
+        { title: '', name: 'show_link2', sort: false }
+      ],
+      source:      '/member_attendances.json'
+    });
+  });
+</script>
 
 <br>
 

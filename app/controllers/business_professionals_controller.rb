@@ -7,7 +7,10 @@ class BusinessProfessionalsController < ApplicationController
 
   # GET /business_professionals or /business_professionals.json
   def index
-    @business_professionals = BusinessProfessional.all
+    @page_size = Integer((params[:page_size] || 10))
+    @business_professionals = BusinessProfessional.page(params[:page]).per(@page_size)
+    @business_professionals = @business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @business_professionals = @business_professionals.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json
