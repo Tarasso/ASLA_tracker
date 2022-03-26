@@ -90,7 +90,7 @@ class StudentMembersController < ApplicationController
     @ec = params[:event_code_entered]
     @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
-    @mem_attendance = MemberAttendance.new(member_id: params[:mid], event_id: params[:eid])
+    @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
     if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
       @mem_attendance.update!(point_type: 0)
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
