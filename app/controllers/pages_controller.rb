@@ -14,7 +14,7 @@ class PagesController < ApplicationController
   def contact; end
 
   def mail
-    if params.key?(:group1)
+    if params.key?(:group1) or params.key?(:group2) or params.key?(:group3)
 
       @group1 = params[:group1]
       @group2 = params[:group2]
@@ -48,6 +48,26 @@ class PagesController < ApplicationController
             else
               BusinessProfessional.find(session[:userID])
             end
+
+    if params.key?(:group1) or params.key?(:group2) or params.key?(:group3)
+
+      @group1 = params[:group1]
+      @group2 = params[:group2]
+      @group3 = params[:group3]
+
+      # recipients is an array
+      recipients = []
+
+      recipients += StudentMember.where(member_title: 'officer').pluck(:email) if @group1 == 'officers'
+
+      recipients += StudentMember.where(member_title: 'member').pluck(:email) if @group2 == 'non_officers'
+
+      recipients += BusinessProfessional.pluck(:email) if @group3 == 'business'
+
+      recipients = recipients.uniq
+
+      @recipients_str = recipients.join('\n')
+    end
   end
 
   def select_account_type; end

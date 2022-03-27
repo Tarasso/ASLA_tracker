@@ -59,7 +59,6 @@ Rails.application.routes.draw do
   get 'pages/about'
   get 'pages/contact'
   get 'pages/home'
-  get 'pages/mail'
   get 'pages/officers'
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
