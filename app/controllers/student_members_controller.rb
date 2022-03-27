@@ -6,6 +6,7 @@ class StudentMembersController < ApplicationController
   before_action :allowed_to_view?, only: %i[show edit update dashboard]
   before_action :points_add, only: %i[eventcode]
   after_action :attended, only: %i[eventcode]
+  after_action :event_student_member_delete, only: %i[eventcode]
 
   # GET /student_members or /student_members.json
   def index
@@ -100,6 +101,11 @@ class StudentMembersController < ApplicationController
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
       @mem_attendance.update!(point_type: 3)
     end
+  end
+
+  def event_student_member_delete
+    @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
+    @event_student_members.destroy!
   end
 
   def eventcode

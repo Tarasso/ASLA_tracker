@@ -42,8 +42,11 @@ Rails.application.routes.draw do
   resources :business_professionals do
     member do
       get :events
+      get :attended_events
+      get :attended
     end
   end
+
   resources :student_members do
     member do
       get :dashboard
