@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_22_061458) do
+ActiveRecord::Schema.define(version: 2022_03_26_002949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2022_03_22_061458) do
   end
 
   create_table "business_attendances", force: :cascade do |t|
-    t.integer "organization_id"
+    t.integer "business_professional_id"
     t.integer "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -74,14 +74,14 @@ ActiveRecord::Schema.define(version: 2022_03_22_061458) do
   end
 
   create_table "event_business_professionals", force: :cascade do |t|
-    t.integer "organization_id"
+    t.integer "business_professional_id"
     t.integer "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "event_student_members", force: :cascade do |t|
-    t.integer "member_id"
+    t.integer "student_member_id"
     t.integer "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2022_03_22_061458) do
   end
 
   create_table "member_attendances", force: :cascade do |t|
-    t.integer "member_id"
+    t.integer "student_member_id"
     t.integer "event_id"
     t.integer "point_type"
     t.datetime "created_at", precision: 6, null: false

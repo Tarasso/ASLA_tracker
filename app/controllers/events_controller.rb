@@ -2,9 +2,16 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
+  before_action :event_student_member_delete, only: %i[destroy]
+  before_action :event_business_member_delete, only: %i[destroy]
+  before_action :event_student_attendance_delete, only: %i[destroy]
+  before_action :event_business_attendance_delete, only: %i[destroy]
   # GET /events or /events.json
   def index
-    @events = Event.all
+    @page_size = Integer((params[:page_size] || 10))
+    @events = Event.page(params[:page]).per(@page_size)
+    @events = @events.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @events  = @events.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /events/1 or /events/1.json
@@ -46,10 +53,29 @@ class EventsController < ApplicationController
     end
   end
 
+  def event_student_member_delete
+    @event_student_members = EventStudentMember.where(event_id: @event.id)
+    @event_student_members.each(&:destroy)
+  end
+
+  def event_business_member_delete
+    @event_business = EventBusinessProfessional.where(event_id: @event.id)
+    @event_business.each(&:destroy)
+  end
+
+  def event_student_attendance_delete
+    @event_student_members = MemberAttendance.where(event_id: @event.id)
+    @event_student_members.each(&:destroy)
+  end
+
+  def event_business_attendance_delete
+    @event_business = BusinessAttendance.where(event_id: @event.id)
+    @event_business.each(&:destroy)
+  end
+
   # DELETE /events/1 or /events/1.json
   def destroy
     @event.destroy!
-
     respond_to do |format|
       format.html { redirect_to(events_url, notice: 'Event was successfully destroyed.') }
       format.json { head(:no_content) }

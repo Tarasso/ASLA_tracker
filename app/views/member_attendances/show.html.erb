@@ -2,17 +2,25 @@
 
 <p>
   <strong>Member:</strong>
-  <%= @member_attendance.member_id %>
+  <%= StudentMember.find(@member_attendance.student_member_id).first_name%>
 </p>
 
 <p>
   <strong>Event:</strong>
-  <%= @member_attendance.event_id %>
+  <%= Event.find(@member_attendance.event_id).name %>
 </p>
 
 <p>
   <strong>Point type:</strong>
-  <%= @member_attendance.point_type %>
+  <% if (@member_attendance.point_type == 0) %>
+    Meeting
+  <% elsif (@member_attendance.point_type == 1) %>
+    Social
+  <% elsif (@member_attendance.point_type == 2) %>
+    Informational
+  <% elsif (@member_attendance.point_type == 3) %>
+    Fundraising
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_member_attendance_path(@member_attendance) %> |

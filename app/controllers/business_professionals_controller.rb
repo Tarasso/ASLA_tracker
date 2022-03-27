@@ -4,10 +4,13 @@ class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
   before_action :allowed_to_view?, only: %i[show edit update]
-
+  after_action :event_business_member_delete, only: %i[attended]
   # GET /business_professionals or /business_professionals.json
   def index
-    @business_professionals = BusinessProfessional.all
+    @page_size = Integer((params[:page_size] || 10))
+    @business_professionals = BusinessProfessional.page(params[:page]).per(@page_size)
+    @business_professionals = @business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @business_professionals = @business_professionals.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json
@@ -61,6 +64,19 @@ class BusinessProfessionalsController < ApplicationController
         format.json { render(json: @business_professional.errors, status: :unprocessable_entity) }
       end
     end
+  end
+
+  def attended
+    @business_professional = BusinessProfessional.find(params[:bid])
+    @mem_attendance = BusinessAttendance.create!(business_professional_id: params[:bid], event_id: params[:eid])
+    respond_to do |format|
+      format.html { redirect_to(attended_events_business_professional_path(@business_professional), notice: 'Attendance confirmed.') }
+    end
+  end
+
+  def event_business_member_delete
+    @event_business_members = EventBusinessProfessional.find_by(business_professional_id: params[:bid], event_id: params[:eid])
+    @event_business_members.destroy!
   end
 
   # DELETE /business_professionals/1 or /business_professionals/1.json

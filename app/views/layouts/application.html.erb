@@ -36,6 +36,7 @@
         }
     </style>
     <title>ASLA | Home</title>
+    
   </head>
 
   <body>
@@ -48,7 +49,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
+          <a class="navbar-brand" href="<%= root_path %>"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -136,16 +137,19 @@
 
               <% if session[:isMember] %>
                 <li class="nav-item">
-                <%= link_to "Current Events", events_student_member_path(@student_member), class: 'nav-link' %>
+                <%= link_to "Current Events", events_student_member_path(@student_member.id), class: 'nav-link' %>
                 </li>
                 <li class="nav-item">
-                <%= link_to "Events Attended", student_member_attended_events_path(@student_member), class: 'nav-link' %>
+                <%= link_to "Events Attended", student_member_attended_events_path(@student_member.id), class: 'nav-link' %>
                 </li>
               <% end %>
               
               <% if session[:isBusinessProfessional] %>
                 <li class="nav-item">
-                <%= link_to "Your Events", events_business_professional_path(@business_professional), class: 'nav-link' %>
+                <%= link_to "Current Events", events_business_professional_path(@business_professional), class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                <%= link_to "Events Attended", attended_events_business_professional_path(@business_professional), class: 'nav-link' %>
                 </li>
               <% end %>
             </ul>

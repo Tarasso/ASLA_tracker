@@ -14,7 +14,7 @@ class PagesController < ApplicationController
   def contact; end
 
   def mail
-    if params.key?(:group1) or params.key?(:group2) or params.key?(:group3)
+    if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
 
       @group1 = params[:group1]
       @group2 = params[:group2]
@@ -49,7 +49,7 @@ class PagesController < ApplicationController
               BusinessProfessional.find(session[:userID])
             end
 
-    if params.key?(:group1) or params.key?(:group2) or params.key?(:group3)
+    if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
 
       @group1 = params[:group1]
       @group2 = params[:group2]

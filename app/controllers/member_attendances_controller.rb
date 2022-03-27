@@ -6,7 +6,11 @@ class MemberAttendancesController < ApplicationController
   # GET /member_attendances or /member_attendances.json
   def index
     redirect_to(pages_unauthorized_path) unless session[:isAdmin]
-    @member_attendances = MemberAttendance.all
+    @page_size = Integer((params[:page_size] || 10))
+    @member_attendances = MemberAttendance.select('member_attendances.id as id, first_name, name, uin, last_name, email, date, point_type').joins(:event).joins(:student_member)
+    @member_attendances = @member_attendances.page(params[:page]).per(@page_size)
+    @member_attendances = @member_attendances.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
+    @member_attendances = @member_attendances.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /member_attendances/1 or /member_attendances/1.json
@@ -75,6 +79,6 @@ class MemberAttendancesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def member_attendance_params
-    params.require(:member_attendance).permit(:member_id, :event_id, :point_type)
+    params.require(:member_attendance).permit(:student_member_id, :event_id, :point_type)
   end
 end

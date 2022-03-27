@@ -6,10 +6,14 @@ class StudentMembersController < ApplicationController
   before_action :allowed_to_view?, only: %i[show edit update dashboard]
   before_action :points_add, only: %i[eventcode]
   after_action :attended, only: %i[eventcode]
+  after_action :event_student_member_delete, only: %i[eventcode]
 
   # GET /student_members or /student_members.json
   def index
-    @student_members = StudentMember.all
+    @page_size = Integer((params[:page_size] || 10))
+    @student_members = StudentMember.page(params[:page]).per(@page_size)
+    @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @student_members = @student_members.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /student_members/1 or /student_members/1.json
@@ -87,7 +91,7 @@ class StudentMembersController < ApplicationController
     @ec = params[:event_code_entered]
     @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
-    @mem_attendance = MemberAttendance.new(member_id: params[:mid], event_id: params[:eid])
+    @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
     if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
       @mem_attendance.update!(point_type: 0)
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
@@ -97,6 +101,11 @@ class StudentMembersController < ApplicationController
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
       @mem_attendance.update!(point_type: 3)
     end
+  end
+
+  def event_student_member_delete
+    @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
+    @event_student_members.destroy!
   end
 
   def eventcode

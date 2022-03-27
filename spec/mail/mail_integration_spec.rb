@@ -18,7 +18,7 @@ RSpec.describe('Copying emails to clipboard', type: :feature) do
     visit('/pages/user_dashboard')
     page.check('non-officer students')
     click_on('Copy to Clipboard')
-    page.html.should include('userdoe@example.com')
+    page.html.should(include('userdoe@example.com'))
   end
 
   # test if officer can copy emails of business professionals
@@ -28,12 +28,11 @@ RSpec.describe('Copying emails to clipboard', type: :feature) do
     visit('/pages/user_dashboard')
     page.check('business professionals')
     click_on('Copy to Clipboard')
-    page.html.should include('userdoe@example.com')
+    page.html.should(include('userdoe@example.com'))
   end
 
   # test if officer can copy emails of officers
   it 'can copy officers emails' do
-    
     # creates officer
     create_student_member(page)
     page.set_rack_session(isAdmin: true)
@@ -44,10 +43,10 @@ RSpec.describe('Copying emails to clipboard', type: :feature) do
     visit('/pages/user_dashboard')
     page.check('officers')
     click_on('Copy to Clipboard')
-    page.html.should include('userdoe@example.com')
+    page.html.should(include('userdoe@example.com'))
   end
 
-  def create_student_member(page)
+  def create_student_member(_page)
     visit(new_student_member_path)
     fill_in('Uin', with: '328004941')
     fill_in('First name', with: 'Jiaming')
@@ -62,7 +61,7 @@ RSpec.describe('Copying emails to clipboard', type: :feature) do
     click_on('Create account')
   end
 
-  def create_business_professional(page)
+  def create_business_professional(_page)
     visit(new_business_professional_path)
     fill_in('Org name', with: 'Company 1')
     fill_in('First name', with: 'John')

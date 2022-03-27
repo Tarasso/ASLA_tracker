@@ -5,7 +5,11 @@ class BusinessAttendancesController < ApplicationController
 
   # GET /business_attendances or /business_attendances.json
   def index
-    @business_attendances = BusinessAttendance.all
+    @page_size = Integer((params[:page_size] || 10))
+    @business_attendances = BusinessAttendance.select('business_attendances.id as id, org_name, first_name, name,  last_name, email, date').joins(:event).joins(:business_professional)
+    @business_attendances = @business_attendances.page(params[:page]).per(@page_size)
+    @business_attendances = @business_attendances.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
+    @business_attendances = @business_attendances.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /business_attendances/1 or /business_attendances/1.json
@@ -66,6 +70,6 @@ class BusinessAttendancesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def business_attendance_params
-    params.require(:business_attendance).permit(:organization_id, :event_id)
+    params.require(:business_attendance).permit(:business_professional_id, :event_id)
   end
 end
