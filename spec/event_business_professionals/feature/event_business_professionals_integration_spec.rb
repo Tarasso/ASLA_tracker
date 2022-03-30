@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 # # frozen_string_literal: true
+# # frozen_string_literal: true
 
 # # location: spec/feature/integration_spec.rb
 # require 'rails_helper'
@@ -36,20 +37,20 @@
 #     click_on 'Create Event'
 #   end
 
-#   it 'register business professional' do
-#     visit new_event_business_professional_path
-#     fill_in 'Organization', with: 1
-#     fill_in 'Event', with: 1
-#     click_on 'Create Event business professional'
-#     expect(page).to(have_content('Event business professional was successfully created.'))
-#     click_on 'Back'
-#     click_on 'Delete'
-#     expect(page).to(have_content('Event business professional was successfully destroyed.'))
+#   #   it 'register business professional' do
+#   #     visit new_event_business_professional_path
+#   #     fill_in 'Organization', with: 1
+#   #     fill_in 'Event', with: 1
+#   #     click_on 'Create Event business professional'
+#   #     expect(page).to(have_content('Event business professional was successfully created.'))
+#   #     click_on 'Back'
+#   #     click_on 'Delete'
+#   #     expect(page).to(have_content('Event business professional was successfully destroyed.'))
 
-#     visit events_business_professional_path(BusinessProfessional.last)
-#     click_on 'Register'
-#     expect(page).to(have_content('You have registered.'))
-#     click_on 'Unregister'
-#     expect(page).to(have_content('You have unregistered.'))
-#   end
+#   #     visit events_business_professional_path(BusinessProfessional.last)
+#   #     click_on 'Register'
+#   #     expect(page).to(have_content('You have registered.'))
+#   #     click_on 'Unregister'
+#   #     expect(page).to(have_content('You have unregistered.'))
+#   #   end
 # end
