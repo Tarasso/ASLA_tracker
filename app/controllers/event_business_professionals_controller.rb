@@ -2,9 +2,11 @@
 
 class EventBusinessProfessionalsController < ApplicationController
   before_action :set_event_business_professional, only: %i[show edit update destroy]
+  before_action :student?, only: %i[register unregister]
 
   # GET /event_business_professionals or /event_business_professionals.json
   def index
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     @page_size = Integer((params[:page_size] || 10))
     @event_business_professionals = EventBusinessProfessional.select('event_business_professionals.id as id,
     org_name, first_name, name, last_name, email, date'
@@ -15,15 +17,24 @@ class EventBusinessProfessionalsController < ApplicationController
   end
 
   # GET /event_business_professionals/1 or /event_business_professionals/1.json
-  def show; end
+  def show
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
+  end
 
   # GET /event_business_professionals/new
   def new
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     @event_business_professional = EventBusinessProfessional.new
   end
 
   # GET /event_business_professionals/1/edit
-  def edit; end
+  def edit
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
+  end
+
+  def student?
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
+  end
 
   def register
     @business_professional = BusinessProfessional.find(params[:bid])
@@ -54,6 +65,7 @@ class EventBusinessProfessionalsController < ApplicationController
 
   # POST /event_business_professionals or /event_business_professionals.json
   def create
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     @event_business_professional = EventBusinessProfessional.new(event_business_professional_params)
 
     respond_to do |format|
@@ -69,6 +81,7 @@ class EventBusinessProfessionalsController < ApplicationController
 
   # PATCH/PUT /event_business_professionals/1 or /event_business_professionals/1.json
   def update
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     respond_to do |format|
       if @event_business_professional.update(event_business_professional_params)
         format.html { redirect_to(event_business_professional_url(@event_business_professional), notice: 'Event business professional was successfully updated.') }
@@ -82,6 +95,7 @@ class EventBusinessProfessionalsController < ApplicationController
 
   # DELETE /event_business_professionals/1 or /event_business_professionals/1.json
   def destroy
+    redirect_to(pages_unauthorized_path) unless session[:isAdmin]
     @event_business_professional.destroy!
 
     respond_to do |format|

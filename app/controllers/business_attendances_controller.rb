@@ -5,6 +5,7 @@ class BusinessAttendancesController < ApplicationController
 
   # GET /business_attendances or /business_attendances.json
   def index
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
     @page_size = Integer((params[:page_size] || 10))
     @business_attendances = BusinessAttendance.select('business_attendances.id as id, org_name, first_name, name,  last_name, email, date').joins(:event).joins(:business_professional)
     @business_attendances = @business_attendances.page(params[:page]).per(@page_size)
@@ -13,18 +14,24 @@ class BusinessAttendancesController < ApplicationController
   end
 
   # GET /business_attendances/1 or /business_attendances/1.json
-  def show; end
+  def show
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
+  end
 
   # GET /business_attendances/new
   def new
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
     @business_attendance = BusinessAttendance.new
   end
 
   # GET /business_attendances/1/edit
-  def edit; end
+  def edit
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
+  end
 
   # POST /business_attendances or /business_attendances.json
   def create
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
     @business_attendance = BusinessAttendance.new(business_attendance_params)
 
     respond_to do |format|
@@ -40,6 +47,7 @@ class BusinessAttendancesController < ApplicationController
 
   # PATCH/PUT /business_attendances/1 or /business_attendances/1.json
   def update
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
     respond_to do |format|
       if @business_attendance.update(business_attendance_params)
         format.html { redirect_to(business_attendance_url(@business_attendance), notice: 'Business attendance was successfully updated.') }
@@ -53,6 +61,7 @@ class BusinessAttendancesController < ApplicationController
 
   # DELETE /business_attendances/1 or /business_attendances/1.json
   def destroy
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
     @business_attendance.destroy!
 
     respond_to do |format|
