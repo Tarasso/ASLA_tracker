@@ -3,7 +3,7 @@
 class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
-  before_action :allowed_to_view?, only: %i[show edit update]
+  before_action :allowed_to_view_bpro?, only: %i[show edit update]
   after_action :event_business_member_delete, only: %i[attended]
   # GET /business_professionals or /business_professionals.json
   def index

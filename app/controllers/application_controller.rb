@@ -21,7 +21,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def allowed_to_view?
-    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]
+  def allowed_to_view_student?
+    redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && !session[:isMember])
+  end
+
+  def allowed_to_view_bpro?
+    redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && !session[:isBusinessProfessional])
+  end
+
+  def allowed_to_view_student_info?
+    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:userID] && !session[:isAdmin] && !session[:isBusinessProfessional]
   end
 end
