@@ -17,6 +17,7 @@
   <tbody>
 
 <h1>Events</h1>
+<%= link_to image_tag(session[:profile_pic], class:'nav-link profile-pic'), pages_user_dashboard_path %>
     <% @events.each do |event| %>
       <% @businessattend = BusinessAttendance.find_by(business_professional_id: @business_professional.id, event_id: event.id) %>
       <% if !@businessattend %>
