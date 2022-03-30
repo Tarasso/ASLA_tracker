@@ -3,7 +3,8 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
-  before_action :allowed_to_view?, only: %i[show edit update dashboard]
+  before_action :allowed_to_view_student?, only: %i[edit update dashboard]
+  before_action :allowed_to_view_student_info?, only: [:show]
   before_action :points_add, only: %i[eventcode]
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
@@ -52,6 +53,7 @@ class StudentMembersController < ApplicationController
         session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
         session[:isMember] = StudentMember.find_by(uid: session[:uid])
         session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id)
+        session[:creatingAccount] = false
         format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
         format.json { render(:show, status: :created, location: @student_member) }
       else

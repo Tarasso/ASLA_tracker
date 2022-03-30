@@ -3,7 +3,7 @@
 class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
-  before_action :allowed_to_view?, only: %i[show edit update]
+  before_action :allowed_to_view_bpro?, only: %i[show edit update]
   after_action :event_business_member_delete, only: %i[attended]
   # GET /business_professionals or /business_professionals.json
   def index
@@ -40,6 +40,7 @@ class BusinessProfessionalsController < ApplicationController
         session[:isAdmin] = false
         session[:isBusinessProfessional] = BusinessProfessional.find_by(uid: session[:uid])
         session[:userID] = BusinessProfessional.where(uid: session[:uid]).pick(:id)
+        session[:creatingAccount] = false
         format.html { redirect_to(business_professional_url(@business_professional), notice: 'Business professional was successfully created.') }
         format.json { render(:show, status: :created, location: @business_professional) }
       else
