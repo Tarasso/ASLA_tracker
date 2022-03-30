@@ -2,7 +2,7 @@
 
 class EventBusinessProfessionalsController < ApplicationController
   before_action :set_event_business_professional, only: %i[show edit update destroy]
-  before_action :is_student, only: %i[register unregister]
+  before_action :student?, only: %i[register unregister]
 
   # GET /event_business_professionals or /event_business_professionals.json
   def index
@@ -32,8 +32,8 @@ class EventBusinessProfessionalsController < ApplicationController
     redirect_to(pages_unauthorized_path) unless session[:isAdmin]
   end
 
-  def is_student
-    redirect_to(pages_unauthorized_path) unless (session[:isBusinessProfessional] || session[:isAdmin])
+  def student?
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
   end
 
   def register
