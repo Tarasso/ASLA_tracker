@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -93,6 +92,7 @@
       <% if session[:isBusinessProfessional] %>
         <% @business_professional = BusinessProfessional.find_by(uid: session[:uid])  %>
       <% end %>
+      
         <div class="container-fluid">
           <h5>Member Tools</h5>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
