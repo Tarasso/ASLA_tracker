@@ -51,6 +51,16 @@
     <%= form.date_select :expected_graduation_date, { :discard_day => true} %>
   </div>
 
+  <div class="field">
+    <%= form.label :program_level %>
+    <%= form.select :program_level, options_for_select(StudentMember.program_levels.map {|key, value| [key.humanize.capitalize, StudentMember.program_levels.key(value)]}, @student_member.program_level) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :student_classification %>
+    <%= form.select :student_classification, options_for_select(StudentMember.student_classifications.map {|key, value| [key.humanize.capitalize, StudentMember.student_classifications.key(value)]}, @student_member.student_classification) %>
+  </div>
+
   <% if session[:isAdmin] %>
     <h4>Admin adjustments:</h4>
 

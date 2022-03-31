@@ -5,6 +5,8 @@ class StudentMember < ApplicationRecord
   has_many :event_student_member
   has_many :member_attendance
   enum member_title: { member: 1, officer: 2 }
+  enum program_level: { BLA_1: 1, BLA_2: 2, BLA_3: 3, BLA_4: 4, MLA_1: 5, MLA_2: 6, MLA_3: 7 }
+  enum student_classification: { freshman: 1, sophomore: 2, junior: 3, senior: 4, super_senior: 5, graduate_student: 6 }
   validates :uin, :first_name, :last_name, :class_year, :email, presence: true
 
   validates :uin, format: { with: /\A[0-9]{9}\z/, message: 'should be a 9 digit number' }
