@@ -2,7 +2,6 @@
 
 class EventStudentMembersController < ApplicationController
   before_action :set_event_student_member, only: %i[show edit update destroy]
-  before_action :allowed_to_view?, only: %i[register unregister]
   before_action :admin?, only: %i[index show new edit update destroy]
   # GET /event_student_members or /event_student_members.json
   def index
