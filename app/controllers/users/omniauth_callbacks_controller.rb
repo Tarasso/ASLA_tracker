@@ -25,8 +25,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     session[:email] = resource_or_scope.email
     session[:profile_pic] = resource_or_scope.avatar_url
     if StudentMember.where(uid: resource_or_scope.uid).empty? && BusinessProfessional.where(uid: resource_or_scope.uid).empty?
+      session[:creatingAccount] = true
       pages_select_account_type_path
     else
+      session[:creatingAccount] = false
       session[:isMember] = StudentMember.find_by(uid: session[:uid])
       session[:isBusinessProfessional] = BusinessProfessional.find_by(uid: session[:uid])
       session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer' || false

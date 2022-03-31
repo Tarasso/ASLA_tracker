@@ -24,8 +24,10 @@
         { title: 'Social Points', name: 'social_point_amount' },
         { title: 'Fundraiser Points', name: 'fundraiser_point_amount' },
         { title: 'Informational Points', name: 'informational_point_amount' }
-        <% if session[:isAdmin] %>
+        <% if session[:isAdmin] || session[:isBusinessProfessional]%>
           ,{ title: '', name: 'show_link', sort: false },
+        <% end %>
+        <% if session[:isAdmin] %>
           { title: '', name: 'show_link1', sort: false },
           { title: '', name: 'show_link2', sort: false }
         <% end %>
