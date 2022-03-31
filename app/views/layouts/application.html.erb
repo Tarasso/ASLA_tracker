@@ -58,38 +58,15 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
             <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
-            <ul class="navbar-nav">
               <li class="nav-item">
                 <%= link_to "Home", root_path, class: 'nav-link' %>
               </li>
-              <!-- <li class="nav-item">
-              <%= link_to "View all members", student_members_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-              <%= link_to "View all business professionals", business_professionals_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "About", pages_about_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Officers", pages_officers_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Contact Us", pages_contact_path, class: 'nav-link' %>
-              </li>
-               <li class="nav-item">
-              <%= link_to "Newsletters", newsletters_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Events", events_path, class: 'nav-link' %>
-              </li> -->
               <li class="nav-item">
                 <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="#">Gallery</a>
-              </li> -->
+              <% end %>
               <% if !session[:uid]%>
                 <li class="nav-item">
                 <%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class:'nav-link' %>
@@ -98,12 +75,13 @@
                 <li class="nav-item">
                 <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
                 </li>
+                <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
                 <li class="nav-item">
                 <%= link_to image_tag(session[:profile_pic], class:'nav-link profile-pic'), pages_user_dashboard_path %>
                 </li>
+                <% end %>
               <% end %>
             </ul>
-            <% end %>
           </div>
         </div>
       </nav>
