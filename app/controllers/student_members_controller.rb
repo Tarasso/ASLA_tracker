@@ -54,7 +54,7 @@ class StudentMembersController < ApplicationController
         session[:isMember] = StudentMember.find_by(uid: session[:uid])
         session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id)
         session[:creatingAccount] = false
-        format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
+        format.html { redirect_to('/pages/user_dashboard') }
         format.json { render(:show, status: :created, location: @student_member) }
       else
         format.html { render(:new, status: :unprocessable_entity) }

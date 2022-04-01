@@ -125,6 +125,11 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     expect(page).to(have_content('You do not have the permission to access this page'))
   end
 
+  it 'bpro directed to dashboard after account creation' do
+    create_business_professional(page)
+    expect(page).to(have_content('Welcome to your home page!'))
+  end
+
   #   it 'valid inputs' do
   #     create_business_professional(page)
 
