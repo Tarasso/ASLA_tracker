@@ -15,6 +15,29 @@ class StudentMembersController < ApplicationController
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
     @student_members = @student_members.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+
+    if params.key?(:dues) || params.key?(:points)
+
+      @group1 = params[:dues]
+      @group2 = params[:points]
+
+      @student_members = StudentMember.all
+
+      if @group1 == 'dues'
+        @student_members.each do |student|
+          student.update!(dues_paid: false)
+        end
+      end
+      if @group2 == 'points'
+        @student_members.each do |student|
+          student.update!(meeting_point_amount: 0)
+          student.update!(social_point_amount: 0)
+          student.update!(informational_point_amount: 0)
+          student.update!(fundraiser_point_amount: 0)
+        end
+      end
+
+    end
   end
 
   # GET /student_members/1 or /student_members/1.json
