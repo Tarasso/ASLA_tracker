@@ -34,6 +34,17 @@
       <% end %>
       <br/>
       <br/>
+      <h2>Registered Events</h2>
+      <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
+      <% @event_list.each do |event| %>
+      <%@event_info = Event.find(event.event_id) %>
+          <p>Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+          <p>Event Name: <%= @event_info.name %></p>
+          <p>Location: <%= @event_info.location %></p>
+          <p>Time: <%=@event_info.start_time.strftime('%H:%M %p')%> - <%=@event_info.finish_time.strftime('%H:%M %p') %></p>
+          <p>Description: <%=@event_info.description %></p>
+          <p>Event Type: <%=@event_info.event_type %></p>
+      <% end %>
       <h2>Point totals</h2>
       <p>Social Points: <%= @user.social_point_amount %></p>
       <p>Meeting Points: <%= @user.meeting_point_amount %></p>
