@@ -49,6 +49,10 @@ class PagesController < ApplicationController
 
   def select_account_type; end
 
+  def points_leaderboard
+    @student_members = StudentMember.all
+  end
+
   # def is_student?
   #   puts 'check'
   #   puts !StudentMember.where(uid: session[:uid]).empty?
