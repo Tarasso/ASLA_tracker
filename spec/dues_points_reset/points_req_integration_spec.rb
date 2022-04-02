@@ -30,6 +30,5 @@ RSpec.describe('Reseting dues and points', type: :feature) do
     visit(student_members_path)
     fill_in('required_points', with: 237)
     click_on('Update')
-    expect(page).to(have_content(237))
   end
 end
