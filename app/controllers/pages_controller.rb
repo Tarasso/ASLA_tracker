@@ -51,6 +51,7 @@ class PagesController < ApplicationController
 
   def points_leaderboard
     @student_members = StudentMember.all
+    @student_members = @student_members.sort_by{ |student_member| student_member.total_points }.reverse
   end
 
   # def is_student?

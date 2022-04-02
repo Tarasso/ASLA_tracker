@@ -91,6 +91,8 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if @student_member.update(student_member_params)
         format.json { render(:show, status: :ok, location: @student_member) }
+        @total_points = @student_member.meeting_point_amount + @student_member.fundraiser_point_amount + @student_member.social_point_amount + @student_member.informational_point_amount
+        @student_member.update!(total_points: @total_points)
         if Integer(params[:id], 10) == session[:userID]
           format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
         else
@@ -126,6 +128,8 @@ class StudentMembersController < ApplicationController
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
       @mem_attendance.update!(point_type: 'fundraising')
     end
+    @total_points = @student_member.meeting_point_amount + @student_member.fundraiser_point_amount + @student_member.social_point_amount + @student_member.informational_point_amount
+    @student_member.update!(total_points: @total_points)
   end
 
   def event_student_member_delete
