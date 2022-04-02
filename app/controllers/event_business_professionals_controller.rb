@@ -13,7 +13,7 @@ class EventBusinessProfessionalsController < ApplicationController
                                                                     ).joins(:event).joins(:business_professional)
     @event_business_professionals = @event_business_professionals.page(params[:page]).per(@page_size)
     @event_business_professionals = @event_business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @event_business_professionals = @event_business_professionals.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @event_business_professionals = @event_business_professionals.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_business_professionals/1 or /event_business_professionals/1.json
