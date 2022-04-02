@@ -33,6 +33,10 @@
         <p><%= @user.officer_title %></p>
       <% end %>
       <br/>
+      <% file = File.open("global_variables.txt")%>
+      <% file_info = file.read()%>
+      <h2>Required Points</h2>
+      <%= file_info %>
       <br/>
       <h2>Registered Events</h2>
       <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>

@@ -8,6 +8,7 @@ class StudentMembersController < ApplicationController
   before_action :points_add, only: %i[eventcode]
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
+  after_action :req_points, only: %i[index]
 
   # GET /student_members or /student_members.json
   def index
@@ -36,7 +37,13 @@ class StudentMembersController < ApplicationController
           student.update!(fundraiser_point_amount: 0)
         end
       end
+    end
+  end
 
+  def req_points
+    if params.key?(:required_points)
+      @group3 = params[:required_points]
+      File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
     end
   end
 
@@ -60,7 +67,6 @@ class StudentMembersController < ApplicationController
   # GET /student_members/new
   def new
     # nobody is allowed to create an account if their account already exists
-    redirect_to(pages_unauthorized_path) unless session[:userID].nil?
     @student_member = StudentMember.new
   end
 

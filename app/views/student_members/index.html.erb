@@ -8,8 +8,8 @@
 <p id="notice"><%= notice %></p>
 <h1>Members</h1>
 <% if session[:isAdmin] %>
-  `<br>
-    <form action="student_members" method="get" id="mail_form">
+  <br>
+    <form action="student_members" method="get" id="student_members">
       <input type="checkbox" id="group1" name="dues" value="dues">
       <label for="group1">Dues Paid</label>
       <input type="checkbox" id="group2" name="points" value="points">
@@ -17,6 +17,14 @@
       <input type="submit" value="Reset" onclick="return confirm('Are you sure you would like to reset the selected categories?')" }>
     </form>
     <br>
+    <% file = File.open("global_variables.txt")%>
+    <label>Current Required Points: <%= file_info = file.read()%></label>
+    <form action="student_members" method="get" id="student_members">
+      <label for="group1">Required Points</label>
+      <input type="number" min="1" id="group3" name="required_points">
+      <input type="submit" value="Update">
+    </form>
+  <br>
 <% end %>
 <div id="tabular" class="tabular-demo"></div>
 
