@@ -26,7 +26,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select 'May', from: 'student_member_expected_graduation_date_2i'
     click_on 'Create account'
 
-
     visit pages_points_leaderboard_path
     expect(page).to(have_content('Jiaming Fu'))
     expect(page).to(have_content('1'))
