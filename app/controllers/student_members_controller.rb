@@ -6,6 +6,8 @@ class StudentMembersController < ApplicationController
   before_action :allowed_to_view_student?, only: %i[edit update dashboard]
   before_action :allowed_to_view_student_info?, only: [:show]
   before_action :points_add, only: %i[eventcode]
+  before_action :student_member_event_delete, only: %i[destroy]
+  before_action :student_event_attendance_delete, only: %i[destroy]
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
   after_action :req_points, only: %i[index]
@@ -166,6 +168,16 @@ class StudentMembersController < ApplicationController
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
       end
     end
+  end
+
+  def student_member_event_delete
+    @event_student_members = EventStudentMember.where(student_member_id: @student_member.id)
+    @event_student_members.each(&:destroy)
+  end
+
+  def student_event_attendance_delete
+    @member_attendances = MemberAttendance.where(student_member_id: @student_member.id)
+    @member_attendances.each(&:destroy)
   end
 
   # DELETE /student_members/1 or /student_members/1.json
