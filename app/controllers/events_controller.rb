@@ -12,7 +12,7 @@ class EventsController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @events = Event.page(params[:page]).per(@page_size)
     @events = @events.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @events  = @events.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+    @events  = @events.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /events/1 or /events/1.json
