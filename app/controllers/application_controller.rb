@@ -21,6 +21,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def account_creating?
+    if session[:creatingAccount]
+      redirect_to(pages_select_account_type_path, notice: 'Please creating your account.')
+    end
+  end
+
   def allowed_to_view_student?
     redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && !session[:isMember])
   end

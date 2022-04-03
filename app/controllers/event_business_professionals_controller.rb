@@ -3,6 +3,7 @@
 class EventBusinessProfessionalsController < ApplicationController
   before_action :set_event_business_professional, only: %i[show edit update destroy]
   before_action :student?, only: %i[register unregister]
+  before_action :account_creating?, only: %i[index show new edit update destroy]
 
   # GET /event_business_professionals or /event_business_professionals.json
   def index
