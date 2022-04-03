@@ -3,6 +3,7 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
+  before_action :account_creating?, only: %i[index dashboard attended events edit show]
   before_action :allowed_to_view_student?, only: %i[edit update dashboard]
   before_action :allowed_to_view_student_info?, only: [:show]
   before_action :points_add, only: %i[eventcode]

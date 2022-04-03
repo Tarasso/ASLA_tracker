@@ -2,6 +2,7 @@
 
 class MemberAttendancesController < ApplicationController
   before_action :set_member_attendance, only: %i[show edit update destroy]
+  before_action :account_creating?, only: %i[index edit show new create destroy]
 
   # GET /member_attendances or /member_attendances.json
   def index

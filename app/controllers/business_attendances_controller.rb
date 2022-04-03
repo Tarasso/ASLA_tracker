@@ -2,6 +2,7 @@
 
 class BusinessAttendancesController < ApplicationController
   before_action :set_business_attendance, only: %i[show edit update destroy]
+  before_action :account_creating?, only: %i[index show new edit update destroy]
 
   # GET /business_attendances or /business_attendances.json
   def index
