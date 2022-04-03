@@ -4,13 +4,15 @@ class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
   before_action :allowed_to_view_bpro?, only: %i[show edit update]
+  before_action :business_member_event_delete, only: %i[destroy]
+  before_action :business_member_event_attendance_delete, only: %i[destroy]
   after_action :event_business_member_delete, only: %i[attended]
   # GET /business_professionals or /business_professionals.json
   def index
     @page_size = Integer((params[:page_size] || 10))
     @business_professionals = BusinessProfessional.page(params[:page]).per(@page_size)
     @business_professionals = @business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @business_professionals = @business_professionals.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+    @business_professionals = @business_professionals.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json
@@ -78,6 +80,16 @@ class BusinessProfessionalsController < ApplicationController
   def event_business_member_delete
     @event_business_members = EventBusinessProfessional.find_by(business_professional_id: params[:bid], event_id: params[:eid])
     @event_business_members.destroy!
+  end
+
+  def business_member_event_delete
+    @event_business_members = EventBusinessProfessional.where(business_professional_id: @business_professional.id)
+    @event_business_members.each(&:destroy)
+  end
+
+  def business_member_event_attendance_delete
+    @business_attendances = BusinessAttendance.where(business_professional_id: @business_professional.id)
+    @business_attendances.each(&:destroy)
   end
 
   # DELETE /business_professionals/1 or /business_professionals/1.json

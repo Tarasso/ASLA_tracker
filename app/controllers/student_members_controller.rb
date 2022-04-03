@@ -6,6 +6,8 @@ class StudentMembersController < ApplicationController
   before_action :allowed_to_view_student?, only: %i[edit update dashboard]
   before_action :allowed_to_view_student_info?, only: [:show]
   before_action :points_add, only: %i[eventcode]
+  before_action :student_member_event_delete, only: %i[destroy]
+  before_action :student_event_attendance_delete, only: %i[destroy]
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
   after_action :req_points, only: %i[index]
@@ -15,7 +17,7 @@ class StudentMembersController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @student_members = @student_members.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+    @student_members = @student_members.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%") if params[:q].present?
 
     if params.key?(:dues) || params.key?(:points)
 
@@ -97,6 +99,8 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if @student_member.update(student_member_params)
         format.json { render(:show, status: :ok, location: @student_member) }
+        @total_points = @student_member.meeting_point_amount + @student_member.fundraiser_point_amount + @student_member.social_point_amount + @student_member.informational_point_amount
+        @student_member.update!(total_points: @total_points)
         if Integer(params[:id], 10) == session[:userID]
           format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
         else
@@ -132,6 +136,8 @@ class StudentMembersController < ApplicationController
     elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
       @mem_attendance.update!(point_type: 'fundraising')
     end
+    @total_points = @student_member.meeting_point_amount + @student_member.fundraiser_point_amount + @student_member.social_point_amount + @student_member.informational_point_amount
+    @student_member.update!(total_points: @total_points)
   end
 
   def event_student_member_delete
@@ -162,6 +168,16 @@ class StudentMembersController < ApplicationController
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
       end
     end
+  end
+
+  def student_member_event_delete
+    @event_student_members = EventStudentMember.where(student_member_id: @student_member.id)
+    @event_student_members.each(&:destroy)
+  end
+
+  def student_event_attendance_delete
+    @member_attendances = MemberAttendance.where(student_member_id: @student_member.id)
+    @member_attendances.each(&:destroy)
   end
 
   # DELETE /student_members/1 or /student_members/1.json
