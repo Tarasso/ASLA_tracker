@@ -11,22 +11,9 @@ class StudentMembersController < ApplicationController
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
   after_action :req_points, only: %i[index]
+  after_action :reset_values, only: %i[index]
 
-  # GET /student_members or /student_members.json
-  def index
-    @page_size = Integer((params[:page_size] || 10))
-    @student_members = StudentMember.page(params[:page]).per(@page_size)
-    @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    if params[:q].present?
-      @names = params[:q].split
-      @student_members = if @names.length == 2
-                           @student_members.where('first_name LIKE ? OR last_name LIKE ?', "%#{@names[0]}", "%#{@names[1]}")
-                         else
-                           @student_members.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%")
-                         end
-
-    end
-
+  def reset_values
     if params.key?(:dues) || params.key?(:points)
 
       @group1 = params[:dues]
@@ -47,6 +34,22 @@ class StudentMembersController < ApplicationController
           student.update!(fundraiser_point_amount: 0)
         end
       end
+    end
+  end
+
+  # GET /student_members or /student_members.json
+  def index
+    @page_size = Integer((params[:page_size] || 10))
+    @student_members = StudentMember.page(params[:page]).per(@page_size)
+    @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    if params[:q].present?
+      @names = params[:q].split
+      @student_members = if @names.length == 2
+                           @student_members.where('first_name LIKE ? OR last_name LIKE ?', "%#{@names[0]}", "%#{@names[1]}")
+                         else
+                           @student_members.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%")
+                         end
+
     end
   end
 
