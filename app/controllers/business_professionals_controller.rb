@@ -12,7 +12,14 @@ class BusinessProfessionalsController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @business_professionals = BusinessProfessional.page(params[:page]).per(@page_size)
     @business_professionals = @business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @business_professionals = @business_professionals.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%") if params[:q].present?
+    if params[:q].present?
+      @names = (params[:q]).split(" ")
+      if @names.length() == 2
+        @business_professionals = @business_professionals.where("first_name LIKE ? OR last_name LIKE ?", "%#{@names[0]}","%#{@names[1]}" )
+      else
+        @business_professionals = @business_professionals.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%")
+      end
+    end
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json

@@ -17,7 +17,15 @@ class StudentMembersController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @student_members = @student_members.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%") if params[:q].present?
+    if params[:q].present?
+      @names = (params[:q]).split(" ")
+      if @names.length() == 2
+        @student_members = @student_members.where("first_name LIKE ? OR last_name LIKE ?", "%#{@names[0]}","%#{@names[1]}" )
+      else
+        @student_members = @student_members.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%")
+      end
+      
+    end
 
     if params.key?(:dues) || params.key?(:points)
 
