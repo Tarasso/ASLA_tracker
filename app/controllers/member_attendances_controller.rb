@@ -2,6 +2,7 @@
 
 class MemberAttendancesController < ApplicationController
   before_action :set_member_attendance, only: %i[show edit update destroy]
+  before_action :account_creating?, only: %i[index edit show new create destroy]
 
   # GET /member_attendances or /member_attendances.json
   def index
@@ -10,7 +11,7 @@ class MemberAttendancesController < ApplicationController
     @member_attendances = MemberAttendance.select('member_attendances.id as id, first_name, name, uin, last_name, email, date, point_type').joins(:event).joins(:student_member)
     @member_attendances = @member_attendances.page(params[:page]).per(@page_size)
     @member_attendances = @member_attendances.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @member_attendances = @member_attendances.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @member_attendances = @member_attendances.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /member_attendances/1 or /member_attendances/1.json

@@ -17,7 +17,7 @@
 <% end %>
 
 <% if session[:isMember] %>
-<%= link_to 'register myself for events', events_student_member_path(@student_member.id)%><br>
+<%= link_to 'register myself/enter code for events', events_student_member_path(@student_member.id)%><br>
 <%= link_to 'view events I attended', student_member_attended_events_path(@student_member.id)%>
 <% end %>
 

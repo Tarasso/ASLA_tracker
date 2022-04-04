@@ -66,5 +66,6 @@ Rails.application.routes.draw do
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
   get 'pages/select_account_type'
-  get 'pages/events' 
+  get 'pages/events'
+  get 'pages/points_leaderboard'
 end

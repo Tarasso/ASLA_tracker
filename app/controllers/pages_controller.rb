@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
+  before_action :account_creating?, only: [:user_dashboard]
   skip_before_action :authenticate_user!
 
   def home
@@ -53,10 +54,7 @@ class PagesController < ApplicationController
 
   def points_leaderboard
     @student_members = StudentMember.all
-  end
-
-  def points_leaderboard
-    @student_members = StudentMember.all
+    @student_members = @student_members.sort_by(&:total_points).reverse
   end
 
   # def is_student?

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="icon" href="assets/download.jpg">
     <title>TAMU ASLA</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -97,11 +98,8 @@
                   <a class="dropdown-item" href="/pages/user_dashboard">Dashboard</a>
                   <a class="dropdown-item" href="/student_members">Students</a>
                   <a class="dropdown-item" href="/business_professionals">Professionals</a>
-
-                  <% if session[:isAdmin] %>
                   <a class="dropdown-item" href="/pages/events">Events</a>
                   <a class="dropdown-item" href="/newsletters">Newsletters</a>
-                  <% end %>
                 </div>
                 </li>
                 <% end %>
