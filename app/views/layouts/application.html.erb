@@ -99,23 +99,9 @@
                   <a class="dropdown-item" href="/business_professionals">Professionals</a>
 
                   <% if session[:isAdmin] %>
-                  <a class="dropdown-item" href="/events">Events</a>
-                  <a class="dropdown-item" href="/event_student_members">Event Registrations</a>
+                  <a class="dropdown-item" href="/pages/events">Events</a>
                   <a class="dropdown-item" href="/newsletters">Newsletters</a>
-                  <a class="dropdown-item" href="/member_attendances">Member Attendance</a>
-                  <a class="dropdown-item" href="/business_attendances">Professionals Attendance</a>
                   <% end %>
-
-                  <% if session[:isMember] %>
-                  <a class="dropdown-item" href=<%=events_student_member_path(@student_member.id)%>>Current Events</a>
-                  <a class="dropdown-item" href=<%=student_member_attended_events_path(@student_member.id)%>>Events Attended</a>
-                  <% end %>
-
-                  <% if session[:isBusinessProfessional] %>
-                  <a class="dropdown-item" href=<%=events_business_professional_path(@business_professional)%>>Current Events</a>
-                  <a class="dropdown-item" attended_events_business_professional_path(@business_professional)%>>Events Attended</a>
-                  <% end %>
-
                 </div>
                 </li>
                 <% end %>

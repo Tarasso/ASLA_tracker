@@ -47,7 +47,13 @@ class PagesController < ApplicationController
     end
   end
 
+  def events; end
+
   def select_account_type; end
+
+  def points_leaderboard
+    @student_members = StudentMember.all
+  end
 
   def points_leaderboard
     @student_members = StudentMember.all

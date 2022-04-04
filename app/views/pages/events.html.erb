@@ -1,3 +1,27 @@
-<h1>Pages#events</h1>
+<h1>Events</h1>
 
-<p>Find me in app/views/pages/events.html.erb</p>
+<% if session[:isMember] %>
+<% @student_member = StudentMember.find_by(uid: session[:uid])  %>
+<% end %>
+
+<% if session[:isBusinessProfessional] %>
+<% @business_professional = BusinessProfessional.find_by(uid: session[:uid])  %>
+<% end %>
+
+<% if session[:isAdmin] %>
+<%= link_to 'create/edit/delete events', "/events" %><br>
+<%= link_to 'view students\' registration', "/event_student_members" %><br>
+<%= link_to 'view students\' attendance', "/member_attendances" %><br>
+<%= link_to 'view professionals\' registration', "/member_attendances" %><br>
+<%= link_to 'view professionals\' attendance', "/business_attendances" %><br>
+<% end %>
+
+<% if session[:isMember] %>
+<%= link_to 'register myself for events', events_student_member_path(@student_member.id)%><br>
+<%= link_to 'view events I attended', student_member_attended_events_path(@student_member.id)%>
+<% end %>
+
+<% if session[:isBusinessProfessional] %>
+<%= link_to 'register myself for events', events_business_professional_path(@business_professional)%><br>
+<%= link_to 'view events I attended', attended_events_business_professional_path(@business_professional)%>
+<% end %>
