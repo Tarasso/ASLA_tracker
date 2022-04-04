@@ -6,7 +6,6 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  before_action :print_session
 
   def print_session
     Rails.logger.debug(session[:profile_pic])

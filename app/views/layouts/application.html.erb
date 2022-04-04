@@ -77,7 +77,13 @@
                 <%= link_to "Home", root_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
+                <%= link_to "About Us", pages_officers_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
                 <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Contact Us", pages_contact_path, class: 'nav-link' %>
               </li>
               <% end %>
               <% if !session[:uid]%>
