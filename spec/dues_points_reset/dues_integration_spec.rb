@@ -10,7 +10,7 @@ RSpec.describe('Reseting dues and points', type: :feature) do
     click_on 'Sign in'
   end
 
-  it 'valid inputs create' do
+  it 'resets dues and points' do
     visit(new_student_member_path)
     fill_in('Uin', with: '328004941')
     fill_in('First name', with: 'Jiaming')
@@ -23,9 +23,6 @@ RSpec.describe('Reseting dues and points', type: :feature) do
     select('2022', from: 'student_member_expected_graduation_date_1i')
     select('May', from: 'student_member_expected_graduation_date_2i')
     click_on('Create account')
-  end
-
-  it 'resets dues and points' do
     page.set_rack_session(isAdmin: true)
     visit(student_members_path)
     page.check('Dues Paid')

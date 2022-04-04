@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
+  before_action :account_creating?, only: %i[index edit show new create]
   before_action :event_student_member_delete, only: %i[destroy]
   before_action :event_business_member_delete, only: %i[destroy]
   before_action :event_student_attendance_delete, only: %i[destroy]
