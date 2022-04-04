@@ -13,6 +13,9 @@
       <h3 class="card-title"><%= newsletter.title %></h3>
       <h6 class="card-subtitle mb-2 text-muted"><%= newsletter.date_posted %></h6>
       <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= newsletter.message %></p>
+      <% (0...newsletter.images.count).each do |image| %>
+        <%= image_tag(newsletter.images[image], style:'height:200px;width:300px;') %>
+      <% end %>
       
       <%= link_to 'Show', newsletter %>
       <% if session[:isAdmin] %>

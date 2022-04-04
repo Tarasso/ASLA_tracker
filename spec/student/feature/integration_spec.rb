@@ -170,6 +170,8 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('(512) 730-9368'))
     expect(page).to(have_content('2022-05-01'))
     expect(page).to(have_content('admindoe@example.com'))
+    expect(page).to(have_content('freshman'))
+    expect(page).to(have_content('BLA1'))
   end
 
   def create_student_member(_page)
@@ -184,6 +186,8 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     fill_in('Phone number', with: '5127309368')
     select('2022', from: 'student_member_expected_graduation_date_1i')
     select('May', from: 'student_member_expected_graduation_date_2i')
+    select('Bla1', from: 'student_member_program_level')
+    select('Freshman', from: 'student_member_student_classification')
     click_on('Create account')
   end
 end
