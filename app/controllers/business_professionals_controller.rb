@@ -37,7 +37,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def events
     @business_professional = BusinessProfessional.find(params[:id])
-    @events = Event.all
+    @events = Event.('finish_time > ?', Time.now)
     @event_business_professional = EventBusinessProfessional.all
   end
 
