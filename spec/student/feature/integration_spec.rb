@@ -12,12 +12,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     click_on 'Sign in'
   end
 
-  it 'users can see member tools nav bar' do
-    create_student_member(page)
-    visit root_path
-    expect(page).to(have_content('Member Tools'))
-  end
-
   # it 'officers can see show, edit, and destroy on members page' do
   #   create_student_member(page)
   #   page.set_rack_session(isAdmin: true)

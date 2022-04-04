@@ -59,12 +59,12 @@ Rails.application.routes.draw do
   resources :officer_pics
   resources :carousels
 
-  get 'pages/about'
   get 'pages/contact'
   get 'pages/home'
   get 'pages/officers'
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
   get 'pages/select_account_type'
+  get 'pages/events'
   get 'pages/points_leaderboard'
 end

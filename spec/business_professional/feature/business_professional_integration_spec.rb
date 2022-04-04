@@ -11,12 +11,6 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     click_on 'Sign in'
   end
 
-  it 'bpros can see member tools nav bar' do
-    create_business_professional(page)
-    visit root_path
-    expect(page).to(have_content('Member Tools'))
-  end
-
   it 'bpro can view their own information' do
     create_business_professional(page)
 
