@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
+  before_action :account_creating?, only: %i[index edit show new create]
   before_action :event_student_member_delete, only: %i[destroy]
   before_action :event_business_member_delete, only: %i[destroy]
   before_action :event_student_attendance_delete, only: %i[destroy]
@@ -12,7 +13,7 @@ class EventsController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @events = Event.page(params[:page]).per(@page_size)
     @events = @events.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @events  = @events.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+    @events  = @events.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /events/1 or /events/1.json

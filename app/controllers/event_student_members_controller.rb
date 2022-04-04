@@ -2,7 +2,7 @@
 
 class EventStudentMembersController < ApplicationController
   before_action :set_event_student_member, only: %i[show edit update destroy]
-  before_action :allowed_to_view?, only: %i[register unregister]
+  before_action :account_creating?, only: %i[index show new edit update destroy]
   before_action :admin?, only: %i[index show new edit update destroy]
   # GET /event_student_members or /event_student_members.json
   def index
@@ -10,7 +10,7 @@ class EventStudentMembersController < ApplicationController
     @event_student_members = EventStudentMember.select('event_student_members.id as id, first_name, name, uin, last_name, email, date').joins(:event).joins(:student_member)
     @event_student_members = @event_student_members.page(params[:page]).per(@page_size)
     @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @event_student_members = @event_student_members.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @event_student_members = @event_student_members.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_student_members/1 or /event_student_members/1.json

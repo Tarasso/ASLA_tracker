@@ -50,6 +50,7 @@ class StudentMember < ApplicationRecord
     self.fundraiser_point_amount = 0
     self.informational_point_amount = 0
     self.dues_paid = 0
+    self.total_points = 0
     save!
   end
 

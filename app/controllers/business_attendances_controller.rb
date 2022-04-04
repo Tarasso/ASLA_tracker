@@ -2,6 +2,7 @@
 
 class BusinessAttendancesController < ApplicationController
   before_action :set_business_attendance, only: %i[show edit update destroy]
+  before_action :account_creating?, only: %i[index show new edit update destroy]
 
   # GET /business_attendances or /business_attendances.json
   def index
@@ -10,7 +11,7 @@ class BusinessAttendancesController < ApplicationController
     @business_attendances = BusinessAttendance.select('business_attendances.id as id, org_name, first_name, name,  last_name, email, date').joins(:event).joins(:business_professional)
     @business_attendances = @business_attendances.page(params[:page]).per(@page_size)
     @business_attendances = @business_attendances.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @business_attendances = @business_attendances.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @business_attendances = @business_attendances.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /business_attendances/1 or /business_attendances/1.json

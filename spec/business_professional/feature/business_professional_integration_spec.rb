@@ -35,24 +35,6 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     expect(page).to(have_content('TAMU'))
   end
 
-  #   it 'officers can see show, edit, and destroy on bpro page' do
-  #     create_business_professional(page)
-  #     click_on 'Sign Out'
-
-  #     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
-  #     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_admin]
-  #     visit root_path
-  #     click_on 'Sign in'
-  #     create_student_member(page)
-
-  #     page.set_rack_session(isAdmin: true)
-  #     visit business_professionals_path
-
-  #     expect(page).to(have_content('Show'))
-  #     expect(page).to(have_content('Edit'))
-  #     expect(page).to(have_content('Delete'))
-  #   end
-
   it 'officers can see a bpro details' do
     create_business_professional(page)
     click_on 'Sign Out'
@@ -125,33 +107,10 @@ RSpec.describe('Creating a Business professional', type: :feature) do
     expect(page).to(have_content('You do not have the permission to access this page'))
   end
 
-  #   it 'valid inputs' do
-  #     create_business_professional(page)
-
-  #     visit business_professionals_path
-  #     expect(page).to(have_content('Company 1'))
-  #     expect(page).to(have_content('John'))
-  #     expect(page).to(have_content('Doe'))
-  #     expect(page).to(have_content('bpro@example.com'))
-  #   end
-
-  #   it 'user can search for bpro' do
-  #     create_business_professional(page)
-  #     click_on 'Sign Out'
-
-  #     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
-  #     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
-  #     visit root_path
-  #     click_on 'Sign in'
-  #     create_student_member(page)
-
-  #     visit business_professionals_path
-
-  #     fill_in 'q', with: 'Mrosko'
-  #     click_on 'Search'
-
-  #     expect(page).not_to(have_content('John'))
-  #   end
+  it 'bpro directed to dashboard after account creation' do
+    create_business_professional(page)
+    expect(page).to(have_content('Welcome to your home page!'))
+  end
 
   def create_business_professional(_page)
     visit(new_business_professional_path)

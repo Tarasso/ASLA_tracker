@@ -3,6 +3,7 @@
 class EventBusinessProfessionalsController < ApplicationController
   before_action :set_event_business_professional, only: %i[show edit update destroy]
   before_action :student?, only: %i[register unregister]
+  before_action :account_creating?, only: %i[index show new edit update destroy]
 
   # GET /event_business_professionals or /event_business_professionals.json
   def index
@@ -13,7 +14,7 @@ class EventBusinessProfessionalsController < ApplicationController
                                                                     ).joins(:event).joins(:business_professional)
     @event_business_professionals = @event_business_professionals.page(params[:page]).per(@page_size)
     @event_business_professionals = @event_business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @event_business_professionals = @event_business_professionals.where('LOWER(name) LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @event_business_professionals = @event_business_professionals.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_business_professionals/1 or /event_business_professionals/1.json
