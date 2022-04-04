@@ -14,7 +14,7 @@ class StudentMembersController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @student_members = @student_members.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present?
+    @student_members = @student_members.where('LOWER(first_name) LIKE ?', "%#{params[:q]}%") if params[:q].present? 
   end
 
   # GET /student_members/1 or /student_members/1.json
