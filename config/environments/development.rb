@@ -33,7 +33,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -78,19 +78,4 @@ Rails.application.configure do
 
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '253461508452-hgfsauo8s8u7oge681735l5h92dkf704.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
-
-  # Added by pranav
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'example.com',
-    user_name: 'testemailfor431@gmail.com',
-    password: 'EasyPassword',
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    open_timeout: 5,
-    read_timeout: 5
-  }
 end

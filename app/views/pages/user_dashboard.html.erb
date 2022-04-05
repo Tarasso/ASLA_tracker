@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>ASLA | Home</title>
+  </head>
+  <body>    
+  
+    <h1> Welcome to your home page!</h1>
+    <br/>
+
+    <h2>Your info:</h2>
+
+    <% if @is_student%>
+    <p><%= link_to 'Edit your information', edit_student_member_path(@user) %></p>
+    <% else %>
+    <p><%= link_to 'Edit your information', edit_business_professional_path(@user) %></p>
+    <% end %>
+
+
+    <p>First name: <%= @user.first_name %></p>
+    <p>Last name: <%= @user.last_name %></p>
+    <p>Email: <%= @user.email %></p>
+    <p>Phone: <%= @user.formatted_phone %></p>
+
+
+      
+    <% if @is_student%>
+      <p>UIN: <%= @user.uin %></p>
+      <p>Class year: <%= @user.class_year %></p>
+      <p>Expected Graduation Date: <%= @user.expected_graduation_date %></p>     
+      <p>Dues paid: <%= read_bool(@user.dues_paid) %></p>
+      <% if session[:isAdmin] %>
+        <p><%= @user.officer_title %></p>
+      <% end %>
+      <br/>
+      <% file = File.open("global_variables.txt")%>
+      <% file_info = file.read()%>
+      <h2>Required Points</h2>
+      <%= file_info %>
+      <br/>
+      <h2>Registered Events</h2>
+      <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
+      <% @event_list.each do |event| %>
+      <%@event_info = Event.find(event.event_id) %>
+          <p>Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+          <p>Event Name: <%= @event_info.name %></p>
+          <p>Location: <%= @event_info.location %></p>
+          <p>Time: <%=@event_info.start_time.strftime('%H:%M %p')%> - <%=@event_info.finish_time.strftime('%H:%M %p') %></p>
+          <p>Description: <%=@event_info.description %></p>
+          <p>Event Type: <%=@event_info.event_type %></p>
+      <% end %>
+      <h2>Point totals</h2>
+      <p>Social Points: <%= @user.social_point_amount %></p>
+      <p>Meeting Points: <%= @user.meeting_point_amount %></p>
+      <p>Fundraiser Points: <%= @user.fundraiser_point_amount %></p>
+      <p>Informational Points: <%= @user.informational_point_amount %></p> 
+
+    <% else %>
+      <p>Organization: <%= @user.org_name %></p>
+    <% end %>
+
+    <br/>
+    <br/>
+
+  
+  <% if session[:isAdmin] %>
+
+    <h4>Copy emails of:</h4>
+
+    <form action="/pages/user_dashboard" method="get" id="mail_form">
+
+      <input type="checkbox" id="group1" name="group1" value="officers">
+      <label for="group1">officers</label><br>
+      <input type="checkbox" id="group2" name="group2" value="non_officers">
+      <label for="group2">non-officer students</label><br>
+      <input type="checkbox" id="group3" name="group3" value="business">
+      <label for="group3">business professionals</label><br><br>
+
+      <input type="submit" value="Copy to Clipboard">
+    </form>
+
+    <br>
+    <p id="success"></p>
+
+    <% if @recipients_str %>
+
+      <script>
+      navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+
+        document.querySelector("#success").innerHTML = "Copied Emails";
+      });
+      </script>
+
+    <% end %>
+
+  <% end %>
+
+  </body>
+</html>

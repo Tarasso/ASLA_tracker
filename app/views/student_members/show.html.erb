@@ -21,13 +21,18 @@
 </p>
 
 <p>
-  <strong>Join date:</strong>
-  <%= @student_member.join_date %>
+  <strong>Student Classification:</strong>
+  <%= @student_member.student_classification %>
 </p>
 
 <p>
-  <strong>Member title:</strong>
-  <%= @student_member.member_title %>
+  <strong>Program Level:</strong>
+  <%= @student_member.program_level %>
+</p>
+
+<p>
+  <strong>Join date:</strong>
+  <%= @student_member.join_date %>
 </p>
 
 <p>
@@ -37,13 +42,20 @@
 
 <p>
   <strong>Phone number:</strong>
-  <%= @student_member.phone_number %>
+  <%= @student_member.formatted_phone %>
 </p>
 
 <p>
   <strong>Expected graduation date:</strong>
   <%= @student_member.expected_graduation_date %>
 </p>
+
+<p>
+  <strong>Dues paid:</strong>
+  <%= read_bool(@student_member.dues_paid) %>
+</p>
+
+<br/>
 
 <p>
   <strong>Social point amount:</strong>
@@ -65,20 +77,18 @@
   <%= @student_member.informational_point_amount %>
 </p>
 
+<br/>
+
+<p>
+  <strong>Member title:</strong>
+  <%= @student_member.member_title %>
+</p>
+
 <p>
   <strong>Officer title:</strong>
   <%= @student_member.officer_title %>
 </p>
 
-<p>
-  <strong>Dues paid:</strong>
-  <%= @student_member.dues_paid %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= @student_member.picture %>
-</p>
-
+<%= link_to 'All members', student_members_path%> |
 <%= link_to 'Edit', edit_student_member_path(@student_member) %> |
-<%= link_to 'Back', student_members_path %>
+<%= link_to 'Back', :back %>

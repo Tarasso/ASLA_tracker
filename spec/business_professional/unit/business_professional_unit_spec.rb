@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe(BusinessProfessional, type: :model) do
   subject do
-    described_class.new(org_name: 'Company 1', first_name: 'John', last_name: 'Doe', phone_num: '999-999-9999', email: 'email@email.com')
+    described_class.new(org_name: 'Company 1', first_name: 'John', last_name: 'Doe', phone_num: '+19798451234', email: 'email@email.com')
   end
 
   it 'is valid with valid attributes' do
@@ -16,6 +16,16 @@ RSpec.describe(BusinessProfessional, type: :model) do
     expect(subject).not_to(be_valid)
   end
 
+  it 'is valid with org name with spaces' do
+    subject.org_name = 'Chevron Inc'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with org name with hyphen' do
+    subject.org_name = 'Jones-Smith'
+    expect(subject).to(be_valid)
+  end
+
   it 'is not valid without an first name' do
     subject.first_name = nil
     expect(subject).not_to(be_valid)
@@ -24,6 +34,26 @@ RSpec.describe(BusinessProfessional, type: :model) do
   it 'is not valid without a last name' do
     subject.last_name = nil
     expect(subject).not_to(be_valid)
+  end
+
+  it 'is valid with a two last names' do
+    subject.last_name = 'Jones Smith'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with a junior title' do
+    subject.last_name = 'Jones Jr.'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with a hypenated last name' do
+    subject.last_name = 'Jones-Smith'
+    expect(subject).to(be_valid)
+  end
+
+  it 'is valid with a \' in the last name' do
+    subject.last_name = 'O\'Connor'
+    expect(subject).to(be_valid)
   end
 
   it 'is not valid without a phone number' do

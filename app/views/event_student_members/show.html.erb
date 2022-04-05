@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Member:</strong>
+  <%= StudentMember.find(@event_student_member.student_member_id).first_name%>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= Event.find(@event_student_member.event_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_event_student_member_path(@event_student_member) %> |
+<%= link_to 'Back', event_student_members_path %>

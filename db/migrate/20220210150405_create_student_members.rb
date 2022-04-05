@@ -16,7 +16,7 @@ class CreateStudentMembers < ActiveRecord::Migration[6.1]
       t.integer :informational_point_amount
       t.string :officer_title
       t.boolean :dues_paid
-      t.binary :picture
+      t.string :picture
 
       t.timestamps
     end

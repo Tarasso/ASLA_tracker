@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Time</th>
+      <th>Description</th>
+      <th>Event Type</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+      <th>Event Code</th>
+    </tr>
+    
+  </thead>
+
+  <tbody>
+
+<h1>Current Events</h1>
+    <% @events.each do |event| %>
+      <tr>
+        <% @ev = Event.find(event.id) %>
+        <% @attended = MemberAttendance.find_by(student_member_id: @student_member.id, event_id: event.id)%>
+        <% if !@attended %>
+          <td><%= event.date.strftime('%B %-d, %Y') %></td>
+          <td><%= event.name %></td>
+          <td><%= event.location %></td>
+          <td><%= event.start_time.strftime('%H:%M %p')%> - <%=event.finish_time.strftime('%H:%M %p') %></td>
+          <td><%= event.description %></td>
+          <td><%= event.event_type %></td>  
+          <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_member.id, event_id: event.id) %>
+          <% if @event_student_member %>
+              <td>Registered</td>
+              <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: "registration-button" %></td>
+          <% else %>
+              <td>Not registered</td>
+              <td><%= link_to 'Register', register_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), class: "registration-button" %></td>
+          <% end %>
+          <% if @event_student_member%>
+            <%= form_tag(eventcode_student_member_path(id: @student_member.id), method: "get") do %>
+            <td><%= hidden_field_tag :eid, event.id %></td>
+            <td><%= hidden_field_tag :mid, @student_member.id %></td>
+            <td><%= number_field_tag :event_code_entered %></td>
+            <td><%= button_tag 'Enter Code', class: "registration-button"%></td>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Back to dashboard', pages_user_dashboard_path %>
+<br>

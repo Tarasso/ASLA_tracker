@@ -12,18 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :date_posted %>
-    <%= form.date_select :date_posted %>
-  </div>
-
-  <div class="field">
-    <%= form.label :message %>
-    <%= form.text_field :message %>
-  </div>
-
-  <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :message %><br>
+    <div style="margin-left: 30px">
+      <%= form.text_area(:message, cols: 50, rows: 10)%>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
   </div>
 
   <div class="actions">

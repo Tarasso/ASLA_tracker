@@ -1,66 +1,43 @@
-<thead>
-<!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <style>
-        .hero-background{
-            background-image: url("<%= asset_path('bg.jpg') %>");
-            background-repeat: no-repeat;
-            background-size: auto;
-        }
-    </style>
-</thead>
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= link_to "Home", '/', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "View all members", student_members_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "About", 'about', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Officers", 'officers', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Contact Us", 'contact', class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "View all business professionals", business_professionals_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "Newletters", newsletters_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Events", events_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Gallery</a>
-            </li> -->
-            <li class="nav-item">
-            <%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class:'nav-link' %>
-            </li>
-            <li class="nav-item">
-            <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
-            </li>
-          </ul>
-        </div>
+<section class="py-4 text-center container">
+    <div class="row py-lg-4">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>About Us</h1>
+        <p class="lead text-muted">As a student-led organization we facilitate students in the field of landscape architecture by optimizing their educational experience acting as the link between academia and professional practice including but not limited to design charrettes, live software demos, professional lecturers, and firm/site visits.</p>
       </div>
-    </nav>
-  </header>
+    </div>
+  </section>
 
-<h1>Pages#officers</h1>
+<section class="py-4 text-center container">
+    <div class="row py-lg-4">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>Our Officers</h1>
+        <p class="lead text-muted">Meet our wonderful Officers!</p>
+      </div>
+    </div>
+  </section>
 
-<p>Find me in app/views/pages/officers.html.erb</p>
+
+<div class = "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+
+    <% @officer_pics.each do |officer_pic| %>
+        
+        
+        <div class="col text-center container">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                <div class = "py-3">
+                    <%= image_tag(officer_pic.image, style:'height:200px;width:200px;') %>
+                </div>
+                    <h4 class="card-text"> <%= officer_pic.name %></h4>
+                    <h5><%= officer_pic.officer_title %></h5>
+                    <p><%= officer_pic.officer_bio %></p>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
+</div>
+
+<% if session[:isAdmin] %>
+    <%= link_to "Manage Officers", officer_pics_path, class: 'btn btn-primary mx-auto' %>
+<% end %>

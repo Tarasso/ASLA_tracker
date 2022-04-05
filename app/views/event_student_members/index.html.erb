@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+<h1>Members Event Registration Table</h1>
+<div id="tabular" class="tabular-demo"></div>
+
+<script>
+  $(function() {
+    tabular.start('#tabular', {
+      columns: [
+        { title: 'Id', name: 'id' },
+        { title: 'Event Name', name: 'name' },
+        { title: 'Event Date', name: 'date' },
+        { title: 'UIN', name: 'uin' },
+        { title: 'First Name', name: 'first_name' },
+        { title: 'Last Name', name: 'last_name' },
+        { title: 'Email', name: 'email' },
+        { title: '', name: 'show_link', sort: false },
+        { title: '', name: 'show_link1', sort: false },
+        { title: '', name: 'show_link2', sort: false }
+      ],
+      source:      '/event_student_members.json'
+    });
+  });
+</script>
+
+<br>
+
+<%= link_to 'Register a Member for an Event', new_event_student_member_path %>

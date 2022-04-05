@@ -1,4 +1,6 @@
 require 'simplecov'
+require "rack_session_access/capybara"
+
 SimpleCov.start
 # (you can try SimpleCov.start 'rails' instead to see if the coverage report is different, but we only require the one above)
 

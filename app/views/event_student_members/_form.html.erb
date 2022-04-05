@@ -1,0 +1,27 @@
+<%= form_with(model: event_student_member) do |form| %>
+  <% if event_student_member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event_student_member.errors.count, "error") %> prohibited this event_student_member from being saved:</h2>
+
+      <ul>
+        <% event_student_member.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :student_member_id %>
+    <%= form.select :student_member_id, StudentMember.order(:first_name).map { |student_member| [student_member.first_name, student_member.id] }, include_blank: true, id: "id_of_the_student_member_id_select_box" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.select :event_id, Event.order(:name).map { |event| [event.name, event.id] }, include_blank: true, id: "id_of_the_event_id_select_box" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Sign up member for event" %>
+  </div>
+<% end %>

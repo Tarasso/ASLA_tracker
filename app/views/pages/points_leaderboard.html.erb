@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Points Leaderboard</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Points</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @student_members.each do |student_member| %>
+            <tr>
+                <td><%= @student_members.find_index(student_member) + 1 %></td>
+                <td><%= student_member.first_name + " " + student_member.last_name %></td>
+                <td><%= student_member.total_points %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

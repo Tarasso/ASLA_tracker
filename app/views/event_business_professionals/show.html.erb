@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business Professional:</strong>
+  <%= BusinessProfessional.find(@event_business_professional.business_professional_id).first_name%>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= Event.find(@event_business_professional.event_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) %> |
+<%= link_to 'Back', event_business_professionals_path %>
