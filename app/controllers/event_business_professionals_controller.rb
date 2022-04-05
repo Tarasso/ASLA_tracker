@@ -14,7 +14,7 @@ class EventBusinessProfessionalsController < ApplicationController
                                                                     ).joins(:event).joins(:business_professional)
     @event_business_professionals = @event_business_professionals.page(params[:page]).per(@page_size)
     @event_business_professionals = @event_business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @event_business_professionals = @event_business_professionals.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @event_business_professionals.where("CONCAT_WS(' ', first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR name LIKE :search OR org_name LIKE :search", search: "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_business_professionals/1 or /event_business_professionals/1.json

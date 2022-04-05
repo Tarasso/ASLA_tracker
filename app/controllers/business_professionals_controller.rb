@@ -13,14 +13,8 @@ class BusinessProfessionalsController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @business_professionals = BusinessProfessional.page(params[:page]).per(@page_size)
     @business_professionals = @business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    if params[:q].present?
-      @names = params[:q].split
-      @business_professionals = if @names.length == 2
-                                  @business_professionals.where('first_name LIKE ? OR last_name LIKE ?', "%#{@names[0]}", "%#{@names[1]}")
-                                else
-                                  @business_professionals.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%")
-                                end
-    end
+
+    @business_professionals.where("CONCAT(first_name, ' ', last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR org_name LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json
@@ -37,7 +31,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def events
     @business_professional = BusinessProfessional.find(params[:id])
-    @events = Event.('finish_time > ?', Time.now)
+    @events = Event.where('finish_time > ?', Time.zone.now)
     @event_business_professional = EventBusinessProfessional.all
   end
 
