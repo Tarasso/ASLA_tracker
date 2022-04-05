@@ -6,7 +6,6 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  before_action :print_session
 
   def print_session
     Rails.logger.debug(session[:profile_pic])
@@ -19,6 +18,10 @@ class ApplicationController < ActionController::Base
       Rails.logger.debug('NOT AN ADMIN')
       redirect_to(pages_unauthorized_path)
     end
+  end
+
+  def account_creating?
+    redirect_to(pages_select_account_type_path, notice: 'Please creating your account.') if session[:creatingAccount]
   end
 
   def allowed_to_view_student?

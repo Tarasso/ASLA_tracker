@@ -12,12 +12,6 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     click_on 'Sign in'
   end
 
-  it 'users can see member tools nav bar' do
-    create_student_member(page)
-    visit root_path
-    expect(page).to(have_content('Member Tools'))
-  end
-
   # it 'officers can see show, edit, and destroy on members page' do
   #   create_student_member(page)
   #   page.set_rack_session(isAdmin: true)
@@ -148,6 +142,11 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('admindoe@example.com'))
   end
 
+  it 'member directed to dashboard after account creation' do
+    create_student_member(page)
+    expect(page).to(have_content('Welcome to your home page!'))
+  end
+
   # it 'valid inputs create' do
   #   create_student_member(page)
 
@@ -161,6 +160,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
   # similar test, but different choices for drop down menus and testing for the show page
   it 'valid inputs show' do
     create_student_member(page)
+    visit student_member_path(StudentMember.last.id)
 
     expect(page).to(have_content('328004941'))
     expect(page).to(have_content('Jiaming'))
