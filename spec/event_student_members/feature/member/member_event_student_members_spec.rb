@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# frozen_string_literal: true
 
 # location: spec/feature/integration_spec.rb
 require 'rails_helper'
@@ -6,7 +7,7 @@ require 'rails_helper'
 RSpec.describe('Creating a Student Member', type: :feature) do
   before do
     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
+    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_admin]
     visit root_path
     click_on 'Sign in'
   end
@@ -26,6 +27,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select 'May', from: 'student_member_expected_graduation_date_2i'
     click_on 'Create account'
 
+    page.set_rack_session(isAdmin: true)
     visit new_event_path
 
     select '2022', from: 'event_date_1i'
@@ -40,11 +42,16 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     fill_in 'Description', with: 'Having fun'
     select 'Social', from: 'event_event_type'
     click_on 'Create Event'
+    event_code = Event.last.event_code
 
+    page.set_rack_session(isAdmin: true)
     visit events_student_member_path(StudentMember.last)
     click_on 'Register'
     expect(page).to(have_content('You have registered.'))
     click_on 'Unregister'
     expect(page).to(have_content('You have unregistered.'))
+    click_on 'Register'
+    fill_in 'event_code_entered', with: event_code
+    click_on 'Enter Code'
   end
 end

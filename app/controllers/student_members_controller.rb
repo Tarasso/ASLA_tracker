@@ -3,12 +3,54 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy dashboard events]
   before_action :admin?, only: [:destroy]
-  before_action :allowed_to_view?, only: %i[show edit update dashboard]
+  before_action :account_creating?, only: %i[index dashboard attended events edit show]
+  before_action :allowed_to_view_student?, only: %i[edit update dashboard]
+  before_action :allowed_to_view_student_info?, only: [:show]
   before_action :points_add, only: %i[eventcode]
+  before_action :student_member_event_delete, only: %i[destroy]
+  before_action :student_event_attendance_delete, only: %i[destroy]
+  after_action :attended, only: %i[eventcode]
+  after_action :event_student_member_delete, only: %i[eventcode]
+  after_action :req_points, only: %i[index]
+  after_action :reset_values, only: %i[index]
+
+  def reset_values
+    if params.key?(:dues) || params.key?(:points)
+
+      @group1 = params[:dues]
+      @group2 = params[:points]
+
+      @student_members = StudentMember.all
+
+      if @group1 == 'dues'
+        @student_members.each do |student|
+          student.update!(dues_paid: false)
+        end
+      end
+      if @group2 == 'points'
+        @student_members.each do |student|
+          student.update!(meeting_point_amount: 0)
+          student.update!(social_point_amount: 0)
+          student.update!(informational_point_amount: 0)
+          student.update!(fundraiser_point_amount: 0)
+        end
+      end
+    end
+  end
 
   # GET /student_members or /student_members.json
   def index
-    @student_members = StudentMember.all
+    @page_size = Integer((params[:page_size] || 10))
+    @student_members = StudentMember.page(params[:page]).per(@page_size)
+    @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+    @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
+  end
+
+  def req_points
+    if params.key?(:required_points)
+      @group3 = params[:required_points]
+      File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
+    end
   end
 
   # GET /student_members/1 or /student_members/1.json
@@ -24,14 +66,13 @@ class StudentMembersController < ApplicationController
                       else
                         StudentMember.find_by(uid: session[:uid])
                       end
-    @events = Event.all
+    @events = Event.where('finish_time > ?', Time.zone.now)
     @event_student_members = EventStudentMember.all
   end
 
   # GET /student_members/new
   def new
     # nobody is allowed to create an account if their account already exists
-    redirect_to(pages_unauthorized_path) unless session[:userID].nil?
     @student_member = StudentMember.new
   end
 
@@ -47,7 +88,8 @@ class StudentMembersController < ApplicationController
         session[:isAdmin] = StudentMember.where(uid: session[:uid]).pick(:member_title) == 'officer'
         session[:isMember] = StudentMember.find_by(uid: session[:uid])
         session[:userID] = StudentMember.where(uid: session[:uid]).pick(:id)
-        format.html { redirect_to(student_member_url(@student_member), notice: 'Student member was successfully created.') }
+        session[:creatingAccount] = false
+        format.html { redirect_to('/pages/user_dashboard') }
         format.json { render(:show, status: :created, location: @student_member) }
       else
         format.html { render(:new, status: :unprocessable_entity) }
@@ -61,6 +103,8 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if @student_member.update(student_member_params)
         format.json { render(:show, status: :ok, location: @student_member) }
+        @total_points = @student_member.meeting_point_amount + @student_member.fundraiser_point_amount + @student_member.social_point_amount + @student_member.informational_point_amount
+        @student_member.update!(total_points: @total_points)
         if Integer(params[:id], 10) == session[:userID]
           format.html { redirect_to(pages_user_dashboard_path(@student_member), notice: 'Account was successfully updated.') }
         else
@@ -79,6 +123,35 @@ class StudentMembersController < ApplicationController
     @social_points = @student_member.social_point_amount + 1
     @informational_points = @student_member.informational_point_amount + 1
     @fundraising_points = @student_member.fundraiser_point_amount + 1
+  end
+
+  def attended
+    @event = Event.find(params[:eid])
+    @ec = params[:event_code_entered]
+    @ec_i = Integer(@ec, 10)
+    @student_member = StudentMember.find(params[:mid])
+    @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
+    if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
+      @mem_attendance.update!(point_type: 'meeting')
+    elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
+      @mem_attendance.update!(point_type: 'social')
+    elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
+      @mem_attendance.update!(point_type: 'informational')
+    elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
+      @mem_attendance.update!(point_type: 'fundraising')
+    end
+    @total_points = @student_member.meeting_point_amount + @student_member.fundraiser_point_amount + @student_member.social_point_amount + @student_member.informational_point_amount
+    @student_member.update!(total_points: @total_points)
+  end
+
+  def event_student_member_delete
+    @event = Event.find(params[:eid])
+    @ec = params[:event_code_entered]
+    @ec_i = Integer(@ec, 10)
+    if @ec_i == @event.event_code
+      @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
+      @event_student_members.destroy!
+    end
   end
 
   def eventcode
@@ -104,6 +177,16 @@ class StudentMembersController < ApplicationController
         format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
       end
     end
+  end
+
+  def student_member_event_delete
+    @event_student_members = EventStudentMember.where(student_member_id: @student_member.id)
+    @event_student_members.each(&:destroy)
+  end
+
+  def student_event_attendance_delete
+    @member_attendances = MemberAttendance.where(student_member_id: @student_member.id)
+    @member_attendances.each(&:destroy)
   end
 
   # DELETE /student_members/1 or /student_members/1.json
@@ -136,7 +219,7 @@ class StudentMembersController < ApplicationController
   def student_member_params
     params.require(:student_member).permit(:uin, :first_name, :last_name, :class_year, :join_date, :member_title, :email, :phone_number,
                                            :expected_graduation_date, :social_point_amount, :meeting_point_amount, :fundraiser_point_amount,
-                                           :informational_point_amount, :officer_title, :dues_paid, :picture, :uid
+                                           :informational_point_amount, :officer_title, :dues_paid, :picture, :uid, :program_level, :student_classification
     )
   end
 end

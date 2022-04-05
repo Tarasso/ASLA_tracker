@@ -2,6 +2,7 @@
 
 class CarouselsController < ApplicationController
   before_action :set_carousel, only: %i[show edit update destroy]
+  before_action :admin?, only: %i[index show new edit update destroy]
 
   # GET /carousels or /carousels.json
   def index

@@ -33,7 +33,22 @@
         <p><%= @user.officer_title %></p>
       <% end %>
       <br/>
+      <% file = File.open("global_variables.txt")%>
+      <% file_info = file.read()%>
+      <h2>Required Points</h2>
+      <%= file_info %>
       <br/>
+      <h2>Registered Events</h2>
+      <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
+      <% @event_list.each do |event| %>
+      <%@event_info = Event.find(event.event_id) %>
+          <p>Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+          <p>Event Name: <%= @event_info.name %></p>
+          <p>Location: <%= @event_info.location %></p>
+          <p>Time: <%=@event_info.start_time.strftime('%H:%M %p')%> - <%=@event_info.finish_time.strftime('%H:%M %p') %></p>
+          <p>Description: <%=@event_info.description %></p>
+          <p>Event Type: <%=@event_info.event_type %></p>
+      <% end %>
       <h2>Point totals</h2>
       <p>Social Points: <%= @user.social_point_amount %></p>
       <p>Meeting Points: <%= @user.meeting_point_amount %></p>
@@ -46,6 +61,39 @@
 
     <br/>
     <br/>
+
+  
+  <% if session[:isAdmin] %>
+
+    <h4>Copy emails of:</h4>
+
+    <form action="/pages/user_dashboard" method="get" id="mail_form">
+
+      <input type="checkbox" id="group1" name="group1" value="officers">
+      <label for="group1">officers</label><br>
+      <input type="checkbox" id="group2" name="group2" value="non_officers">
+      <label for="group2">non-officer students</label><br>
+      <input type="checkbox" id="group3" name="group3" value="business">
+      <label for="group3">business professionals</label><br><br>
+
+      <input type="submit" value="Copy to Clipboard">
+    </form>
+
+    <br>
+    <p id="success"></p>
+
+    <% if @recipients_str %>
+
+      <script>
+      navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+
+        document.querySelector("#success").innerHTML = "Copied Emails";
+      });
+      </script>
+
+    <% end %>
+
+  <% end %>
 
   </body>
 </html>

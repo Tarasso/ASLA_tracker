@@ -4,7 +4,7 @@
 
   <div class="overlay">
     <h1 class="display-5 fw-normal text-white">American Society of Landscape Architects</h1>
-    <p class="lead fw-normal text-white">Texas A&M Student Chpt.</p>
+    <p class="lead fw-normal text-white">Texas A&M Student Chapter</p>
   </div>
 
     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
@@ -27,40 +27,28 @@
     
     <div class="container_fluid text-center mt-5 bg-light">
       <h2 class="container-fluid">Who Are We?</h2>
-      <p class = "container-fluid col-7">The general objective of this organization shall be to unite interested graduate and undergraduate Landscape Architecture students in an effort to combine interested and desires toward fulfilling educational and social needs as well as broadening the understanding of the profession and the Society.</p>
+      <p class = "container-fluid col-7">
+      The student Chapter of the American Society of Landscape Architects at Texas A&M is a student organization aimed at advancing the profession of Landscape Architecture through advocacy, communication, education, professional development, and fellowship. The general objective of this organization shall be to unite interested graduate and undergraduate Landscape Architecture students in an effort to combine interests and desires toward fulfilling educational and social needs as well as broadening the understanding of the profession and the Society.
+      </p>
     </div>
 
     <div class="container_fluid text-center mt-5">
       <h2> Upcoming Events</h2>
       <div class="container text-center">
         <div class="row justify-content-around">
-          <div class="col-4 card">
-            <h4>Google Talk</h4>
-            <h6>Location: Zachry 987</h5>
-            <h6>Time: 3pm-5pm, 02/31/2022</h5>
-            <p>Google shares about internship oppurtunities for landscape architects.</p>
-            <p>3 Points: Informational</p>
-            <a class="btn col-6 btn-primary mx-auto text-white" href="#" role="button">Register Now</a>
-            
-          </div>
-          <div class="col-4 card">
-            <h4>Amazon Talk</h4>
-            <h6>Location: Zachry 987</h5>
-            <h6>Time: 3pm-5pm, 02/31/2022</h5>
-            <p>Amazon shares about internship oppurtunities for landscape architects.</p>
-            <p>3 Points: Informational</p>
-            <a class="btn col-6 btn-primary mx-auto text-white" href="#" role="button">Register Now</a>
-            
-          </div>
-
-          <div class="col-4 card">
-            <h4>Microsoft Talk</h4>
-            <h6>Location: Zachry 987</h5>
-            <h6>Time: 3pm-5pm, 02/31/2022</h5>
-            <p>Microsoft shares about internship oppurtunities for landscape architects.</p>
-            <p>3 Points: Informational</p>
-            <a class="btn col-6 btn-primary mx-auto text-white" href="#" role="button">Register Now</a>
-          </div>
+          <% @event_not_started = Event.where("date > ?", Date.current) %>
+          <% @first_three_events = @event_not_started.first(3) %>
+          <% @first_three_events.each do |event| %>
+            <% @event_info = Event.find(event.id) %>  
+            <div class="col-4 card">
+              <h4> <%= @event_info.name %> </h4>
+              <h6>Location: <%= @event_info.location %></h5>
+              <h6>Time: <%= @event_info.start_time.strftime('%H:%M %p') %>, <%= @event_info.date.strftime(' %A, %B %w, %Y') %></h5>
+              <p> <%= @event_info.description %> </p>
+              <p>Event Type: <%= @event_info.event_type %></p>
+              <a class="btn col-6 btn-primary mx-auto text-white" href="#" role="button">Register Now</a>
+            </div>
+          <% end %> 
         </div>
       </div>
     </div>

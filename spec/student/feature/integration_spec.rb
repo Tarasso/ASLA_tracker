@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# frozen_string_literal: true
 
 # location: spec/feature/integration_spec.rb
 require 'rails_helper'
@@ -11,21 +12,15 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     click_on 'Sign in'
   end
 
-  it 'users can see member tools nav bar' do
-    create_student_member(page)
-    visit root_path
-    expect(page).to(have_content('Member Tools'))
-  end
+  # it 'officers can see show, edit, and destroy on members page' do
+  #   create_student_member(page)
+  #   page.set_rack_session(isAdmin: true)
+  #   visit student_members_path
 
-  it 'officers can see show, edit, and destroy on members page' do
-    create_student_member(page)
-    page.set_rack_session(isAdmin: true)
-    visit student_members_path
-
-    expect(page).to(have_content('Show'))
-    expect(page).to(have_content('Edit'))
-    expect(page).to(have_content('Destroy'))
-  end
+  #   expect(page).to(have_content('Show'))
+  #   expect(page).to(have_content('Edit'))
+  #   expect(page).to(have_content('Delete'))
+  # end
 
   it 'officer can show someone else\'s information' do
     create_student_member(page)
@@ -68,23 +63,23 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('123456789'))
   end
 
-  it 'user can search for member' do
-    create_student_member(page)
-    click_on 'Sign Out'
+  # it 'user can search for member' do
+  #   create_student_member(page)
+  #   click_on 'Sign Out'
 
-    Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
-    visit root_path
-    click_on 'Sign in'
-    create_student_member(page)
+  #   Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
+  #   Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
+  #   visit root_path
+  #   click_on 'Sign in'
+  #   create_student_member(page)
 
-    visit student_members_path
+  #   visit student_members_path
 
-    fill_in 'q', with: 'Mrosko'
-    click_on 'Search'
+  #   fill_in 'q', with: 'Mrosko'
+  #   click_on 'Search'
 
-    expect(page).not_to(have_content('Jiaming'))
-  end
+  #   expect(page).not_to(have_content('Jiaming'))
+  # end
 
   it 'members cannot see show, edit, and destroy on members page' do
     create_student_member(page)
@@ -92,7 +87,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
 
     expect(page).not_to(have_content('Show'))
     expect(page).not_to(have_content('Edit'))
-    expect(page).not_to(have_content('Destroy'))
+    expect(page).not_to(have_content('Delete'))
   end
 
   it 'user cannot show someone else\'s information' do
@@ -147,19 +142,25 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('admindoe@example.com'))
   end
 
-  it 'valid inputs create' do
+  it 'member directed to dashboard after account creation' do
     create_student_member(page)
-
-    visit student_members_path
-    expect(page).to(have_content('Jiaming'))
-    expect(page).to(have_content('Fu'))
-    expect(page).to(have_content('2023'))
-    expect(page).to(have_content('admindoe@example.com'))
+    expect(page).to(have_content('Welcome to your home page!'))
   end
+
+  # it 'valid inputs create' do
+  #   create_student_member(page)
+
+  #   visit student_members_path
+  #   expect(page).to(have_content('Jiaming'))
+  #   expect(page).to(have_content('Fu'))
+  #   expect(page).to(have_content('2023'))
+  #   expect(page).to(have_content('admindoe@example.com'))
+  # end
 
   # similar test, but different choices for drop down menus and testing for the show page
   it 'valid inputs show' do
     create_student_member(page)
+    visit student_member_path(StudentMember.last.id)
 
     expect(page).to(have_content('328004941'))
     expect(page).to(have_content('Jiaming'))
@@ -169,9 +170,11 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     expect(page).to(have_content('(512) 730-9368'))
     expect(page).to(have_content('2022-05-01'))
     expect(page).to(have_content('admindoe@example.com'))
+    expect(page).to(have_content('freshman'))
+    expect(page).to(have_content('BLA1'))
   end
 
-  def create_student_member(page)
+  def create_student_member(_page)
     visit(new_student_member_path)
     fill_in('Uin', with: '328004941')
     fill_in('First name', with: 'Jiaming')
@@ -183,6 +186,8 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     fill_in('Phone number', with: '5127309368')
     select('2022', from: 'student_member_expected_graduation_date_1i')
     select('May', from: 'student_member_expected_graduation_date_2i')
+    select('Bla1', from: 'student_member_program_level')
+    select('Freshman', from: 'student_member_student_classification')
     click_on('Create account')
   end
 end

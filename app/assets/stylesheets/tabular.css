@@ -1,77 +1,18 @@
-.tabular {
-  position: relative;
-}
-
-/* table */
-
-.tabular table {
-  width: 100%;
-}
-
-.tabular th {
-  text-align: left;
-}
-
-/* loader */
-
-.tabular .tabular-loader {
-  position: absolute;
-  top: 1em;
-  left: 50%;
-  width: 6em;
-  margin-left: -2em;
-  background: #e2b21a;
-  color: #fff;
-  z-index: 2;
-  padding: .4em .5em;
-  text-align: center;
-  font-size: .9em;
-  border-radius: .2em;
-}
-
-/* sort */
-
-.tabular .tabular-sort {
-  position: relative;
-  padding-right: 1em;
-}
-
-.tabular .tabular-sort:focus {
-  outline: none;
-}
-
-.tabular .tabular-sort:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0;
-  margin-top: -3px;
-  border-bottom: 6px solid #ddd;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-}
-
-.tabular .tabular-sort[data-sort="desc"]:before {
-  border-bottom: none;
-  border-top: 6px solid;
-}
-
-.tabular .tabular-sort-selected:before {
-  border-bottom-color: inherit;
-}
-
-/* pagination */
-
-.tabular-paginator .tabular-paginator-btns select,
-.tabular-paginator .tabular-paginator-btn {
-  margin-right: .5em;
-}
-
-.tabular-paginator .tabular-paginator-btns,
-.tabular-paginator .tabular-paginator-info {
-  display: inline-block;
-}
-
-.tabular-paginator .tabular-paginator-info {
-  margin-left: 1em;
-}
+.tabular{position:relative}
+.tabular table{width:100%}
+.tabular th{text-align:left}
+.tabular .tabular-loader{position:absolute;top:1em;left:50%;width:6em;margin-left:-2em;background:#d1d1d1;color:#fff;z-index:2;padding:.4em .5em;text-align:center;font-size:.9em;border-radius:.2em}
+.tabular .tabular-sort{position:relative;padding-right:1em}
+.tabular .tabular-sort:focus{outline:none}
+.tabular .tabular-sort:before{content:'';position:absolute;top:50%;right:0;margin-top:-3px;border-bottom:6px solid #ddd;border-left:4px solid transparent;border-right:4px solid transparent}
+.tabular .tabular-sort[data-sort="desc"]:before{border-bottom:none;border-top:6px solid}
+.tabular .tabular-sort-selected:before{border-bottom-color:inherit}.tabular-paginator .tabular-paginator-btns select,.tabular-paginator .tabular-paginator-btn{margin-right:.5em}.tabular-paginator .tabular-paginator-btns,.tabular-paginator .tabular-paginator-info{display:inline-block}
+.tabular-paginator .tabular-paginator-info{margin-left:1em}.monthly-wrp{border:1px solid #eee;padding:1em;top:6px;z-index:1000;box-shadow:0 0 5px rgba(153,153,153,0.2);border-radius:.2em;background:#fff}.monthly-wrp:before{content:'';border-bottom:6px solid #fff;border-left:6px solid transparent;border-right:6px solid transparent;position:absolute;top:-6px;left:6px;z-index:1002}.monthly-wrp:after{content:'';border-bottom:6px solid #eee;border-left:6px solid transparent;border-right:6px solid transparent;position:absolute;top:-7px;left:6px;z-index:1001}.monthly-wrp .years{margin-bottom:.8em;text-align:center}.monthly-wrp .years select{font-size:1em;width:100%}.monthly-wrp .years select:focus{outline:none}.monthly-wrp table{border-collapse:collapse;table-layout:fixed}.monthly-wrp td{padding:.1em}.monthly-wrp table button{width:100%;border:none;background:#F7EEEE;font-size:.8em;padding:.6em;cursor:pointer;border-radius:.2em}.monthly-wrp table button:hover{background:#EFDDDD}.monthly-wrp table button:focus{outline:none}
+.tabular-demo .tabular-btn{background:#833838;border:none;border-radius:2px;font-size:.8em;color:#ffffff;cursor:pointer;display:inline-block;padding:.2em .4em}
+.tabular-demo .tabular-btn:hover{background:#5e1a1a}
+.tabular-demo .tabular-btn[disabled]{color:#ffffff;cursor:default}.tabular-demo .tabular-btn[disabled]:hover{background:#804f4f}.tabular-demo .tabular-paginator select{height:1.8em}.tabular-demo .tabular-paginator-info{font-size:.8em}.tabular-demo .tabular-header{margin-bottom:1em}.tabular-demo .tabular-search{float:right}.tabular-demo 
+.tabular-search input{font-size:.8em;padding:.2em .3em;border:1px solid #ddd;border-radius:2px}.tabular-demo th,
+.tabular-demo td{font-size:.8em;padding:.2em;border-bottom:1px solid #eee}.tabular-demo th:last-child,.tabular-demo td:last-child{text-align:right}.tabular-demo 
+th{border-top:2px solid #eee;border-bottom-width:2px}.tabular-demo 
+th a{text-transform:uppercase;font-size:.8em;color:#500000;}.tabular-demo 
+.tabular-sort{padding-right:1.5em}

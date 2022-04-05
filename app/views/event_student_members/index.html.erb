@@ -1,30 +1,26 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Members Event Registration Table</h1>
+<div id="tabular" class="tabular-demo"></div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Member</th>
-      <th>Member Email</th>
-      <th>Event</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @event_student_members.each do |event_student_member| %>
-      <tr>
-        <td><%= StudentMember.find(event_student_member.member_id).first_name%></td>
-        <td><%= StudentMember.find(event_student_member.member_id).email%></td>
-        <td><%= Event.find(event_student_member.event_id).name %></td>
-        <td><%= link_to 'Show', event_student_member %></td>
-        <td><%= link_to 'Edit', edit_event_student_member_path(event_student_member) %></td>
-        <td><%= link_to 'Destroy', event_student_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<script>
+  $(function() {
+    tabular.start('#tabular', {
+      columns: [
+        { title: 'Id', name: 'id' },
+        { title: 'Event Name', name: 'name' },
+        { title: 'Event Date', name: 'date' },
+        { title: 'UIN', name: 'uin' },
+        { title: 'First Name', name: 'first_name' },
+        { title: 'Last Name', name: 'last_name' },
+        { title: 'Email', name: 'email' },
+        { title: '', name: 'show_link', sort: false },
+        { title: '', name: 'show_link1', sort: false },
+        { title: '', name: 'show_link2', sort: false }
+      ],
+      source:      '/event_student_members.json'
+    });
+  });
+</script>
 
 <br>
 
