@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def account_creating?
-    redirect_to(pages_select_account_type_path, notice: 'Please creating your account.') if session[:creatingAccount]
+    redirect_to(pages_select_account_type_path, notice: 'Please finish creating your account.') if session[:creatingAccount]
   end
 
   def allowed_to_view_student?

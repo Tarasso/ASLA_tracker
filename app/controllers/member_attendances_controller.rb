@@ -11,7 +11,8 @@ class MemberAttendancesController < ApplicationController
     @member_attendances = MemberAttendance.select('member_attendances.id as id, first_name, name, uin, last_name, email, date, point_type').joins(:event).joins(:student_member)
     @member_attendances = @member_attendances.page(params[:page]).per(@page_size)
     @member_attendances = @member_attendances.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @member_attendances = @member_attendances.where('name LIKE ?', "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+
+    @member_attendances.where("CONCAT_WS(' ', first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR name LIKE :search OR email LIKE :search OR uin LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /member_attendances/1 or /member_attendances/1.json

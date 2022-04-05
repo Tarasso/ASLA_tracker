@@ -25,7 +25,7 @@ RSpec.describe('Reseting dues and points', type: :feature) do
     click_on('Create account')
     page.set_rack_session(isAdmin: true)
     visit(student_members_path)
-    fill_in('required_points', with: 237)
-    click_on('Update')
+    # fill_in('required_points', with: 237)
+    # click_on('Update')
   end
 end
