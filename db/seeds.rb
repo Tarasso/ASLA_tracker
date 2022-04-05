@@ -24,5 +24,4 @@ StudentMember.find_or_create_by!(
   program_level: 1,
   student_classification: 1,
   total_points: 0
-
 )
