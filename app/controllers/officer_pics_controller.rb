@@ -2,6 +2,7 @@
 
 class OfficerPicsController < ApplicationController
   before_action :set_officer_pic, only: %i[show edit update destroy]
+  before_action :admin?, only: %i[index show new edit update destroy]
 
   # GET /officer_pics or /officer_pics.json
   def index
@@ -66,6 +67,6 @@ class OfficerPicsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def officer_pic_params
-    params.require(:officer_pic).permit(:name, :officer_title, :image)
+    params.require(:officer_pic).permit(:name, :officer_title, :image, :officer_bio)
   end
 end

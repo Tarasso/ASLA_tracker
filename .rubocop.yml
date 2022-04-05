@@ -38,6 +38,7 @@ AllCops:
         - "**/Rakefile"
         - "**/rails"
         - "**/vendor/**/*"
+        - "vendor/**/*"
         - "**/spec_helper.rb"
         - "node_modules/**/*"
         - "bin/*"

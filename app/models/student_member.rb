@@ -7,7 +7,7 @@ class StudentMember < ApplicationRecord
   enum member_title: { member: 1, officer: 2 }
   enum program_level: { BLA1: 1, BLA2: 2, BLA3: 3, BlA4: 4, MLA1: 5, MLA2: 6, MLA3: 7 }
   enum student_classification: { freshman: 1, sophomore: 2, junior: 3, senior: 4, super_senior: 5, graduate_student: 6 }
-  validates :uin, :first_name, :last_name, :class_year, :email, presence: true
+  validates :uin, :first_name, :last_name, :class_year, :email, :program_level, :student_classification, presence: true
 
   validates :uin, format: { with: /\A[0-9]{9}\z/, message: 'should be a 9 digit number' }
   validates :class_year, format: { with: /\A[0-9]{4}\z/, message: 'should be in the form of YYYY' }
