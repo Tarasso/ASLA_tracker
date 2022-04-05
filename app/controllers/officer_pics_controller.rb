@@ -2,6 +2,7 @@
 
 class OfficerPicsController < ApplicationController
   before_action :set_officer_pic, only: %i[show edit update destroy]
+  before_action :admin?, only: %i[index show new edit update destroy]
 
   # GET /officer_pics or /officer_pics.json
   def index

@@ -9,6 +9,8 @@ class PagesController < ApplicationController
     @carousel_pics = Carousel.all
   end
 
+  def help; end
+  
   def about; end
 
   def contact; end
