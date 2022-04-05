@@ -19,6 +19,7 @@ RSpec.describe('Creating/Editing a Newsletter', type: :feature) do
 
     fill_in 'Title', with: 'Intro'
     fill_in 'Message', with: 'Howdy we are ASLA'
+    attach_file('newsletter_images', 'spec/newsletter/feature/bg.jpg')
 
     click_on 'Create Newsletter'
     visit newsletters_path

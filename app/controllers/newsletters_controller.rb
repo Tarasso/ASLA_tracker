@@ -68,6 +68,6 @@ class NewslettersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def newsletter_params
-    params.require(:newsletter).permit(:date_posted, :message, :title)
+    params.require(:newsletter).permit(:date_posted, :message, :title, images: [])
   end
 end

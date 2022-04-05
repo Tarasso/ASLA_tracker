@@ -26,6 +26,13 @@
     <%= form.file_field :image %>
   </div>
 
+  <div class="field">
+    <%= form.label :officer_bio %><br>
+    <div style="margin-left: 30px">
+      <%= form.text_area(:officer_bio, cols: 50, rows: 10)%>
+    </div>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -43,15 +43,7 @@ class StudentMembersController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    if params[:q].present?
-      @names = params[:q].split
-      @student_members = if @names.length == 2
-                           @student_members.where('first_name LIKE ? OR last_name LIKE ?', "%#{@names[0]}", "%#{@names[1]}")
-                         else
-                           @student_members.where('first_name LIKE :search OR last_name LIKE :search OR email LIKE :search ', search: "%#{params[:q]}%")
-                         end
-
-    end
+    @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
   end
 
   def req_points
@@ -74,7 +66,7 @@ class StudentMembersController < ApplicationController
                       else
                         StudentMember.find_by(uid: session[:uid])
                       end
-    @events = Event.all
+    @events = Event.where('finish_time > ?', Time.zone.now)
     @event_student_members = EventStudentMember.all
   end
 
@@ -153,8 +145,13 @@ class StudentMembersController < ApplicationController
   end
 
   def event_student_member_delete
-    @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
-    @event_student_members.destroy!
+    @event = Event.find(params[:eid])
+    @ec = params[:event_code_entered]
+    @ec_i = Integer(@ec, 10)
+    if @ec_i == @event.event_code
+      @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
+      @event_student_members.destroy!
+    end
   end
 
   def eventcode
