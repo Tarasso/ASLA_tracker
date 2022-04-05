@@ -20,5 +20,9 @@ StudentMember.find_or_create_by!(
   officer_title: 'Super User',
   dues_paid: true,
   picture: 'https://lh3.googleusercontent.com/a-/AOh14GiO-O_u8o96IYdrk8a3EkABsLm5aqClsyIGg3Ovmw=s96-c',
-  uid: '112182193838019104439'
+  uid: '112182193838019104439',
+  program_level: 1,
+  student_classification: 1,
+  total_points: 0
+
 )
