@@ -16,6 +16,7 @@
       <tr>
         <td><%= officer_pic.name %></td>
         <td><%= officer_pic.officer_title %></td>
+        <td><%= officer_pic.officer_bio %></td>
         <%= image_tag(officer_pic.image, style:'width:10%') %>
         <td><%= link_to 'Show', officer_pic %></td>
         <td><%= link_to 'Edit', edit_officer_pic_path(officer_pic) %></td>
