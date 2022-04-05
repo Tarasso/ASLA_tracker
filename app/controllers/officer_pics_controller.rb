@@ -67,6 +67,6 @@ class OfficerPicsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def officer_pic_params
-    params.require(:officer_pic).permit(:name, :officer_title, :image, :officer_bio)
+    params.require(:officer_pic).permit(:name, :officer_title, :image)
   end
 end
