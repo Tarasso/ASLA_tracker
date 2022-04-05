@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get 'pages/contact'
   get 'pages/home'
   get 'pages/officers'
+  get 'pages/help'
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
   get 'pages/select_account_type'
