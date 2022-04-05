@@ -156,10 +156,10 @@ class StudentMembersController < ApplicationController
     @event = Event.find(params[:eid])
     @ec = params[:event_code_entered]
     @ec_i = Integer(@ec, 10)
-    if (@ec_i == @event.event_code)
+    if @ec_i == @event.event_code
       @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
       @event_student_members.destroy!
-    end 
+    end
   end
 
   def eventcode
