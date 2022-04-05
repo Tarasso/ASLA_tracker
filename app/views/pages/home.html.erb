@@ -43,16 +43,15 @@
             <div class="col-4 card">
               <h4> <%= @event_info.name %> </h4>
               <h6>Location: <%= @event_info.location %></h5>
-              <h6>Time: <%= @event_info.start_time.strftime('%H:%M %p') %>, <%= @event_info.date.strftime(' %A, %B %w, %Y') %></h5>
+              <h6>When: <%= @event_info.start_time.strftime('%I:%M %p') %>, <%= @event_info.date.strftime(' %A, %B %d, %Y') %></h6>
               <p> <%= @event_info.description %> </p>
               <p>Event Type: <%= @event_info.event_type %></p>
-              <a class="btn col-6 btn-primary mx-auto text-white" href="#" role="button">Register Now</a>
+              <a class="btn col-6 btn-primary mx-auto text-white" href="/pages/events" role="button">Register Now</a>
             </div>
           <% end %> 
         </div>
       </div>
     </div>
-
 
     <% if @newsletter%>
       <div class="container_fluid text-center mt-5 mb-5">
