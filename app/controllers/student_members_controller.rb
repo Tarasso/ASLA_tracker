@@ -67,6 +67,7 @@ class StudentMembersController < ApplicationController
                         StudentMember.find_by(uid: session[:uid])
                       end
     @events = Event.where('finish_time > ?', Time.zone.now)
+    @events_all = Event.all
     @event_student_members = EventStudentMember.all
   end
 

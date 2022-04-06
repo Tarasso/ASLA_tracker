@@ -2,18 +2,16 @@
 <html lang="en">
   <body>
 
-  <div class="overlay">
-    <h1 class="display-5 fw-normal text-white">American Society of Landscape Architects</h1>
-    <p class="lead fw-normal text-white">Texas A&M Student Chapter</p>
-  </div>
 
     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <% @carousel_pics.each_with_index do |carousel_pic, index| %>
-          <div id="carousel_item_<%= index %>" class="carousel-item <%= index == 0 ? 'active' : '' %>">
-            <%= image_tag(carousel_pic.image, style:'height:400px;width:100%;') %>
-          </div>
-        <% end %>
+      <div class="carousel-inner text-center">
+         <h1 class="display-5 fw-normal text-white">American Society of Landscape Architects</h1>
+         <p class="lead fw-normal text-white">Texas A&M Student Chapter</p>
+         <% @carousel_pics.each_with_index do |carousel_pic, index| %>
+         <div id="carousel_item_0" class="carousel-item 0">
+            <%= image_tag('download.jpg', style:'height:400px;width:100%;') %>
+         </div>
+       <% end %>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -66,7 +64,6 @@
         </div>
       </div>
     <% end %>
-
     <% if session[:isAdmin] %>
       <%= link_to "Edit Carousel", carousels_path, class: 'btn btn-primary mx-auto text-white' %>
     <% end %>
