@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class StudentMembersController < ApplicationController
-  before_action :set_student_member, only: %i[show edit update destroy dashboard events]
+  before_action :set_student_member, only: %i[show edit update destroy events]
   before_action :admin?, only: [:destroy]
-  before_action :account_creating?, only: %i[index dashboard attended events edit show]
-  before_action :allowed_to_view_student?, only: %i[edit update dashboard]
+  before_action :account_creating?, only: %i[index attended events edit show]
+  before_action :allowed_to_view_student?, only: %i[edit update]
   before_action :allowed_to_view_student_info?, only: [:show]
   before_action :points_add, only: %i[eventcode]
   before_action :student_member_event_delete, only: %i[destroy]
@@ -55,10 +55,6 @@ class StudentMembersController < ApplicationController
 
   # GET /student_members/1 or /student_members/1.json
   def show; end
-
-  def dashboard
-    @student_member = StudentMember.find(params[:id])
-  end
 
   def events
     @student_member = if StudentMember.find_by(id: params[:id])

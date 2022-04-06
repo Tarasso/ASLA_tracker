@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     Rails.logger.debug(session[:userID])
   end
 
+  def student?
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
+  end
+
   def admin?
     unless session[:isAdmin]
       Rails.logger.debug('NOT AN ADMIN')

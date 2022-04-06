@@ -22,14 +22,14 @@ RSpec.describe('Copying emails to clipboard', type: :feature) do
   end
 
   # test if officer can copy emails of business professionals
-  #it 'can copy business professionals emails' do
+  # it 'can copy business professionals emails' do
   #  create_business_professional(page)
   #  page.set_rack_session(isAdmin: true)
   #  visit('/pages/user_dashboard')
   #  page.check('Business Professionals')
   #  click_on('Copy to Clipboard')
   #  page.html.should(include('userdoe@example.com'))
-  #end
+  # end
 
   # test if officer can copy emails of officers
   it 'can copy officers emails' do
