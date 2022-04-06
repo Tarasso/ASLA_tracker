@@ -12,6 +12,7 @@ RSpec.describe('Creating an Officer Pic', type: :feature) do
   end
 
   it 'valid inputs create' do
+    page.set_rack_session(isAdmin: true)
     visit new_officer_pic_path
 
     fill_in 'Name', with: 'Josh'

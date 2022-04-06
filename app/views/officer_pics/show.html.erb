@@ -10,6 +10,11 @@
   <%= @officer_pic.officer_title %>
 </p>
 
+<p>
+  <strong>Officer Bio:</strong>
+  <%= @officer_pic.officer_bio %>
+</p>
+
 <%= image_tag(@officer_pic.image, style:'width:50%') %>
 
 <%= link_to 'Edit', edit_officer_pic_path(@officer_pic) %> |
