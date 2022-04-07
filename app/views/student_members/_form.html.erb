@@ -61,7 +61,7 @@
     <%= form.select :student_classification, options_for_select(StudentMember.student_classifications.map {|key, value| [key.humanize.capitalize, StudentMember.student_classifications.key(value)]}, @student_member.student_classification) %>
   </div>
 
-  <% if session[:isAdmin] %>
+  
     <h4>Admin adjustments:</h4>
 
     <div class="field">
@@ -99,7 +99,7 @@
     <%= form.text_field :informational_point_amount %>
     </div>
 
-  <% end %>
+
   
   <div class="actions">
 
