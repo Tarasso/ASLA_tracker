@@ -42,9 +42,9 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     #    click_on 'Create Event'
 
     visit pages_user_dashboard_path
-    expect(page).to(have_content('Social Points: 0'))
-    expect(page).to(have_content('Meeting Points: 0'))
-    expect(page).to(have_content('Fundraiser Points: 0'))
-    expect(page).to(have_content('Informational Points: 0'))
+    expect(page).to(have_content('Social Points'))
+    expect(page).to(have_content('Meeting Points'))
+    expect(page).to(have_content('Fundraising Points'))
+    expect(page).to(have_content('Informational Points'))
   end
 end

@@ -5,6 +5,7 @@
     <title>TAMU ASLA</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_pack_tag 'application'%>    <style>
         .flash__alert   { color: red; }
@@ -58,8 +59,9 @@
     <% @business_professional = BusinessProfessional.find_by(uid: session[:uid])  %>
     <% end %>
 
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000">
+
+    <header class="text-center text-white">
+      <nav class="navbar navbar-expand-lg navbar-dark navigation-clean" style="background-color: #800000; position: relative; z-index: 10000">
         <div class="container-fluid">
         <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
           <a class="navbar-brand" href="<%= root_path %>"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
@@ -114,7 +116,6 @@
           </div>
         </div>
       </nav>
-
     </header>
 
     <%= yield %>
