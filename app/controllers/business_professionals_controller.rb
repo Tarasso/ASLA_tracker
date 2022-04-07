@@ -32,6 +32,7 @@ class BusinessProfessionalsController < ApplicationController
   def events
     @business_professional = BusinessProfessional.find(params[:id])
     @events = Event.where('finish_time > ?', Time.zone.now)
+    @events_all = Event.all
     @event_business_professional = EventBusinessProfessional.all
   end
 

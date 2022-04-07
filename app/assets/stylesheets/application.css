@@ -13,14 +13,61 @@
  *= require_tree .
  *= require_self
  */
- 
+ /*Wave animation from https://jarv.is/notes/css-waving-hand-emoji */
+ .wave:hover {
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
+  display: inline-block;
+}
+
+@keyframes wave-animation {
+    0% { transform: rotate( 0.0deg) }
+   10% { transform: rotate(14.0deg) }
+   20% { transform: rotate(-8.0deg) }
+   30% { transform: rotate(14.0deg) }
+   40% { transform: rotate(-4.0deg) }
+   50% { transform: rotate(10.0deg) }
+   60% { transform: rotate( 0.0deg) }
+  100% { transform: rotate( 0.0deg) }
+}
  .profile-pic {
     border-radius: 50%;
-    width: 50%
+    width: 50%;
  }
 
+.info-column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
  .disabled input{
    background: #dddddd;
    border-color: #bbbbbb;
    pointer-events:none;
  }
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+  padding-bottom: 4rem;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  line-height: 100px; /* Vertically center the text there */
+  background-color: #d1d1d1;
+}
+
+
+
+
