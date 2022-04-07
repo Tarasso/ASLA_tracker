@@ -47,7 +47,10 @@ class PagesController < ApplicationController
       recipients = recipients.uniq
 
       @recipients_str = recipients.join('\n')
+
     end
+    @student_members = StudentMember.all
+    @student_members = @student_members.sort_by(&:total_points).reverse
   end
 
   def events; end

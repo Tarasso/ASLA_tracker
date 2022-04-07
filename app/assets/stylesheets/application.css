@@ -32,6 +32,7 @@
    60% { transform: rotate( 0.0deg) }
   100% { transform: rotate( 0.0deg) }
 }
+
  .profile-pic {
     border-radius: 50%;
     width: 50%;
@@ -89,7 +90,7 @@ body {
   padding-bottom: 4rem;
 }
 .footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
