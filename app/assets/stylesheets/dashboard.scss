@@ -78,29 +78,41 @@
     to{-webkit-transform:scale(1)}
 }
 
-/* shine */
-  .quiz_medal:hover:after {
-    opacity: 1;
-    top: -30%;
-    left: -30%;
-    transition-property: left, top, opacity;
-    transition-duration: 0.7s, 0.7s, 0.15s;
-    transition-timing-function: ease;
+/* Shine effect from https://codepen.io/keralpatel/pen/BajqRWK*/
+.quiz-medal__circle:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 50px;
+  height: 100%;
+  background: rgba(255,255,255, 0.3);
+  transform: skewX(-30deg);
+  animation-name: slide;
+  animation-duration: 7s;
+  animation-timing-function: ease-in-out;
+  animation-delay: .3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  background: linear-gradient(
+      to right, 
+      rgba(255, 255, 255, 0.13) 0%,
+      rgba(255, 255, 255, 0.13) 77%,
+      rgba(255, 255, 255, 0.5) 92%,
+      rgba(255, 255, 255, 0.0) 100%
+    );
   }
-  
-  @keyframes shine{
-    10% {
-      opacity: 1;
-      top: -30%;
-      left: -30%;
-      transition-property: left, top, opacity;
-      transition-duration: 0.7s, 0.7s, 0.15s;
-      transition-timing-function: ease;
+  @keyframes slide {
+    0% {
+      left: -80;
+      top: 0;
+    }
+    50% {
+      left: 50px;
+      top: 0px;
     }
     100% {
-      opacity: 0;
-      top: -30%;
-      left: -30%;
-      transition-property: left, top, opacity;
+      left: 100px;
+      top: 0;
     }
   }
