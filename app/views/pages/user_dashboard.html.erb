@@ -177,9 +177,9 @@
           <div class="row">
             <% @point_leaders.each do |leader| %>
               <% if @point_leaders.find_index(leader) + 1 == 1%>
-                <div class="col-md-4" style="padding: 10px">
+                <div class="col-md-4" style="padding: 20px; padding-top: 5px">
                   <div class="col" style="float: left">
-                    <div class="quiz-medal">
+                    <div class="quiz-medal" style="padding-left: 20px">
                       <div class="quiz-medal__circle quiz-medal__circle--gold">
                         <span>1</span>
                       </div>
@@ -192,9 +192,9 @@
                   </div>
                 </div>
               <% elsif @point_leaders.find_index(leader) + 1 == 2%>
-                <div class="col-md-4" style="padding: 10px">
+                <div class="col-md-4" style="padding: 20px; padding-top: 5px">
                   <div class="col" style="float: left">
-                    <div class="quiz-medal">
+                    <div class="quiz-medal" style="padding-left: 20px">
                       <div class="quiz-medal__circle quiz-medal__circle--silver">
                         <span>2</span>
                       </div>
@@ -207,9 +207,9 @@
                   </div>
                 </div>
               <% else %>
-                <div class="col-md-4" style="padding: 10px">
+                <div class="col-md-4" style="padding: 20px; padding-top: 5px">
                   <div class="col" style="float: left">
-                    <div class="quiz-medal">
+                    <div class="quiz-medal" style="padding-left: 20px">
                       <div class="quiz-medal__circle quiz-medal__circle--bronze">
                         <span>3</span>
                       </div>
