@@ -48,3 +48,57 @@
    border-color: #bbbbbb;
    pointer-events:none;
  }
+
+ .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+ .btn-primary {
+    background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  }
+
+  .btn-primary:hover {
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+
+  .nav-link {
+    font-size: 20px !important;
+    color: white !important;
+  }
+
+  .nav-link:hover {
+    background-color: #500000 !important;
+    color: #a7a7a7 !important;
+  }
+
+  .navbar-brand:hover {
+    background-color: #500000 !important;
+  }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+  padding-bottom: 4rem;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  line-height: 100px; /* Vertically center the text there */
+  background-color: #d1d1d1;
+}
+
+
+
+
