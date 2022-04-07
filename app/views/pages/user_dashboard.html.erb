@@ -1,99 +1,170 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>ASLA | Home</title>
-  </head>
-  <body>    
-  
-    <h1> Welcome to your home page!</h1>
-    <br/>
-
-    <h2>Your info:</h2>
-
+<div class="dashboard" style="padding: 20px">
     <% if @is_student%>
-    <p><%= link_to 'Edit your information', edit_student_member_path(@user) %></p>
-    <% else %>
-    <p><%= link_to 'Edit your information', edit_business_professional_path(@user) %></p>
+      <h1 style="font-weight: normal; color: #800000"> Howdy, <%=@user.first_name%>! <span class="wave">👋</span></h1>
+      <br>
     <% end %>
-
-
-    <p>First name: <%= @user.first_name %></p>
-    <p>Last name: <%= @user.last_name %></p>
-    <p>Email: <%= @user.email %></p>
-    <p>Phone: <%= @user.formatted_phone %></p>
-
-
-      
-    <% if @is_student%>
-      <p>UIN: <%= @user.uin %></p>
-      <p>Class year: <%= @user.class_year %></p>
-      <p>Expected Graduation Date: <%= @user.expected_graduation_date %></p>     
-      <p>Dues paid: <%= read_bool(@user.dues_paid) %></p>
-      <% if session[:isAdmin] %>
-        <p><%= @user.officer_title %></p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card shadow border-start-primary py-2" style="height: 100%">
+          <div class="card-body">
+            <h2>Your Information:</h2>   
+            <% if @is_student%>
+              <h4 style="padding: 10px">UIN: <%= @user.uin %></h4>
+            <% end %>
+            <h4 style="padding: 10px">First name: <%= @user.first_name %></h4>
+            <h4 style="padding: 10px">Last name: <%= @user.last_name %></h4>
+            <h4 style="padding: 10px">Email: <%= @user.email %></h4>
+            <h4 style="padding: 10px">Phone: <%= @user.formatted_phone %></h4>
+            <% if session[:isAdmin] %>
+              <h4 style="padding: 10px">Officer Title: <%= @user.officer_title %></h4>
+            <% end %>
+            <% if @is_student%>
+              <h4 style="padding: 10px">Class year: <%= @user.class_year %></h4>
+              <h4 style="padding: 10px">Expected Graduation Date: <%= @user.expected_graduation_date.strftime('%B %Y') %></h4>     
+              <h4 style="padding: 10px">Dues paid: <%= read_bool(@user.dues_paid) %></h4>
+            <% else %>
+              <h4 style="padding: 10px">Organization: <%= @user.org_name %></h4>
+            <% end %>
+            <% if @is_student%>
+              <p class="text-dark fw-bold h5 mb-0"><%= link_to 'Edit your information', edit_student_member_path(@user) %></p>
+            <% else %>
+              <p class="text-dark fw-bold h5 mb-0"><%= link_to 'Edit your information', edit_business_professional_path(@user) %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% if @is_student %>
+      <div class="col-md-3">
+        <div class="card shadow border-start-primary py-2" style="height: 100%">
+          <div class="card-body">
+            <h2>Point Breakdown</h2>
+            <div class="row align-items-center no-gutters">
+              <div class="col me-4">
+                <div class=row>
+                  <div class=col>
+                    <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000"><span>Total Points</span></div>
+                    <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
+                  </div>
+                  <div class=col>
+                    <% file = File.open("global_variables.txt")%>
+                    <% req_points = file.read()%>
+                    <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000"><span>Required Points</span></div>
+                    <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%= req_points%></span></div>
+                  </div>
+                </div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000"><span>Meeting Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.meeting_point_amount%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000"><span>Social Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.social_point_amount%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000"><span>Informational Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.informational_point_amount%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000"><span>Fundraising Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.fundraiser_point_amount%></span></div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area"><canvas id="doughnutChart" height="10" width="15" style="display: block; height: 100px; width: 124px;"></canvas></div>
+                <% if (@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount) > 0 %>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+                <script>
+                  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                  var myLineChart = new Chart(ctxD, {
+                    type: 'doughnut',
+                    data: {
+                      labels: ["Meeting", "Social", "Informational", "Fundraising"],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                      }]
+                    },
+                    options: {
+                      responsive: true,
+                      maintainAspectRatio: true,
+                    }
+                    }); 
+                </script>
+                <% end %>
+              </div>
+              <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <% end %>
-      <br/>
-      <% file = File.open("global_variables.txt")%>
-      <% file_info = file.read()%>
-      <h2>Required Points</h2>
-      <%= file_info %>
-      <br/>
-      <h2>Registered Events</h2>
-      <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
-      <% @event_list.each do |event| %>
-      <%@event_info = Event.find(event.event_id) %>
-          <p>Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
-          <p>Event Name: <%= @event_info.name %></p>
-          <p>Location: <%= @event_info.location %></p>
-          <p>Time: <%=@event_info.start_time.strftime('%H:%M %p')%> - <%=@event_info.finish_time.strftime('%H:%M %p') %></p>
-          <p>Description: <%=@event_info.description %></p>
-          <p>Event Type: <%=@event_info.event_type %></p>
-      <% end %>
-      <h2>Point totals</h2>
-      <p>Social Points: <%= @user.social_point_amount %></p>
-      <p>Meeting Points: <%= @user.meeting_point_amount %></p>
-      <p>Fundraiser Points: <%= @user.fundraiser_point_amount %></p>
-      <p>Informational Points: <%= @user.informational_point_amount %></p> 
+      <div class="col-md-5">
+        <div class="card shadow border-start-primary py-2" style="height: 100%">
+          <div class="card-body">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
 
-    <% else %>
-      <p>Organization: <%= @user.org_name %></p>
-    <% end %>
+  <!-- Wrapper for slides -->
 
-    <br/>
-    <br/>
 
-  
-  <% if session[:isAdmin] %>
-
-    <h4>Copy emails of:</h4>
-
-    <form action="/pages/user_dashboard" method="get" id="mail_form">
-
-      <input type="checkbox" id="group1" name="group1" value="officers">
-      <label for="group1">officers</label><br>
-      <input type="checkbox" id="group2" name="group2" value="non_officers">
-      <label for="group2">non-officer students</label><br>
-      <input type="checkbox" id="group3" name="group3" value="business">
-      <label for="group3">business professionals</label><br><br>
-
-      <input type="submit" value="Copy to Clipboard">
-    </form>
-
+            <h2>Registered Events</h2>
+            <div class="carousel-inner">
+            <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
+            <% @event_list.each do |event| %>
+                <div class="item active">
+              <div class="card shadow" style="width:50%">
+                <div class="card-body">
+                <%@event_info = Event.find(event.event_id) %>
+                <h4>Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></h4>
+                <h4>Event Name: <%= @event_info.name %></h4>
+                <h4>Location: <%= @event_info.location %></h4>
+                <h4>Time: <%=@event_info.start_time.strftime('%H:%M %p')%> - <%=@event_info.finish_time.strftime('%H:%M %p') %></h4>
+                <h4>Description: <%=@event_info.description %></h4>
+                <h4>Event Type: <%=@event_info.event_type %></h4>
+                </div>
+                </div>
+              </div>
+            <% end %>
+              <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <br>
-    <p id="success"></p>
-
-    <% if @recipients_str %>
-
-      <script>
-      navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
-
-        document.querySelector("#success").innerHTML = "Copied Emails";
-      });
-      </script>
-
+    <% if session[:isAdmin] %>
+    <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow border-start-primary py-2" style="height: 100%">
+        <h2 style="padding: 10px">Officer Tools</h2>
+        <h4 style="padding: 10px">Copy emails of:</h4>
+        <form style="padding: 10px" action="/pages/user_dashboard" method="get" id="mail_form">
+          <input type="checkbox" id="group1" name="group1" value="officers">
+          <label for="group1">Officers</label><br>
+          <input type="checkbox" id="group2" name="group2" value="non_officers">
+          <label for="group2">Non-Officer Students</label><br>
+          <input type="checkbox" id="group3" name="group3" value="business">
+          <label for="group3">Business Professionals</label><br><br>
+          <input type="submit" value="Copy to Clipboard">
+        </form>
+        <p id="success"></p>
+        <% if @recipients_str %>
+        <script>
+          navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+              document.querySelector("#success").innerHTML = "Copied Emails";
+            });
+        </script>
+        <% end %>
+      </div>
+    </div>
+    </div>
     <% end %>
+    </div>
 
-  <% end %>
 
-  </body>
-</html>

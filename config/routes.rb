@@ -49,7 +49,6 @@ Rails.application.routes.draw do
 
   resources :student_members do
     member do
-      get :dashboard
       get :events
       get :eventcode
     end
