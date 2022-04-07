@@ -121,7 +121,6 @@ ActiveRecord::Schema.define(version: 2022_04_01_181516) do
     t.string "officer_title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "d"
     t.string "officer_bio"
   end
 
