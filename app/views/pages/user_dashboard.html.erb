@@ -3,6 +3,7 @@
     <h1 style="font-weight: normal; color: #800000;"> <span style="font-weight: bold">Howdy,</span> <%=@user.first_name%>! <span class="wave">👋</span></h1>
     <br>
   <% end %>
+   <% @student_user = StudentMember.find_by(uid: session[:uid]) %>
   <div class="row">
     <div class="col-md-4" style="padding: 10px">
         <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%"> <!-- height difference -->
@@ -52,8 +53,8 @@
       </div>
     </div>
     <% if @is_student %>
-    <div class="col-md-3" style="padding: 10px">
-        <div class="card shadow border-start-primary py-2" style="padding-left: 10px">
+      <div class="col-md-3" style="padding: 10px">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%;">
           <div class="card-body" style= "padding: 5px">
           <h2>Point Breakdown</h2>
           <div class="row align-items-center no-gutters">
@@ -63,7 +64,7 @@
                   <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Total Points</span></div>
                   <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
                 </div>
-                <div class=col>
+                <div class=col style="padding-right: 0">
                   <% file = File.open("global_variables.txt")%>
                   <% req_points = file.read()%>
                   <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Required Points</span></div>
@@ -79,139 +80,123 @@
               <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Fundraising Points</span></div>
               <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.fundraiser_point_amount%></span></div>
             </div>
+            <% @remaining_points = req_points.to_i - (@user.meeting_point_amount + @user.social_point_amount + @user.informational_point_amount + @user.fundraiser_point_amount) %>
             <div class="card-body">
               <div class="chart-area"><canvas id="doughnutChart" height="10" width="25" style="display: block; height: 100px; width: 124px;"></canvas></div>
-              <% if (@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount) > 0 %>
-              <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
-              <script>
-                var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                var myLineChart = new Chart(ctxD, {
-                  type: 'doughnut',
-                  data: {
-                    labels: ["Meeting", "Social", "Informational", "Fundraising"],
-                    datasets: [{
-                      data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
-                      backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                      hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-                    }]
-                  },
-                  options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                  }
-                  }); 
-              </script>
-              <% end %>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+                <% if @remaining_points > 0 %>
+                  <script>
+                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                    var myLineChart = new Chart(ctxD, {
+                      type: 'doughnut',
+                      data: {
+                        labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
+                        datasets: [{
+                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
+                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true, maintainAspectRatio: true, }}); 
+                  </script>
+                <% else %>
+                  <script>
+                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                    var myLineChart = new Chart(ctxD, {
+                      type: 'doughnut',
+                      data: {
+                        labels: ["Meeting", "Social", "Informational", "Fundraising"],
+                        datasets: [{
+                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
+                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true, maintainAspectRatio: true,}}); 
+                  </script>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     <% end %>
+    <% if @is_student %>
     <div class="col-md-5" style="padding: 10px; padding-left: 20px">
       <div class="row" style="padding-bottom: 10px; height: 50%;">
         <div class="card shadow border-start-primary py-2">
           <div class="card-body" style= "padding: 5px">
-            <h2>Registered Events</h2>
-                        <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+          <h2>Upcoming Events</h2>
+            <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
             <section>
               <div class="container">
                 <div class="row">
                   <div class="col-6 text-right">
-                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-bottom: 5px !important;">
                       <i class="fa fa-arrow-left"></i>
                     </a>
-                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-bottom: 5px !important;">
                       <i class="fa fa-arrow-right"></i>
                     </a>
                   </div>
                   <div class="col-12">
-                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <% @event_list = Event.all.first(3)%>
+                    <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" data-interval="false">
                       <div class="carousel-inner">
                         <div class="carousel-item active">
                           <div class="row">
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <% @event_list.each do |event| %>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 20vh">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                    <div class = "contents" style="overflow-x: hidden; overflow-y: auto;">
+                                      <p style="margin: 0;">Event Name: <%= event.name %></p>
+                                      <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
+                                      <p style="margin: 0">Location: <%= event.location %></p>
+                                      <p style="margin: 0">Time: <%=event.start_time.strftime('%H:%M %p')%>-<%=event.finish_time.strftime('%H:%M %p') %></p>
+                                    </div>
+                                  </div>
+                                  <div class="row" style="padding: 20px">
+                                    <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
+                                    <% if @event_student_member %>
+                                        <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: 'event-button', style: "text-align: center;"%>
+                                    <% else %>
+                                        <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), class: 'event-button', style: "text-align: center;"%>
+                                    <% end %>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
+                            <% end %>
                           </div>
                         </div>
-                        <div class="carousel-item">
-                          <div class="row">
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <% @event_list = Event.all%>
+                        <% @counter_events = 0%>
+                        <% @counter_2 = 0%>
+                        <% @event_list.each do |event| %>
+                          <% if (@event_list.count > 3)  &&  (@counter_events > 2) %>
+                            <% if @counter_2 == 0 %>
+                              <div class="carousel-item">
+                                <div class="row">
+                            <% end %>
+                            <% @counter_2 += 1%>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 20vh">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                  <p style="margin: 0;">Event Name: <%= event.name %></p>
+                                  <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
+                                  <p style="margin: 0">Location: <%= event.location %></p>
+                                  <p style="margin: 0">Time: <%=event.start_time.strftime('%H:%M %p')%>-<%=event.finish_time.strftime('%H:%M %p') %></p>
+                                  <p style="margin: 0">Event Type: <%=event.event_type %></p> 
+                                </div>
+                                <div class="row" style="padding: 20px">
+                                  <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
+                                  <% if @event_student_member %>
+                                    <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: 'event-button', style: "text-align: center;"%>
+                                  <% else %>
+                                    <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), class: 'event-button', style: "text-align: center;"%>
+                                  <% end %>
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title dsfdfsdtreatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <% if @counter_2 == 3 %>
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="row">
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Specfdgdfge treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title dsfdfsdtreatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                              <% @counter_2 = 0%>
+                            <% end %>
+                          <% end %>
+                          <% @counter_events += 1%>
+                        <% end %>
                       </div>
                     </div>
                   </div>
@@ -225,78 +210,100 @@
       <div class="row" style="height: 50%">
         <div class="card shadow border-start-primary py-2">
           <div class="card-body" style= "padding: 5px">
-            <h2>Attended Events</h2>
+          <h2>Registered Events</h2>
                         <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
             <section>
               <div class="container">
                 <div class="row">
-                  <div class="col-6 text-right">
-                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                  <div class="col-6 text-right" style="float: right !important">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-bottom: 10px !important;">
                       <i class="fa fa-arrow-left"></i>
                     </a>
-                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators1" role="button" data-slide="next">
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-bottom: 10px !important;">
                       <i class="fa fa-arrow-right"></i>
                     </a>
                   </div>
                   <div class="col-12">
-                    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <% @event_list = EventStudentMember.where(student_member_id: @user.id).first(3)%>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                       <div class="carousel-inner">
                         <div class="carousel-item active">
                           <div class="row">
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <% @event_list.each do |event| %>
+                              <% @event_info = Event.find(event.event_id) %>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 20vh">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                    <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
+                                    <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+                                    <p style="margin: 0">Location: <%= @event_info.location %></p>
+                                    <p style="margin: 0">Description: <%= "The student Chapter of the American Society of Landscape Architects at Texas A&M is a student organization aimed at advancing the profession of Landscape Architecture through advocacy, communication, education, professional development, and fellowship. The general objective of this organization shall be to unite interested graduate and undergraduate Landscape Architecture students in an effort to combine interests and desires toward fulfilling educational and social needs as well as broadening the understanding of the profession and the Society." %></p>
+                                    <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>                    
+                                  </div>
+                                  <div class="row" style="padding: 20px">
+                                      <div class="col event-button" onclick="openForm()" style="text-align: center;">
+                                        <span style="font-size: 1em">Enter Code</span>
+                                      </div>
+                                      <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
+                                      <div class="form-popup" id="myForm"> 
+                                        <% if @event_student_member %>
+                                            <%= form_tag(eventcode_student_member_path(id: @student_user.id), method: "get") do %>
+                                            <%= hidden_field_tag :eid, event.id %>
+                                            <%= hidden_field_tag :mid, @student_user.id %>
+                                            <%= number_field_tag :event_code_entered %>
+                                            <%= button_tag 'Submit Code', class: "col event-button" %>
+                                            <% end %>
+                                        <% end %>
+                                      </div>
+                                      <script>
+                                        function openForm() {
+                                          document.getElementById("myForm").style.display = "block";
+                                        }
+
+                                        function closeForm() {
+                                          document.getElementById("myForm").style.display = "none";
+                                        }
+                                      </script>
+                                    </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Special title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
+                            <% end %>
                           </div>
                         </div>
-                        <div class="carousel-item">
-                          <div class="row"> 
+                        <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
+                        <% @counter_events = 0%>
+                        <% @counter_2 = 0%>
+                        <% @event_list.each do |event| %>
+                          <% @event_info = Event.find(event.event_id) %>
+                          <% if (@event_list.count > 3)  &&  (@counter_events > 2) %>
+                            <% if @counter_2 == 0 %>
+                              <div class="carousel-item">
+                                <div class="row">
+                            <% end %>
+                            <% @counter_2 += 1%>
                             <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">qweqweqwe title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                              <div class="card" style="height: 20vh">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                  <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
+                                  <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+                                  <p style="margin: 0">Location: <%= @event_info.location %></p>
+                                  <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>                    
+                                </div>
+                                <div class="row" style="padding: 20px">
+                                  <div class="col event-button" onclick="openForm()" style="text-align: center;">
+                                    <span style="font-size: 1em">Enter Code</span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">Swqeqweqwe title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <% if @counter_2 == 3 %>
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h4 class="card-title">sdfsdfsdf title treatment</h4>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                              <% @counter_2 = 0%>
+                            <% end %>
+                          <% end %>
+                          <% @counter_events += 1%>
+                        <% end %>
                       </div>
                     </div>
                   </div>
@@ -308,45 +315,72 @@
         </div>
       </div>
     </div>
+    <% end %>
   </div>
   <div class="row">
     <% if session[:isAdmin] %>
-    <div class="col-md-4" style="padding: 10px">
-      <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%; padding-top: 0"> <!-- height difference -->
-        <div class="card-body" style= "padding: 5px">
-          <h2>Officer Tools</h2>
-          <h4>Copy emails of:</h4>
-          <form style="padding: 5px" action="/pages/user_dashboard" method="get" id="mail_form">
-            <input type="checkbox" id="group1" name="group1" value="officers">
-            <label for="group1" style="font-size: 20px">Officers</label><br>
-            <input type="checkbox" id="group2" name="group2" value="non_officers">
-            <label for="group2" style="font-size: 20px">Non-Officer Students</label><br>
-            <input type="checkbox" id="group3" name="group3" value="business">
-            <label for="group3" style="font-size: 20px">Business Professionals</label><br><br>
-            <input type="submit" style="font-size: 20px" value="Copy to Clipboard">
-          </form>
-          <p id="success"></p>
-          <% if @recipients_str %>
-          <script>
-            navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
-                document.querySelector("#success").innerHTML = "Copied Emails";
-              });
-          </script>
-          <% end %>
+      <div class="col-md-4" style="padding: 10px">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%; padding-top: 0"> <!-- height difference -->
+          <div class="card-body" style= "padding: 5px;">
+            <h2>Officer Tools</h2>
+            <div class="row" style="justify-content: center;">
+              <div class="card" style="width: 40vh; padding: 10px;">
+                <h4>Email Copying</h4>
+                <form style="text-align: center" action="/pages/user_dashboard" method="get" id="mail_form">
+                  <input type="checkbox" id="group1" name="group1" value="officers">
+                  <label for="group1" style="font-size: 20px">Officers</label>
+                  <br>
+                  <input type="checkbox" id="group2" name="group2" value="non_officers">
+                  <label for="group2" style="font-size: 20px">Non-Officer Students</label>
+                  <br>
+                  <input type="checkbox" id="group3" name="group3" value="business">
+                  <label for="group3" style="font-size: 20px">Business Professionals</label>
+                  <input type="submit" style="font-size: 20px" value="Copy to Clipboard">
+                </form>
+                <p id="success"></p>
+                <% if @recipients_str %>
+                  <script>
+                    navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+                        document.querySelector("#success").innerHTML = "Copied Emails";
+                      });
+                  </script>
+                <% end %>
+              </div>
+              <div class="card" style="width: 40vh">
+                <div class="reset-stuff" style="font-size: 20px; padding: 10px;">
+                  <h4>Reset Dues/Points</h4>
+                  <form action="user_dashboard" style="text-align: center" method="get" id="user_dashboard">
+                    <input type="checkbox" id="group4" name="dues" value="dues">
+                    <label for="group4">Dues Paid</label>
+                    <br>
+                    <input type="checkbox" id="group5" name="points" value="points">
+                    <label for="group5">Points</label>
+                    <br>
+                    <input type="submit" value="Reset" onclick="return confirm('Are you sure you would like to reset the selected categories?')" }>
+                  </form>
+                </div> 
+              </div>
+              <div class="card" style="width: 40vh">
+                <div class="set_points_req" style="font-size: 20px; padding: 10px;">
+                  <% file = File.open("global_variables.txt")%>
+                  <h4>Set Points Requirement</h4>
+                  <form action="user_dashboard" style="text-align: center" method="get" id="user_dashboard">
+                    <label>Current Required Points: <%= file_info = file.read()%></label>
+                    <label for="group1">Required Points</label>
+                    <input type="number" min="1" id="group3" name="required_points">
+                    <input type="submit" value="Update">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     <% end %>
     <div class="col-md-3" style="padding: 10px"> 
-      <div class="card shadow border-start-primary py-2" style="padding-left: 10px">
+      <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%">
         <div class="card-body" style= "padding: 5px">
           <h2 style="padding: 5px; padding-top: 0">Points Leaderboard</h2>
-          <%@first_place%>
-          <%@first_place_points%>
-          <%@second_place%>
-          <%@second_place_points%>
-          <%@third_place%>
-          <%@third_place_points%>
           <% @point_leaders = @student_members.first(3) %>
           <div class="row">
             <% @point_leaders.each do |leader| %>
@@ -406,7 +440,77 @@
     <div class="col-md-5" style="padding: 10px; padding-right: 0">
       <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%"> <!-- height difference -->
         <div class="card-body" style= "padding: 5px">
-          <h2>Something</h2>
+          <h2>Attended Events</h2>
+            <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev" style="margin-bottom: 10px !important;">
+                      <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next" style="margin-bottom: 10px !important;">
+                      <i class="fa fa-arrow-right"></i>
+                    </a>
+                  </div>
+                  <div class="col-12">
+                    <% @event_list = MemberAttendance.where(student_member_id: @user.id).first(3)%>
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row">
+                            <% @event_list.each do |event| %>
+                              <% @event_info = Event.find(event.event_id) %>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 20vh">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                    <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
+                                    <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+                                    <p style="margin: 0">Location: <%= @event_info.location %></p>
+                                    <p style="margin: 0">Description: <%= "dfnsjfjskdfjsnldkfnsldkfnsdlfknsdkfnsodklfsdlkfnskdfnsdlkfsndfklsnfklsdnflsdkflnsdklfsdklfnsdklfsdnklcnzodcnsoindslkcnsdcljksdncsldkncsdklcsdncklsdncklscnks" %></p>
+                                    <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>
+                                  </div>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                        <% @event_list = MemberAttendance.where(student_member_id: @user.id)%>
+                        <% @counter_events = 0%>
+                        <% @counter_2 = 0%>
+                        <% @event_list.each do |event| %>
+                          <% @event_info = Event.find(event.event_id) %>
+                          <% if (@event_list.count > 3)  &&  (@counter_events > 2) %>
+                            <% if @counter_2 == 0 %>
+                              <div class="carousel-item">
+                                <div class="row">
+                            <% end %>
+                            <% @counter_2 += 1%>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 20vh">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                  <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
+                                  <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
+                                  <p style="margin: 0">Location: <%= @event_info.location %></p>
+                                  <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>
+                                </div>
+                              </div>
+                            </div>
+                            <% if @counter_2 == 3 %>
+                                </div>
+                              </div>
+                              <% @counter_2 = 0%>
+                            <% end %>
+                          <% end %>
+                          <% @counter_events += 1%>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- End of carousel -->
         </div>
       </div>
     </div>
