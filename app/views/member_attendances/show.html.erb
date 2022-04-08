@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+
+
+<section class="show-box">
+<div class="info">
+<h1>Viewing Entry <%=@member_attendance.id%> of the Member Attendance Table</h1>
 <p>
   <strong>Member:</strong>
   <%= StudentMember.find(@member_attendance.student_member_id).first_name%>
@@ -11,17 +16,11 @@
 </p>
 
 <p>
-  <strong>Point type:</strong>
-  <% if (@member_attendance.point_type == 0) %>
-    Meeting
-  <% elsif (@member_attendance.point_type == 1) %>
-    Social
-  <% elsif (@member_attendance.point_type == 2) %>
-    Informational
-  <% elsif (@member_attendance.point_type == 3) %>
-    Fundraising
-  <% end %>
+  <strong>Point Type:</strong>
+  <%= @member_attendance.point_type %>
 </p>
+<%= link_to 'Edit', edit_member_attendance_path(@member_attendance), class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', member_attendances_path, class: 'btn btn-primary btn-sm' %>
+</div>
+</section>
 
-<%= link_to 'Edit', edit_member_attendance_path(@member_attendance) %> |
-<%= link_to 'Back', member_attendances_path %>

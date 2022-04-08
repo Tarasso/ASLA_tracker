@@ -17,7 +17,6 @@ RSpec.describe('student_members/show', type: :view) do
                                                 meeting_point_amount: '',
                                                 fundraiser_point_amount: '',
                                                 informational_point_amount: '',
-                                                officer_title: 'Officer Title',
                                                 dues_paid: '',
                                                 picture: ''
                                               )

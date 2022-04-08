@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
+<h1>Viewing Entry <%=@event.id%> of the Events Table</h1>
 <p>
   <strong>Date:</strong>
-  <%= @event.date %>
+  <%= @event.date.strftime('%B %-d, %Y') %>
 </p>
 
 <p>
@@ -16,13 +18,9 @@
 </p>
 
 <p>
-  <strong>Start Time:</strong>
-  <%= @event.start_time %>
-</p>
-
-<p>
-  <strong>Finish Time:</strong>
-  <%= @event.finish_time %>
+  <strong>Time:</strong>
+  <%= @event.start_time.strftime('%l:%M %p')%>-
+  <%= @event.finish_time.strftime('%l:%M %p')%>
 </p>
 
 <p>
@@ -40,5 +38,7 @@
   <%= @event.event_code %>
 </p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Edit', edit_event_path(@event) , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', events_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

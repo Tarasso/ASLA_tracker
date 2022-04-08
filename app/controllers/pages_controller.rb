@@ -61,7 +61,7 @@ class PagesController < ApplicationController
             else
               BusinessProfessional.find(session[:userID])
             end
-    
+
     if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
 
       @group1 = params[:group1]
@@ -84,7 +84,6 @@ class PagesController < ApplicationController
     end
     @student_members = StudentMember.all
     @student_members = @student_members.sort_by(&:total_points).reverse
-    @events_all = Event.all
   end
 
   def events; end

@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
-<h1>Member Attendances</h1>
-<div id="tabular" class="tabular-demo"></div>
-
+<h1 class="index-title" >Member Attendances</h1>
+<div class="container">
+<%= link_to "Create Attendance Entry", new_member_attendance_path, class: 'btn btn-primary btn-sm'%>
+</div>
+<br>
+<div id="tabular" class="tabular-demo container"></div>
 <script>
   $(function() {
     tabular.start('#tabular', {
@@ -22,7 +25,4 @@
     });
   });
 </script>
-
 <br>
-
-<%= link_to 'New Member Attendance', new_member_attendance_path %>

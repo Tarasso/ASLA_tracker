@@ -6,7 +6,8 @@
 <% end %>
 
 <p id="notice"><%= notice %></p>
-<h1>Members</h1>
+<h1 class="index-title" >Members</h1>
+<div class="container">
 <% if session[:isAdmin] %>
   <br>
     <form action="student_members" method="get" id="student_members">
@@ -59,8 +60,5 @@
     });
   });
 </script>
-
+</div>
 <br>
-<% if session[:isAdmin] %>
-  <%= link_to 'Create a new member', new_student_member_path %>
-<% end %>

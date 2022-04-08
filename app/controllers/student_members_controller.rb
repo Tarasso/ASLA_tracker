@@ -11,6 +11,32 @@ class StudentMembersController < ApplicationController
   before_action :student_event_attendance_delete, only: %i[destroy]
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
+  after_action :req_points, only: %i[index]
+  after_action :reset_values, only: %i[index]
+
+  def reset_values
+    if params.key?(:dues) || params.key?(:points)
+
+      @group1 = params[:dues]
+      @group2 = params[:points]
+
+      @student_members = StudentMember.all
+
+      if @group1 == 'dues'
+        @student_members.each do |student|
+          student.update!(dues_paid: false)
+        end
+      end
+      if @group2 == 'points'
+        @student_members.each do |student|
+          student.update!(meeting_point_amount: 0)
+          student.update!(social_point_amount: 0)
+          student.update!(informational_point_amount: 0)
+          student.update!(fundraiser_point_amount: 0)
+        end
+      end
+    end
+  end
 
   # GET /student_members or /student_members.json
   def index
@@ -18,6 +44,13 @@ class StudentMembersController < ApplicationController
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
     @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
+  end
+
+  def req_points
+    if params.key?(:required_points)
+      @group3 = params[:required_points]
+      File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
+    end
   end
 
   # GET /student_members/1 or /student_members/1.json
@@ -183,7 +216,7 @@ class StudentMembersController < ApplicationController
   def student_member_params
     params.require(:student_member).permit(:uin, :first_name, :last_name, :class_year, :join_date, :member_title, :email, :phone_number,
                                            :expected_graduation_date, :social_point_amount, :meeting_point_amount, :fundraiser_point_amount,
-                                           :informational_point_amount, :officer_title, :dues_paid, :picture, :uid, :program_level, :student_classification
+                                           :informational_point_amount, :dues_paid, :picture, :uid, :program_level, :student_classification
     )
   end
 end
