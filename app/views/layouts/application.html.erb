@@ -99,9 +99,13 @@
                 <li class="nav-item">
                 <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
                 </li>
-               
+               <% if session[:creatingAccount] %>
+              <li class="nav-item">
+              <%= link_to "Finish Creating Account", pages_select_account_type_path, class:'nav-link' %>
+              </li>
+              <% end %>
               </ul>
-
+              
                 <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
 
             <ul class="navbar-nav">
