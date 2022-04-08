@@ -2,6 +2,8 @@
 
 class PagesController < ApplicationController
   before_action :account_creating?, only: [:user_dashboard]
+  after_action :req_points, only: %i[user_dashboard]
+  after_action :reset_values, only: %i[user_dashboard]
   skip_before_action :authenticate_user!
 
   def home
@@ -21,6 +23,37 @@ class PagesController < ApplicationController
 
   def unauthorized; end
 
+  def req_points
+    if params.key?(:required_points)
+      @group3 = params[:required_points]
+      File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
+    end
+  end
+
+  def reset_values
+    if params.key?(:dues) || params.key?(:points)
+
+      @group4 = params[:dues]
+      @group5 = params[:points]
+
+      @student_members = StudentMember.all
+
+      if @group4 == 'dues'
+        @student_members.each do |student|
+          student.update!(dues_paid: false)
+        end
+      end
+      if @group5 == 'points'
+        @student_members.each do |student|
+          student.update!(meeting_point_amount: 0)
+          student.update!(social_point_amount: 0)
+          student.update!(informational_point_amount: 0)
+          student.update!(fundraiser_point_amount: 0)
+        end
+      end
+    end
+  end
+
   def user_dashboard
     @is_student = !StudentMember.where(uid: session[:uid]).empty?
     @user = if @is_student
@@ -28,7 +61,7 @@ class PagesController < ApplicationController
             else
               BusinessProfessional.find(session[:userID])
             end
-
+    
     if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
 
       @group1 = params[:group1]
@@ -51,6 +84,7 @@ class PagesController < ApplicationController
     end
     @student_members = StudentMember.all
     @student_members = @student_members.sort_by(&:total_points).reverse
+    @events_all = Event.all
   end
 
   def events; end

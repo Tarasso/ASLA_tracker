@@ -28,7 +28,7 @@
           <td><%= event.location %></td>
           <td><%= event.start_time.strftime('%H:%M %p')%> - <%=event.finish_time.strftime('%H:%M %p') %></td>
           <td><%= event.description %></td>
-          <td><%= event.event_type %></td>  
+          <td><%= event.event_type %></td>
           <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_member.id, event_id: event.id) %>
           <% if @event_student_member %>
               <td>Registered</td>
