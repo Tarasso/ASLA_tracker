@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 <section class="show-box">
 <div class="info">
+<h1>Viewing Entry <%=@event_business_professional.id%> of the Professionals Registration Table</h1>
 <p>
   <strong>Business Professional:</strong>
   <%= BusinessProfessional.find(@event_business_professional.business_professional_id).first_name%>

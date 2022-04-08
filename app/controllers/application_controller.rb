@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def allowed_to_view_bpro?
-    redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && !session[:isBusinessProfessional])
+    redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && (!session[:isBusinessProfessional] && !session[:isAdmin]))
   end
 
   def allowed_to_view_student_info?
