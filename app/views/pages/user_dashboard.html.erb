@@ -150,11 +150,13 @@
                                   </div>
                                   <div class="row" style="padding: 20px">
                                     <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
-                                    <% if @event_student_member %>
-                                        <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: 'event-button', style: "text-align: center;"%>
-                                    <% else %>
-                                        <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), class: 'event-button', style: "text-align: center;"%>
-                                    <% end %>
+                                    <div class="col event-button" style="text-align: center;">
+                                      <% if @event_student_member %>
+                                          <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' } %>
+                                      <% else %>
+                                          <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id) %>
+                                      <% end %>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -171,9 +173,9 @@
                                 <div class="row">
                             <% end %>
                             <% @counter_2 += 1%>
-                              <div class="col-md-4 mb-3">
-                                <div class="card" style="height: 20vh">
-                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                            <div class="col-md-4 mb-3">
+                              <div class="card" style="height: 20vh">
+                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
                                   <p style="margin: 0;">Event Name: <%= event.name %></p>
                                   <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
                                   <p style="margin: 0">Location: <%= event.location %></p>
@@ -182,13 +184,16 @@
                                 </div>
                                 <div class="row" style="padding: 20px">
                                   <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
-                                  <% if @event_student_member %>
-                                    <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: 'event-button', style: "text-align: center;"%>
-                                  <% else %>
-                                    <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), class: 'event-button', style: "text-align: center;"%>
-                                  <% end %>
+                                  <div class="col event-button" style="text-align: center;">
+                                    <% if @event_student_member %>
+                                        <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' } %>
+                                    <% else %>
+                                        <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id) %>
+                                    <% end %>
+                                  </div>
                                 </div>
                               </div>
+                            </div>
                             <% if @counter_2 == 3 %>
                                 </div>
                               </div>
@@ -288,6 +293,7 @@
                                   <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
                                   <p style="margin: 0">Location: <%= @event_info.location %></p>
                                   <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>                    
+                                  <p style="margin: 0">Event Type: <%=@event_info.event_type %></p> 
                                 </div>
                                 <div class="row" style="padding: 20px">
                                   <div class="col event-button" onclick="openForm()" style="text-align: center;">
@@ -516,5 +522,3 @@
     </div>
   </div>
 </div>
-
-
