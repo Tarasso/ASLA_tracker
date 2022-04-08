@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe(Newsletter, type: :model) do
   subject do
-    described_class.new(title: 'Intro', message: 'Howdy we are ASLA', date_posted: '2022-06-08')
+    described_class.new(title: 'Intro', message: 'Howdy we are ASLA')
   end
 
   it 'is valid with valid attributes' do
@@ -18,11 +18,6 @@ RSpec.describe(Newsletter, type: :model) do
 
   it 'is not valid without an message' do
     subject.message = nil
-    expect(subject).not_to(be_valid)
-  end
-
-  it 'is not valid without a date posted' do
-    subject.date_posted = nil
     expect(subject).not_to(be_valid)
   end
 end
