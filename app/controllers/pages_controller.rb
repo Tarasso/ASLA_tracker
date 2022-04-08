@@ -3,6 +3,7 @@
 class PagesController < ApplicationController
   before_action :account_creating?, only: [:user_dashboard]
   skip_before_action :authenticate_user!
+  before_action :admin?, only: [:help]
 
   def home
     @newsletter = Newsletter.order(:created_at).reverse_order.first
@@ -47,7 +48,10 @@ class PagesController < ApplicationController
       recipients = recipients.uniq
 
       @recipients_str = recipients.join('\n')
+
     end
+    @student_members = StudentMember.all
+    @student_members = @student_members.sort_by(&:total_points).reverse
   end
 
   def events; end

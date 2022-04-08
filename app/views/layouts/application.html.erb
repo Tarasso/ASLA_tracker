@@ -46,7 +46,7 @@
     
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
         <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
@@ -60,90 +60,13 @@
     <% if session[:isBusinessProfessional] %>
     <% @business_professional = BusinessProfessional.find_by(uid: session[:uid])  %>
     <% end %>
+    
 
-
-    <header class="text-center text-white">
-      <nav class="navbar navbar-expand-lg navbar-dark navigation-clean" style="background-color: #800000; position: relative; z-index: 10000">
-        <div class="container-fluid">
-        <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
-          <a class="navbar-brand" href="<%= root_path %>"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
-          <% else %>
-          <a class="navbar-brand" href="#"> <h1>TAMU ASLA <%=image_tag("download.jpg", size: "60x60")%> </h1>  </a>
-          <% end %>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
-              <li class="nav-item">
-                <%= link_to "Home", root_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "About Us", pages_officers_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Calendar", calendars_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Contact Us", pages_contact_path, class: 'nav-link' %>
-              </li>
-              <% end %>
-              <% if !session[:uid]%>
-                <li class="nav-item">
-                <%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class:'nav-link' %>
-                </li>
-              <% else %>
-                <li class="nav-item">
-                <%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %>
-                </li>
-                <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
-
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src=<%=session[:profile_pic]%> width="40" height="40" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="/pages/user_dashboard">Dashboard</a>
-                  <a class="dropdown-item" href="/student_members">Students</a>
-                  <a class="dropdown-item" href="/business_professionals">Professionals</a>
-                  <a class="dropdown-item" href="/pages/events">Events</a>
-                  <a class="dropdown-item" href="/newsletters">Newsletters</a>
-                  <a class="dropdown-item" href="/pages/points_leaderboard">Points Leaderboard</a>
-                </div>
-                </li>
-                <% end %>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
+    <%= render "shared/header" %>
     <%= yield %>
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 text-center text-lg-start my-auto h-100">
-                    <ul class="list-inline mb-2">
-                        <li class="list-inline-item"><a href="/pages/officers">About</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="/pages/contact">Contact</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="/pages/help">Help</a></li>
-                    </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">© 2022 ASLA TAMU Student Chapter</p>
-                </div>
-                <div class="col-lg-6 text-center text-lg-end my-auto h-100">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a style="color:#333333;" href="https://tamu.estore.flywire.com/products/asla-dues-16590" title="Pay Your Dues!"><i class="fa fa-dollar fa-2x fa-fw" ></i></a></li>
-                        <li class="list-inline-item"><a style="color:#333333;" href="mailto:sasla.tamu@gmail.com" title="Email Us"><i class="fa fa-envelope fa-2x fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a style="color:#333333;" href="https://www.instagram.com/tamuasla/" title="View our Instagram!"><i class="fa fa-instagram fa-2x fa-fw"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <%= render "shared/footer" %>
+
+
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
