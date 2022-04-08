@@ -1,99 +1,420 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>ASLA | Home</title>
-  </head>
-  <body>    
-  
-    <h1> Welcome to your home page!</h1>
-    <br/>
-
-    <h2>Your info:</h2>
-
-    <% if @is_student%>
-    <p><%= link_to 'Edit your information', edit_student_member_path(@user) %></p>
-    <% else %>
-    <p><%= link_to 'Edit your information', edit_business_professional_path(@user) %></p>
-    <% end %>
-
-
-    <p>First name: <%= @user.first_name %></p>
-    <p>Last name: <%= @user.last_name %></p>
-    <p>Email: <%= @user.email %></p>
-    <p>Phone: <%= @user.formatted_phone %></p>
-
-
-      
-    <% if @is_student%>
-      <p>UIN: <%= @user.uin %></p>
-      <p>Class year: <%= @user.class_year %></p>
-      <p>Expected Graduation Date: <%= @user.expected_graduation_date %></p>     
-      <p>Dues paid: <%= read_bool(@user.dues_paid) %></p>
-      <% if session[:isAdmin] %>
-        <p><%= @user.officer_title %></p>
-      <% end %>
-      <br/>
-      <% file = File.open("global_variables.txt")%>
-      <% file_info = file.read()%>
-      <h2>Required Points</h2>
-      <%= file_info %>
-      <br/>
-      <h2>Registered Events</h2>
-      <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
-      <% @event_list.each do |event| %>
-      <%@event_info = Event.find(event.event_id) %>
-          <p>Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
-          <p>Event Name: <%= @event_info.name %></p>
-          <p>Location: <%= @event_info.location %></p>
-          <p>Time: <%=@event_info.start_time.strftime('%H:%M %p')%> - <%=@event_info.finish_time.strftime('%H:%M %p') %></p>
-          <p>Description: <%=@event_info.description %></p>
-          <p>Event Type: <%=@event_info.event_type %></p>
-      <% end %>
-      <h2>Point totals</h2>
-      <p>Social Points: <%= @user.social_point_amount %></p>
-      <p>Meeting Points: <%= @user.meeting_point_amount %></p>
-      <p>Fundraiser Points: <%= @user.fundraiser_point_amount %></p>
-      <p>Informational Points: <%= @user.informational_point_amount %></p> 
-
-    <% else %>
-      <p>Organization: <%= @user.org_name %></p>
-    <% end %>
-
-    <br/>
-    <br/>
-
-  
-  <% if session[:isAdmin] %>
-
-    <h4>Copy emails of:</h4>
-
-    <form action="/pages/user_dashboard" method="get" id="mail_form">
-
-      <input type="checkbox" id="group1" name="group1" value="officers">
-      <label for="group1">officers</label><br>
-      <input type="checkbox" id="group2" name="group2" value="non_officers">
-      <label for="group2">non-officer students</label><br>
-      <input type="checkbox" id="group3" name="group3" value="business">
-      <label for="group3">business professionals</label><br><br>
-
-      <input type="submit" value="Copy to Clipboard">
-    </form>
-
+<div class="dashboard" style="padding: 20px">
+  <% if @is_student%>
+    <h1 style="font-weight: normal; color: #800000;"> <span style="font-weight: bold">Howdy,</span> <%=@user.first_name%>! <span class="wave">👋</span></h1>
     <br>
-    <p id="success"></p>
-
-    <% if @recipients_str %>
-
-      <script>
-      navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
-
-        document.querySelector("#success").innerHTML = "Copied Emails";
-      });
-      </script>
-
-    <% end %>
-
   <% end %>
+  <div class="row">
+    <div class="col-md-4" style="padding: 10px">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%"> <!-- height difference -->
+        <div class="card-body" style= "padding: 5px">
+          <h2>Your Information</h2>
+          <div class=row>
+            <div class=col>   
+              <% if @is_student%>
+                <div class="text-uppercase fw-bold mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>UIN</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.uin%></span></div>
+              <% end %>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>First Name</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.first_name%></span></div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Last Name</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.last_name%></span></div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Email</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.email%></span></div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Phone Number</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.formatted_phone%></span></div>
+              <% if session[:isAdmin] %>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Officer Title</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.officer_title%></span></div>
+              <% end %>
+            </div>
+            <div class=col style="padding: 0"> 
+              <% if @is_student%>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Program Level</span></div>
+                <div class="text-dark text-uppercase fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.program_level%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Classification</span></div>
+                <div class="text-dark text-uppercase fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.student_classification%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Class Year</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.class_year%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Expected Graduation Date</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.expected_graduation_date.strftime('%B %Y')%></span></div>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Dues Paid</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=read_bool(@user.dues_paid)%></span></div>
+              <% else %>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Organization</span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.org_name%></span></div>
+              <% end %>
+              <div style="bottom: 0; right: 0; position: absolute; padding: 5px;">
+                <% if @is_student%>
+                  <p class="text-dark fw-bold h5 mb-0"><%= link_to 'Edit Your Information', edit_student_member_path(@user) %></p>
+                <% else %>
+                  <p class="text-dark fw-bold h5 mb-0"><%= link_to 'Edit Your Information', edit_business_professional_path(@user) %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @is_student %>
+    <div class="col-md-3" style="padding: 10px">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 10px">
+          <div class="card-body" style= "padding: 5px">
+          <h2>Point Breakdown</h2>
+          <div class="row align-items-center no-gutters">
+            <div class="col me-4">
+              <div class=row>
+                <div class=col>
+                  <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Total Points</span></div>
+                  <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
+                </div>
+                <div class=col>
+                  <% file = File.open("global_variables.txt")%>
+                  <% req_points = file.read()%>
+                  <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Required Points</span></div>
+                  <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%= req_points%></span></div>
+                </div>
+              </div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Meeting Points</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.meeting_point_amount%></span></div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Social Points</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.social_point_amount%></span></div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Informational Points</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.informational_point_amount%></span></div>
+              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Fundraising Points</span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px"><span><%=@user.fundraiser_point_amount%></span></div>
+            </div>
+            <div class="card-body">
+              <div class="chart-area"><canvas id="doughnutChart" height="10" width="25" style="display: block; height: 100px; width: 124px;"></canvas></div>
+              <% if (@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount) > 0 %>
+              <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+              <script>
+                var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                var myLineChart = new Chart(ctxD, {
+                  type: 'doughnut',
+                  data: {
+                    labels: ["Meeting", "Social", "Informational", "Fundraising"],
+                    datasets: [{
+                      data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
+                      backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                      hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                  }
+                  }); 
+              </script>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <div class="col-md-5" style="padding: 10px; padding-left: 20px">
+      <div class="row" style="padding-bottom: 10px; height: 50%;">
+        <div class="card shadow border-start-primary py-2">
+          <div class="card-body" style= "padding: 5px">
+            <h2>Registered Events</h2>
+                        <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                      <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                      <i class="fa fa-arrow-right"></i>
+                    </a>
+                  </div>
+                  <div class="col-12">
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row">
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="row">
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title dsfdfsdtreatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="row">
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Specfdgdfge treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title dsfdfsdtreatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- End of carousel -->
+          </div>
+        </div>
+      </div>
+      <div class="row" style="height: 50%">
+        <div class="card shadow border-start-primary py-2">
+          <div class="card-body" style= "padding: 5px">
+            <h2>Attended Events</h2>
+                        <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                      <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators1" role="button" data-slide="next">
+                      <i class="fa fa-arrow-right"></i>
+                    </a>
+                  </div>
+                  <div class="col-12">
+                    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel" data-interval="false">
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row">
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Special title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="row"> 
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">qweqweqwe title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">Swqeqweqwe title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4 class="card-title">sdfsdfsdf title treatment</h4>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- End of carousel -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% if session[:isAdmin] %>
+    <div class="col-md-4" style="padding: 10px">
+      <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%; padding-top: 0"> <!-- height difference -->
+        <div class="card-body" style= "padding: 5px">
+          <h2>Officer Tools</h2>
+          <h4>Copy emails of:</h4>
+          <form style="padding: 5px" action="/pages/user_dashboard" method="get" id="mail_form">
+            <input type="checkbox" id="group1" name="group1" value="officers">
+            <label for="group1" style="font-size: 20px">Officers</label><br>
+            <input type="checkbox" id="group2" name="group2" value="non_officers">
+            <label for="group2" style="font-size: 20px">Non-Officer Students</label><br>
+            <input type="checkbox" id="group3" name="group3" value="business">
+            <label for="group3" style="font-size: 20px">Business Professionals</label><br><br>
+            <input type="submit" style="font-size: 20px" value="Copy to Clipboard">
+          </form>
+          <p id="success"></p>
+          <% if @recipients_str %>
+          <script>
+            navigator.clipboard.writeText("<%= @recipients_str %>").then(() =>{
+                document.querySelector("#success").innerHTML = "Copied Emails";
+              });
+          </script>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <div class="col-md-3" style="padding: 10px"> 
+      <div class="card shadow border-start-primary py-2" style="padding-left: 10px">
+        <div class="card-body" style= "padding: 5px">
+          <h2 style="padding: 5px; padding-top: 0">Points Leaderboard</h2>
+          <%@first_place%>
+          <%@first_place_points%>
+          <%@second_place%>
+          <%@second_place_points%>
+          <%@third_place%>
+          <%@third_place_points%>
+          <% @point_leaders = @student_members.first(3) %>
+          <div class="row">
+            <% @point_leaders.each do |leader| %>
+              <% if @point_leaders.find_index(leader) + 1 == 1%>
+                <div class="row" style="padding: 10px; padding-top: 5px; position: relative">
+                  <div class="col" style="float: left">
+                    <div class="quiz-medal">
+                      <div class="quiz-medal__circle quiz-medal__circle--gold">
+                        <span>1</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col" style="padding: 10px; text-align: center">
+                    <h2 style="color:#f9ad0e;"><%= leader.first_name %></h2>
+                    <h2 style="color:#f9ad0e;"><%= leader.last_name %></h2>
+                    <h1 style="color:#f9ad0e;"><%= leader.total_points %> points</h1>
+                  </div>
+                </div>
+              <% elsif @point_leaders.find_index(leader) + 1 == 2%>
+                <div class="row" style="padding: 10px; padding-top: 5px">
+                  <div class="col" style="float: left">
+                    <div class="quiz-medal">
+                      <div class="quiz-medal__circle quiz-medal__circle--silver">
+                        <span>2</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col" style="padding: 10px; text-align: center;">
+                    <h2 style="color:#d1d7da"><%= leader.first_name %></h2>
+                    <h2 style="color:#d1d7da"><%= leader.last_name %></h2>
+                    <h1 style="color:#d1d7da"><%= leader.total_points %> points</h1>
+                  </div>
+                </div>
+              <% else %>
+                <div class="row" style="padding: 10px; padding-top: 5px">
+                  <div class="col" style="float: left">
+                    <div class="quiz-medal">
+                      <div class="quiz-medal__circle quiz-medal__circle--bronze">
+                        <span>3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col" style="padding: 10px; text-align: center">
+                    <h2 style="color:#df7e08;"><%= leader.first_name %></h2>
+                    <h2 style="color:#df7e08;"><%= leader.last_name %></h2>
+                    <h1 style="color:#df7e08;"><%= leader.total_points %> points</h1>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-5" style="padding: 10px; padding-right: 0">
+      <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%"> <!-- height difference -->
+        <div class="card-body" style= "padding: 5px">
+          <h2>Something</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  </body>
-</html>
+
