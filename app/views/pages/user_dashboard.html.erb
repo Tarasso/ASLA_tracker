@@ -22,10 +22,6 @@
               <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.email%></span></div>
               <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Phone Number</span></div>
               <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.formatted_phone%></span></div>
-              <% if session[:isAdmin] %>
-                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Officer Title</span></div>
-                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.officer_title%></span></div>
-              <% end %>
             </div>
             <div class=col style="padding: 0"> 
               <% if @is_student%>
