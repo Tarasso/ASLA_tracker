@@ -65,7 +65,8 @@
         <div class="card mx-auto" style="width: 40rem;">
         <div class="card-body">
           <h3 class="card-title"><%= @newsletter.title %></h3>
-          <h6 class="card-subtitle mb-2 text-muted"><%= @newsletter.date_posted %></h6>
+          <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= @newsletter.created_at.strftime('%B %-d, %Y') %></h6>
+          <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= @newsletter.updated_at.strftime('%B %-d, %Y') %></h6>
           <p class="card-text"><%= @newsletter.message %></p>
         </div>
         </div>
