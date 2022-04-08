@@ -109,8 +109,10 @@ html {
 
 
 .show-box {
-  background: #f1f7fc;
-  padding: 80px 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: #f6f6f6;
+  padding: 10%;
 }
 
 @media (max-width:767px) {
@@ -132,11 +134,18 @@ html {
 
 
 .show-box h2 {
+  color:#500000;
   margin-top: 5px;
   font-weight: bold;
   font-size: 28px;
   margin-bottom: 36px;
-  color: inherit;
 }
+
+
+.index-title {
+  text-align: center;
+  color: #500000;
+}
+
 
 

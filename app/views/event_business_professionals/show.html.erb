@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
 <p>
   <strong>Business Professional:</strong>
   <%= BusinessProfessional.find(@event_business_professional.business_professional_id).first_name%>
@@ -10,5 +11,7 @@
   <%= Event.find(@event_business_professional.event_id).name %>
 </p>
 
-<%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) %> |
-<%= link_to 'Back', event_business_professionals_path %>
+<%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', event_business_professionals_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

@@ -1,6 +1,10 @@
+<section class="show-box">
+<div class="info">
 <h1>Editing Event</h1>
 
 <%= render 'form', event: @event %>
 
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Show', @event , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', events_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

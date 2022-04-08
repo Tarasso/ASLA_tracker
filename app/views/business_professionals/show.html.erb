@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
 <p>
   <strong>Org name:</strong>
   <%= @business_professional.org_name %>
@@ -25,5 +26,7 @@
   <%= @business_professional.email %>
 </p>
 
-<%= link_to 'Edit', edit_business_professional_path(@business_professional) %> |
-<%= link_to 'Back', business_professionals_path %>
+<%= link_to 'Edit', edit_business_professional_path(@business_professional) , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', business_professionals_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

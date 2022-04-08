@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
-<h1>Events</h1>
-<div id="tabular" class="tabular-demo"></div>
+<h1 class="index-title">Events</h1>
+<div class="container">
+<%= link_to 'Create a New Event', new_event_path, class: 'btn btn-primary btn-sm' %>
+</div>
+<br>
+<div id="tabular" class="tabular-demo container"></div>
 
 <script>
   $(function() {
@@ -24,4 +28,4 @@
 </script>
 
 <br>
-<%= link_to 'New Event', new_event_path %>
+

@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
 <p>
   <strong>Date:</strong>
   <%= @event.date %>
@@ -40,5 +41,7 @@
   <%= @event.event_code %>
 </p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Edit', edit_event_path(@event) , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', events_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>
