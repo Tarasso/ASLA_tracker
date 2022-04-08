@@ -85,6 +85,7 @@ html {
   min-height: 100%;
 }
 
+
 .footer {
   margin-top: auto;
   width: 100%;
@@ -104,3 +105,38 @@ html {
 .shift_right {
   margin-left: 30px;
 }
+
+
+
+.show-box {
+  background: #f1f7fc;
+  padding: 80px 0;
+}
+
+@media (max-width:767px) {
+  .show-box {
+    padding: 20px 0;
+  }
+}
+
+.show-box .info {
+  max-width: 480px;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 4px;
+  color: #505e6c;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+
+.show-box h2 {
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 36px;
+  color: inherit;
+}
+
+
