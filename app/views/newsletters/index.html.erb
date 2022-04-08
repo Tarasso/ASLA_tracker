@@ -1,64 +1,33 @@
-
 <p id="notice"><%= notice %></p>
-  <h1 class="index-title" >Newsletters</h1>
 
-#   <% if session[:isAdmin] %>
-#     <%= link_to "New Newsletter", new_newsletter_path, class: 'button small' %>
-#   <% end %>
-
-
-
-# <% @newsletters.each do |newsletter| %>
-#   <div class="card shift_right" style="width: 40rem">
-#   <% (0...newsletter.images.count).each do |image| %>
-#     <%= image_tag(newsletter.images[image], style:'height:200px;width:300px;') %>
-#   <% end %>
-#     <div class="card-body">
-#       <h3 class="card-title"><%= newsletter.title %></h3>
-#       <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= newsletter.created_at.strftime('%B %-d, %Y') %></h6>
-#       <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= newsletter.updated_at.strftime('%B %-d, %Y') %></h6>
-#       <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"> <%= newsletter.message %> </p>
-      
-      
-      
-#       <%= link_to 'Show', newsletter, class: 'button small' %>
-#       <% if session[:isAdmin] %>
-#         <%= link_to 'Edit', edit_newsletter_path(newsletter), class: 'button small'%>
-#         <%= link_to 'Delete', newsletter, method: :delete, data: { confirm: 'Are you sure you want to delete the newsletter: ' + newsletter.title + '?' }, class: 'button small' %>
-#       <% end %>
-#     </div>
-#   </div>
-#   <br>
-# <% end %>
-
-
-<div class="container">
+<div style="margin-left: 30px">
   <% if session[:isAdmin] %>
-  <%= link_to "New Newsletter", new_newsletter_path, class: 'button small' %>
-  <% end %>
-  <% @newsletters.each do |newsletter| %>
-  <div class="card">
-      <% (0...newsletter.images.count).each do |image| %>
-        <%= image_tag(newsletter.images[image], class:'card-img-top') %>
-      <% end %>
-      <div class="card-body">
-        <h5 class="card-title"><%= newsletter.title %></h5>
-        <p class="card-text">
-        <%= newsletter.message %>
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-        <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= newsletter.created_at.strftime('%B %-d, %Y') %></h6>
-        <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= newsletter.updated_at.strftime('%B %-d, %Y') %></h6>
-        <%= link_to 'Show', newsletter, class: 'button small' %>
-          <% if session[:isAdmin] %>
-            <%= link_to 'Edit', edit_newsletter_path(newsletter), class: 'button small'%>
-            <%= link_to 'Delete', newsletter, method: :delete, data: { confirm: 'Are you sure you want to delete the newsletter: ' + newsletter.title + '?' }, class: 'button small' %>
-          <% end %>
-      </div>
-  </div>
-  <br>
+    <%= link_to 'New Newsletter', new_newsletter_path %>
   <% end %>
 </div>
+
+
+<% @newsletters.each do |newsletter| %>
+  <div class="card" style="width: 40rem; margin-left: 30px">
+    <div class="card-body">
+      <h3 class="card-title"><%= newsletter.title %></h3>
+      <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= newsletter.date_posted %></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= newsletter.updated_at %></h6>
+      <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= newsletter.message %></p>
+      <% (0...newsletter.images.count).each do |image| %>
+        <%= image_tag(newsletter.images[image], style:'height:200px;width:300px;') %>
+      <% end %>
+      
+      
+      <%= link_to 'Show', newsletter %>
+      <% if session[:isAdmin] %>
+        <%= link_to 'Edit', edit_newsletter_path(newsletter) %>
+        <%= link_to 'Delete', newsletter, method: :delete, data: { confirm: 'Are you sure you want to delete the newsletter: ' + newsletter.title + '?' } %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+<% end %>
 
 
 
