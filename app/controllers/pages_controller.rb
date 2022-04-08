@@ -3,6 +3,7 @@
 class PagesController < ApplicationController
   before_action :account_creating?, only: [:user_dashboard]
   skip_before_action :authenticate_user!
+  before_action :admin?, only: [:help]
 
   def home
     @newsletter = Newsletter.order(:created_at).reverse_order.first
