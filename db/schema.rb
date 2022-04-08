@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_01_181516) do
+ActiveRecord::Schema.define(version: 2022_04_08_195405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 2022_04_01_181516) do
     t.integer "meeting_point_amount"
     t.integer "fundraiser_point_amount"
     t.integer "informational_point_amount"
-    t.string "officer_title"
     t.boolean "dues_paid"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false
