@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
+<h1>Viewing Entry <%=@student_member.id%> of the Student Members Table</h1>
 <p>
   <strong>Uin:</strong>
   <%= @student_member.uin %>
@@ -84,6 +86,12 @@
   <%= @student_member.member_title %>
 </p>
 
-<%= link_to 'All members', student_members_path%> |
-<%= link_to 'Edit', edit_student_member_path(@student_member) %> |
-<%= link_to 'Back', :back %>
+
+
+<%= link_to 'All members', student_members_path, class: 'btn btn-primary btn-sm' %> 
+<% if session[:isAdmin] %>
+<%= link_to 'Edit', edit_student_member_path(@student_member) , class: 'btn btn-primary btn-sm' %> 
+<% end %>
+<%= link_to 'Back', :back , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

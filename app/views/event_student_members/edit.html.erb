@@ -1,6 +1,10 @@
-<h1>Editing Member Registration Entry</h1>
+<section class="show-box">
+<div class="info">
+<h1>Editing Entry <%=@event_student_member.id%> of the Member Registrations Table</h1>
 
 <%= render 'form', event_student_member: @event_student_member %>
 
-<%= link_to 'Show', @event_student_member %> |
-<%= link_to 'Back', event_student_members_path %>
+<%= link_to 'Show', @event_student_member , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', event_student_members_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>
