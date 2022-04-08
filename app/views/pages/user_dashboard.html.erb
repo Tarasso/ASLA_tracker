@@ -139,7 +139,7 @@
                           <div class="row">
                             <% @event_list.each do |event| %>
                               <div class="col-md-4 mb-3">
-                                <div class="card" style="height: 20vh">
+                                <div class="card" style="height: 18vh">
                                   <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
                                     <div class = "contents" style="overflow-x: hidden; overflow-y: auto;">
                                       <p style="margin: 0;">Event Name: <%= event.name %></p>
@@ -174,7 +174,7 @@
                             <% end %>
                             <% @counter_2 += 1%>
                             <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 20vh">
+                              <div class="card" style="height: 18vh">
                                 <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
                                   <p style="margin: 0;">Event Name: <%= event.name %></p>
                                   <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
@@ -237,7 +237,7 @@
                             <% @event_list.each do |event| %>
                               <% @event_info = Event.find(event.event_id) %>
                               <div class="col-md-4 mb-3">
-                                <div class="card" style="height: 20vh">
+                                <div class="card" style="height: 18vh">
                                   <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
                                     <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
                                     <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
@@ -287,7 +287,7 @@
                             <% end %>
                             <% @counter_2 += 1%>
                             <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 20vh">
+                              <div class="card" style="height: 18vh">
                                   <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
                                   <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
                                   <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
