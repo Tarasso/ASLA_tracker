@@ -5,12 +5,11 @@ module ApplicationHelper
     boolean ? 'Yes' : 'No'
   end
 
-
-  def daylight_savings(dt)
+  def daylight_savings(dtime)
     if Time.zone.now.dst?
-      return dt + 1.hour 
+      dtime + 1.hour
     else
-      return dt
-    end  
+      dtime
+    end
   end
 end
