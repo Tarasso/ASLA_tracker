@@ -18,7 +18,6 @@ RSpec.describe('student_members/index', type: :view) do
         meeting_point_amount: '',
         fundraiser_point_amount: '',
         informational_point_amount: '',
-        officer_title: 'Officer Title',
         dues_paid: '',
         picture: ''
       ),
@@ -35,7 +34,6 @@ RSpec.describe('student_members/index', type: :view) do
         meeting_point_amount: '',
         fundraiser_point_amount: '',
         informational_point_amount: '',
-        officer_title: 'Officer Title',
         dues_paid: '',
         picture: ''
       )

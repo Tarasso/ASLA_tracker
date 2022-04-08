@@ -3,8 +3,8 @@
 <div class="card" style="width: 40rem; margin-left: 30px">
     <div class="card-body">
       <h3 class="card-title"><%= @newsletter.title %></h3>
-      <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= @newsletter.date_posted %></h6>
-      <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= @newsletter.updated_at %></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= @newsletter.created_at.strftime('%B %-d, %Y') %></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= @newsletter.updated_at.strftime('%B %-d, %Y') %></h6>
       <p class="card-text"><%= @newsletter.message %></p>
       <% (0...@newsletter.images.count).each do |image| %>
         <a href= "<%= url_for(@newsletter.images[image]) %>" target="_blank" rel="noopener noreferrer" > <%= image_tag(@newsletter.images[image], style:'height:200px;width:300px;') %> </a>
