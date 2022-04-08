@@ -3,29 +3,97 @@
 </head>
 
 <body>
-  <div>
-    <h1> Fequently Asked Quesitons </h1>
-  </div>
-  <section>
-    <div class = "dropdown">
-      <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownmenuButton1" data-bs-toggle = "dropdown" aria-expanded = "false">
-        Help, I am not able to login to my account.
-      </button>
-      <ul class = "dropdown-menu" aria-labelledby = "dropdownMenuButton1">
-        <li> <a class = "dropdown-item" href = "#"> Check that you are logged in to your Google account outside of the ASLA app in another Tab</a> </li>
-        <li> <a class = "dropdown-item" href = "#">Make sure you are using the correct Google account (the account you used to first login to ASLA)</a> </li>
-        <li> <a class = "dropdown-item" href = "#"> Contact an officer </a> </li>
-      </ul>
-    </div>
-    <div class = "dropdown">
-      <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownmenuButton1" data-bs-toggle = "dropdown" aria-expanded = "false">
-        My points are incorrectly displayed <strong> OR </strong> I did not get credt for an event I attended.
-      </button>
-      <ul class = "dropdown-menu" aria-labelledby = "dropdownMenuButton1">
-        <li> <a class = "dropdown-item" href = "#"> Make sure you entered the correct "Event Code" that was distributed at the event in question </a> </li>
-        <li> <a class = "dropdown-item" href = "#"> Contact an officer</a> </li>
-      </ul>
+
+  <section class="py-4 text-center container">
+    <div class="row py-lg-4">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1>Frequently Asked Questions</h1>
+      </div>
     </div>
   </section>
+
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Help, I am not able to login to my account.
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <p>Check that you are logged in to your Google account outside of the ASLA app in another Tab</p>
+          <br>
+          <p>Make sure you are using the correct Google account (the account you used to first login to ASLA) </p>
+          <br>
+          <p>Contact an officer </p>
+        </div>
+      </div>
+    </div>
+
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            My points are incorrectly displayed <strong> OR </strong> I did not get credt for an event I attended.
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <p> Make sure you entered the correct "Event Code" that was distributed at the event in question </p>
+          <br>
+          <p>Contact an officer </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            I was elected to be an officer, but I cannot access officer tools
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          <p> Log out, and log back in using the same account </p>
+          <br>
+          <p> Check the <strong>MEMBERS</strong> page, and check your "TITLE." Ensure that you are assigned as an "officer" rather than "member" </p>
+          <br>
+          <p> Verify with a current officer (that has access to officer tools) that the website has designated you as an officer </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            I attended an event, but forgot to get/enter the code distributed at the event
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div class="card-body">
+          <p> Contact an officer that you saw at the event </p>
+          <br>
+          <p> If you did not see an officer at the event, contact an officer and explain your situation. They will be able to manually adjust your points accordingly </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
