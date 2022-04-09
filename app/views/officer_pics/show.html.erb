@@ -1,21 +1,15 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @officer_pic.name %>
-</p>
-
-<p>
-  <strong>Officer title:</strong>
-  <%= @officer_pic.officer_title %>
-</p>
-
-<p>
-  <strong>Officer Bio:</strong>
-  <%= @officer_pic.officer_bio %>
-</p>
-
-<%= image_tag(@officer_pic.image, style:'width:50%') %>
-
-<%= link_to 'Edit', edit_officer_pic_path(@officer_pic) %> |
-<%= link_to 'Back', officer_pics_path %>
+<div class="col text-center container">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                <div class = "py-3">
+                    <%= image_tag(officer_pic.image, style:'height:200px;width:200px;') %>
+                </div>
+                    <h4 class="card-text"><strong>Name:</strong> <%= officer_pic.name %></h4>
+                    <h5><strong>Officer title:</strong><%= officer_pic.officer_title %></h5>
+                    <p><strong>Officer Bio:</strong><%= officer_pic.officer_bio %></p>
+                </div>
+            </div>
+            <%= link_to 'Edit', edit_officer_pic_path(@officer_pic) , class: 'btn btn-primary btn-sm'%> 
+            <%= link_to 'Back', officer_pics_path , class: 'btn btn-primary btn-sm'%>
+</div>
