@@ -3,11 +3,11 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                 <div class = "py-3">
-                    <%= image_tag(officer_pic.image, style:'height:200px;width:200px;') %>
+                    <%= image_tag(@officer_pic.image, style:'height:200px;width:200px;') %>
                 </div>
-                    <h4 class="card-text"><strong>Name:</strong> <%= officer_pic.name %></h4>
-                    <h5><strong>Officer title:</strong><%= officer_pic.officer_title %></h5>
-                    <p><strong>Officer Bio:</strong><%= officer_pic.officer_bio %></p>
+                    <h4 class="card-text"><strong>Name:</strong> <%= @officer_pic.name %></h4>
+                    <h5><strong>Officer title:</strong><%= @officer_pic.officer_title %></h5>
+                    <p><strong>Officer Bio:</strong><%= @officer_pic.officer_bio %></p>
                 </div>
             </div>
             <%= link_to 'Edit', edit_officer_pic_path(@officer_pic) , class: 'btn btn-primary btn-sm'%> 
