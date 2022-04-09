@@ -1,13 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Officer Pics</h1>
 
-<table>
+<div class="container">
+<h1 class="index-title">Officer Pics</h1>
+<br>
+<%= link_to 'New Officer Pic', new_officer_pic_path , class: 'btn btn-primary btn-sm'%>
+<br>
+
+
+<table class="table table-bordered">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Officer title</th>
-      <th colspan="3"></th>
+    <th>Name</th>
+    <th>Officer title</th>
+    <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -25,7 +31,5 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
-
-<%= link_to 'New Officer Pic', new_officer_pic_path %>
