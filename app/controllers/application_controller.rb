@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def account_created?
+    redirect_to(pages_unauthorized_path) if !session[:creatingAccount]
+  end
   def account_creating?
     redirect_to(pages_select_account_type_path, notice: 'Please finish creating your account.') if session[:creatingAccount]
   end
