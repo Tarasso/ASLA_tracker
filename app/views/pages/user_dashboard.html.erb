@@ -248,10 +248,10 @@
                                     <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>                    
                                   </div>
                                   <div class="row" style="padding: 1.8vh;">
-                                    <div class="col event-button" onclick="toggleSubmit('<%= submit_counter %>')" id='event_code__<%= submit_counter %>' style="text-align: center;">
+                                    <div class="col event-button" onclick="toggleSubmit('<%=submit_counter%>')" id='event_code__<%=submit_counter%>' style="text-align: center;">
                                       <span style="font-size: 1em">Enter Code</span>
                                     </div>
-                                    <div class="form-popup" id="myForm__<%= submit_counter %>">
+                                    <div class="form-popup" id="myForm__<%=submit_counter%>">
                                       <%= form_tag(eventcode_student_member_path(id: @student_user.id), method: "get") do %>
                                       <%= hidden_field_tag :eid, event.event_id %>
                                       <%= hidden_field_tag :mid, @student_user.id %>
@@ -267,8 +267,8 @@
                                     </div>
                                     <script>
                                       function toggleSubmit(id) {
-                                        btn = document.getElementById('event_code__'+ id);
-                                        form = document.getElementById('myForm__' + id);
+                                        btn = document.getElementById('event_code__'+id);
+                                        form = document.getElementById('myForm__'+id);
                                         form.style.display = "block";
                                         btn.style.display = "none";
                                       } 
@@ -281,7 +281,7 @@
                         </div>
                         <% @event_list = EventStudentMember.where(student_member_id: @user.id).drop(3)%>
                         <% @div_counter = 0%>
-                        <% submit_counter = 0 %>
+                        <% submit_counter2 = 0 %>
                         <% @event_list.each do |event| %>
                           <% @event_info = Event.find(event.event_id) %>
                             <% if @div_counter == 0 %>
@@ -289,7 +289,7 @@
                                 <div class="row">
                             <% end %>
                             <% @div_counter += 1%>
-                            <% submit_counter += 1 %>
+                            <% submit_counter2 += 1 %>
                             <div class="col-md-4 mb-3">
                               <div class="card" style="height: 18vh">
                               <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
@@ -301,10 +301,10 @@
                                 <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
                               </div>
                               <div class="row" style="padding: 1.8vh;">
-                                <div class="col event-button" onclick="toggleSubmit('enter_code_<%= submit_counter %>')" id="enter_code_<%= submit_counter %>" style="text-align: center;">
+                                <div class="col event-button" onclick="toggleSubmit2('<%=submit_counter2%>')" id="enter_code_<%=submit_counter2%>" style="text-align: center;">
                                   <span style="font-size: 1em">Enter Code</span>
                                 </div>
-                                <div class="form-popup" id="myForm2_<%= submit_counter %>">
+                                <div class="form-popup" id="myForm2_<%=submit_counter2%>">
                                   <%= form_tag(eventcode_student_member_path(id: @student_user.id), method: "get") do %>
                                   <%= hidden_field_tag :eid, event.id %>
                                   <%= hidden_field_tag :mid, @student_user.id %>
@@ -313,7 +313,7 @@
                                   <% end %>
                                 </div>
                                 <script>
-                                  function toggleSubmit(id) {
+                                  function toggleSubmit2(id) {
                                       btn = document.getElementById('enter_code_'+ id);
                                       form = document.getElementById('myForm2_' + id);
                                       form.style.display = "block";

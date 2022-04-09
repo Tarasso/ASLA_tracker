@@ -32,7 +32,7 @@ class EventStudentMembersController < ApplicationController
     @event_student_member.save!
     respond_to do |format|
       if @event_student_member.save
-        format.html { redirect_to('/pages/user_dashboard', notice: 'You have registered.', style: "float: right") }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'You have registered.', style: 'float: right') }
         format.json { render(:show, status: :created, location: @event_student_member) }
       else
         format.html { render(:new, status: :unprocessable_entity) }
@@ -48,7 +48,7 @@ class EventStudentMembersController < ApplicationController
     @event_student_member.destroy!
 
     respond_to do |format|
-      format.html { redirect_to('/pages/user_dashboard', notice: 'You have unregistered.', style: "float: right") }
+      format.html { redirect_to('/pages/user_dashboard', notice: 'You have unregistered.', style: 'float: right') }
       format.json { head(:no_content) }
     end
   end
