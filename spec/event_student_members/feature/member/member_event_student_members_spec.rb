@@ -51,7 +51,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     click_on 'Unregister'
     expect(page).to(have_content('You have unregistered.'))
     click_on 'Register'
+    print(page)
     fill_in 'event_code_entered', with: event_code
-    click_on 'Enter Code'
   end
 end

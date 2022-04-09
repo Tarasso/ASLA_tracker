@@ -138,6 +138,7 @@
 
   .event-button {
     color: #500000;
+    background: white;
     border: 2px solid #500000;
     text-decoration: none;
     cursor: pointer;
@@ -145,7 +146,7 @@
   }
   .event-button:hover {
     background: #500000;
-    color: white;
+    color: white !important;
   }
 
   .event-dashboard-card.flipped {
@@ -157,9 +158,7 @@
 
 .form-popup {
   display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
+  width: 50%;
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
