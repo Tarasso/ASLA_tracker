@@ -161,19 +161,19 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
         @student_member.update!(meeting_point_amount: @meeting_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
         @student_member.update!(social_point_amount: @social_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
         @student_member.update!(informational_point_amount: @informational_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
         @student_member.update!(fundraiser_point_amount: @fundraising_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       else
         Rails.logger.debug(@event.event_type)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect code entered. PLease try again.') }
       end
     end
   end
