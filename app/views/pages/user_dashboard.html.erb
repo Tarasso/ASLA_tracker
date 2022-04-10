@@ -147,7 +147,7 @@
                                     <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= event.name %></p></div>
                                     <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
                                     <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
-                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=event.start_time.strftime('%H:%M %p')%>-<%=event.finish_time.strftime('%H:%M %p') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(event.start_time).strftime('%H:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%H:%M %p') %></p></div>
                                     <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
                                     <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
                                   </div>

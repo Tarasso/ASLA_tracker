@@ -78,4 +78,7 @@ Rails.application.configure do
 
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '253461508452-hgfsauo8s8u7oge681735l5h92dkf704.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+
+  ENV['AMAZON_ACCESS_KEY_ID'] = '***REMOVED***'
+  ENV['AMAZON_SECRET_ACCESS_KEY'] = '***REMOVED***'
 end
