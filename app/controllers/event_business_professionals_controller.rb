@@ -40,7 +40,7 @@ class EventBusinessProfessionalsController < ApplicationController
     @event_business_professional = EventBusinessProfessional.new(business_professional_id: @business_professional.id, event_id: @event.id)
     respond_to do |format|
       if @event_business_professional.save
-        format.html { redirect_to(events_business_professional_path(@business_professional), notice: 'You have registered.') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'You have registered for the event.') }
         format.json { render(:show, status: :created, location: @event_business_professional) }
       else
         format.html { render(:new, status: :unprocessable_entity) }
@@ -56,7 +56,7 @@ class EventBusinessProfessionalsController < ApplicationController
     @event_business_professional.destroy!
 
     respond_to do |format|
-      format.html { redirect_to(events_business_professional_path(@business_professional), notice: 'You have unregistered.') }
+      format.html { redirect_to('/pages/user_dashboard', notice: 'You have unregistered for the event.') }
       format.json { head(:no_content) }
     end
   end
