@@ -1,6 +1,11 @@
-<h1>Editing Newsletter</h1>
+<section class="show-box">
+<div class="info">
+<h1>Editing Newsletter Entry <%=@newsletter.id%> </h1>
+
 
 <%= render 'form', newsletter: @newsletter %>
 
-<%= link_to 'Show', @newsletter %> |
-<%= link_to 'Back', newsletters_path %>
+<%= link_to 'Show', @newsletter , class: 'btn btn-primary btn-sm'%> 
+<%= link_to 'Back', newsletters_path , class: 'btn btn-primary btn-sm'%>
+</div>
+</section>

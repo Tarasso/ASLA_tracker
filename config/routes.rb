@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   resources :officer_pics
   resources :carousels
 
-  get 'pages/contact'
+  get 'pages/faq'
   get 'pages/home'
   get 'pages/officers'
   get 'pages/help'

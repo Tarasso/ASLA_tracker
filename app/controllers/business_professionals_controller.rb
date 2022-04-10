@@ -3,6 +3,7 @@
 class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
+  before_action :account_created?, only: [:new]
   before_action :account_creating?, only: %i[index show edit destroy events attended]
   before_action :allowed_to_view_bpro?, only: %i[show edit update]
   before_action :business_member_event_delete, only: %i[destroy]
