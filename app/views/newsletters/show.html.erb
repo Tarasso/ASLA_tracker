@@ -1,20 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<div class="card" style="width: 40rem; margin-left: 30px">
-    <div class="card-body">
-      <h3 class="card-title"><%= @newsletter.title %></h3>
-      <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= @newsletter.created_at.strftime('%B %-d, %Y') %></h6>
-      <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= @newsletter.updated_at.strftime('%B %-d, %Y') %></h6>
-      <p class="card-text"><%= @newsletter.message %></p>
-      <% (0...@newsletter.images.count).each do |image| %>
-        <a href= "<%= url_for(@newsletter.images[image]) %>" target="_blank" rel="noopener noreferrer" > <%= image_tag(@newsletter.images[image], style:'height:200px;width:300px;') %> </a>
-      <% end %>
-    </div>
-</div>
 
-<div style="margin-left: 30px">
+<section class="show-box">
+<div class="info" style="max-width: 600px">
+
+  <h3 class="card-title" style="color: black;"><%= @newsletter.title %></h3>
+  <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
+  <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
+  <p class="card-text"><%= @newsletter.message %></p>
+
   <% if session[:isAdmin] %>
-    <%= link_to 'Edit', edit_newsletter_path(@newsletter) %> |
+    <%= link_to 'Edit', edit_newsletter_path(@newsletter), class: 'btn btn-primary btn-sm'%> 
   <% end %>
-  <%= link_to 'Back', newsletters_path %>
+  <%= link_to 'Back', newsletters_path , class: 'btn btn-primary btn-sm'%>
+
+  <br><br>
+  <% (0...@newsletter.images.count).each do |image| %>
+    <a href = "<%= url_for(@newsletter.images[image])%>">
+      <%= image_tag(@newsletter.images[image], style:'width: 100px; height: 100px; object-fit: cover;', class: "card-img-top")%>
+    </a>
+  <% end %>
+
 </div>
+</section>
