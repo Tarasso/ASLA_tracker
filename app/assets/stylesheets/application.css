@@ -46,8 +46,21 @@
     border-color: #500000 !important;
   }
 
+  .fas:hover{
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+
+  .fab:hover{
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+  
+
   .nav-link {
-    font-size: 20px !important;
+    font-size: 18px !important;
     color: white !important;
   }
 
@@ -69,7 +82,7 @@ html {
 .footer {
   margin-top: auto;
   width: 100%;
-  background-color: #eaeaea;
+  background-color: #500000;
   padding: 1%;
 }
 
@@ -119,3 +132,8 @@ html {
   text-align: center;
   color: #500000;
 }
+
+
+
+
+
