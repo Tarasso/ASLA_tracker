@@ -60,13 +60,15 @@
   
 
   .nav-link {
+    background-color: #500000 !important;
     font-size: 18px !important;
     color: white !important;
   }
 
   .nav-link:hover {
-    background-color: #500000 !important;
-    color: #a7a7a7 !important;
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
   }
 
   .navbar-brand:hover {
@@ -132,6 +134,28 @@ html {
   text-align: center;
   color: #500000;
 }
+
+
+.footer-text:hover{
+  
+  background-color: white !important;
+  color: #500000 !important;
+  border-color: #500000 !important;
+}
+
+.dropdown-item:hover{
+  background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  
+}
+
+.dropdown-item{
+  background-color: white !important;
+  color: #500000 !important;
+  border-color: #500000 !important;
+}
+
 
 
 
