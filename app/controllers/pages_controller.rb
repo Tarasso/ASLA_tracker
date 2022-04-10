@@ -49,6 +49,7 @@ class PagesController < ApplicationController
           student.update!(social_point_amount: 0)
           student.update!(informational_point_amount: 0)
           student.update!(fundraiser_point_amount: 0)
+          student.update!(total_points: 0)
         end
       end
     end
