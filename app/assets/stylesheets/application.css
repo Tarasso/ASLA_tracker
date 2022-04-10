@@ -122,3 +122,6 @@ html {
   color: #500000;
 }
 
+.border-primary {
+  border: 1px solid #500000 !important;
+}
