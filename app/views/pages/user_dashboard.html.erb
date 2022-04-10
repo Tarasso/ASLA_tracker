@@ -1,46 +1,48 @@
-<div class="dashboard" style="padding: 20px">
+<div class="dashboard" style="padding: 2.5vh">
   <% if @is_student%>
     <h1 style="font-weight: normal; color: #800000;"> <span style="font-weight: bold">Howdy,</span> <%=@user.first_name%>! <span class="wave">👋</span></h1>
     <br>
   <% end %>
-   <% @student_user = StudentMember.find_by(uid: session[:uid]) %>
+  <% @student_user = StudentMember.find_by(uid: session[:uid]) %>
+  <!----------------------------------------------------------- First row of columns ---------------------------------------->
   <div class="row">
-    <div class="col-md-4" style="padding: 10px">
-        <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%"> <!-- height difference -->
-        <div class="card-body" style= "padding: 5px">
-          <h2>Your Information</h2>
+      <!----------------------------------------------------------- Your Information column ---------------------------------------->
+    <div class="col-md-4" style="padding: 1vh">
+      <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%"> <!-- height difference -->
+        <div class="card-body" style= "padding: 1.11vh">
+          <h2 style="color: #500000">Your Information</h2>
           <div class=row>
             <div class=col>   
               <% if @is_student%>
                 <div class="text-uppercase fw-bold mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>UIN</span></div>
-                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.uin%></span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.uin%></span></div>
               <% end %>
               <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>First Name</span></div>
-              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.first_name%></span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.first_name%></span></div>
               <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Last Name</span></div>
-              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.last_name%></span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.last_name%></span></div>
               <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Email</span></div>
-              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.email%></span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.email%></span></div>
               <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Phone Number</span></div>
-              <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.formatted_phone%></span></div>
+              <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.formatted_phone%></span></div>
             </div>
-            <div class=col style="padding: 0"> 
+            <div class=col style="padding-left: 1vh"> 
               <% if @is_student%>
                 <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Program Level</span></div>
-                <div class="text-dark text-uppercase fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.program_level%></span></div>
+                <div class="text-dark text-uppercase fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.program_level%></span></div>
                 <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Classification</span></div>
-                <div class="text-dark text-uppercase fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.student_classification%></span></div>
+                <div class="text-dark text-uppercase fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.student_classification%></span></div>
                 <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Class Year</span></div>
-                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.class_year%></span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.class_year%></span></div>
                 <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Expected Graduation Date</span></div>
-                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.expected_graduation_date.strftime('%B %Y')%></span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.expected_graduation_date.strftime('%B %Y')%></span></div>
                 <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Dues Paid</span></div>
-                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=read_bool(@user.dues_paid)%></span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=read_bool(@user.dues_paid)%></span></div>
               <% else %>
                 <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Organization</span></div>
-                <div class="text-dark fw-bold h5 mb-0" style="padding: 5px;"><span><%=@user.org_name%></span></div>
+                <div class="text-dark fw-bold h5 mb-0" style="padding: 1.11vh;"><span><%=@user.org_name%></span></div>
               <% end %>
-              <div style="bottom: 0; right: 0; position: absolute; padding: 5px;">
+              <div style="bottom: 0; right: 0; position: absolute; padding: 1.11vh;">
                 <% if @is_student%>
                   <p class="text-dark fw-bold h5 mb-0"><%= link_to 'Edit Your Information', edit_student_member_path(@user) %></p>
                 <% else %>
@@ -52,11 +54,12 @@
         </div>
       </div>
     </div>
+    <!----------------------------------------------------------- Point breakdown column ---------------------------------------->
     <% if @is_student %>
-      <div class="col-md-3" style="padding: 10px">
-        <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%;">
+      <div class="col-md-3" style="padding: 1vh">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
           <div class="card-body" style= "padding: 5px">
-          <h2>Point Breakdown</h2>
+          <h2 style="color: #500000">Point Breakdown</h2>
           <div class="row align-items-center no-gutters">
             <div class="col me-4">
               <div class=row>
@@ -113,21 +116,21 @@
         </div>
       </div>
     <% end %>
+    <!----------------------------------------------------------- Upcoming Events column and carousel ---------------------------------------->
     <% if @is_student %>
-    <div class="col-md-5" style="padding: 10px; padding-left: 20px">
-      <div class="row" style="padding-bottom: 10px; height: 50%;">
-        <div class="card shadow border-start-primary py-2">
-          <div class="card-body" style= "padding: 5px">
-          <h2>Upcoming Events</h2>
-            <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+      <div class="col-md-5" style="padding: 10px; padding-left: 20px">
+        <div class="row" style="padding-bottom: 10px; height: 50%;">
+          <div class="card shadow border-start-primary py-2">
+            <h2 style="color: #500000">Upcoming Events</h2>
+              <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
             <section>
               <div class="container">
                 <div class="row">
                   <div class="col-6 text-right">
-                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-bottom: 5px !important;">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-bottom: 1.11vh !important;">
                       <i class="fa fa-arrow-left"></i>
                     </a>
-                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-bottom: 5px !important;">
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-bottom: 1.11vh !important;">
                       <i class="fa fa-arrow-right"></i>
                     </a>
                   </div>
@@ -141,66 +144,62 @@
                               <div class="col-md-4 mb-3">
                                 <div class="card" style="height: 18vh">
                                   <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                    <div class = "contents" style="overflow-x: hidden; overflow-y: auto;">
-                                      <p style="margin: 0;">Event Name: <%= event.name %></p>
-                                      <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
-                                      <p style="margin: 0">Location: <%= event.location %></p>
-                                      <p style="margin: 0">Time: <%=daylight_savings(event.start_time).strftime('%H:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%H:%M %p') %></p>
-                                    </div>
+                                    <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= event.name %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(event.start_time).strftime('%H:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%H:%M %p') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
                                   </div>
-                                  <div class="row" style="padding: 20px">
-                                    <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
-                                    <div class="col event-button" style="text-align: center;">
+                                  <div class="row" style="padding: 1.8vh;">
+                                    <% @attended = MemberAttendance.find_by(student_member_id: @student_user.id, event_id: event.id)%>
+                                    <% if !@attended %>    <!-- If member has attended event, dont show -->
+                                      <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
                                       <% if @event_student_member %>
-                                          <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' } %>
+                                          <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: "col event-button", style:"text-align: center; color: #500000;" %>
                                       <% else %>
-                                          <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id) %>
+                                          <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), class: "col event-button", style:"text-align: center; color: #500000" %>
                                       <% end %>
-                                    </div>
+                                    <% end %>                    
                                   </div>
                                 </div>
-                              </div>
+                              </div>  
                             <% end %>
                           </div>
                         </div>
-                        <% @event_list = Event.all%>
-                        <% @counter_events = 0%>
-                        <% @counter_2 = 0%>
+                        <% @event_list = Event.all.drop(3)%>
+                        <% @div_counter = 0%>
                         <% @event_list.each do |event| %>
-                          <% if (@event_list.count > 3)  &&  (@counter_events > 2) %>
-                            <% if @counter_2 == 0 %>
-                              <div class="carousel-item">
-                                <div class="row">
-                            <% end %>
-                            <% @counter_2 += 1%>
-                            <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 18vh">
-                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <p style="margin: 0;">Event Name: <%= event.name %></p>
-                                  <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
-                                  <p style="margin: 0">Location: <%= event.location %></p>
-                                  <p style="margin: 0">Time: <%=event.start_time.strftime('%H:%M %p')%>-<%=event.finish_time.strftime('%H:%M %p') %></p>
-                                  <p style="margin: 0">Event Type: <%=event.event_type %></p> 
-                                </div>
-                                <div class="row" style="padding: 20px">
-                                  <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
-                                  <div class="col event-button" style="text-align: center;">
-                                    <% if @event_student_member %>
-                                        <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' } %>
-                                    <% else %>
-                                        <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id) %>
-                                    <% end %>
-                                  </div>
-                                </div>
+                          <% if @div_counter == 0 %>
+                            <div class="carousel-item">
+                              <div class="row">
+                          <% end %>
+                          <% @div_counter += 1%>
+                          <div class="col-md-4 mb-3">
+                            <div class="card" style="height: 18vh">
+                              <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= event.name %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=event.start_time.strftime('%H:%M %p')%>-<%=event.finish_time.strftime('%H:%M %p') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
+                              </div>
+                              <div class="row" style="padding: 1.8vh;">
+                                <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
+                                <% if @event_student_member %>
+                                  <%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: "col event-button", style:"text-align: center; color: #500000" %>
+                                <% else %>
+                                  <%= link_to 'Register', register_event_student_member_path(mid: @student_user.id, eid: event.id, id: @student_user.id), class: "col event-button", style:"text-align: center; color: #500000" %>
+                                <% end %>
                               </div>
                             </div>
-                            <% if @counter_2 == 3 %>
-                                </div>
+                          </div>
+                          <% if @div_counter == 3 %>
                               </div>
-                              <% @counter_2 = 0%>
-                            <% end %>
+                            </div>
+                            <% @div_counter = 0%>
                           <% end %>
-                          <% @counter_events += 1%>
                         <% end %>
                       </div>
                     </div>
@@ -208,107 +207,127 @@
                 </div>
               </div>
             </section>
-            <!-- End of carousel -->
+          <!-- End of carousel -->
           </div>
         </div>
-      </div>
+      <!----------------------------------------------------------- Registered Events column and carousel ---------------------------------------->
       <div class="row" style="height: 50%">
         <div class="card shadow border-start-primary py-2">
-          <div class="card-body" style= "padding: 5px">
-          <h2>Registered Events</h2>
+
+          <h2 style="color: #500000">Registered Events</h2>
                         <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
             <section>
               <div class="container">
                 <div class="row">
                   <div class="col-6 text-right" style="float: right !important">
-                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-bottom: 10px !important;">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-bottom: 1vh !important;">
                       <i class="fa fa-arrow-left"></i>
                     </a>
-                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-bottom: 10px !important;">
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-bottom: 1vh !important;">
                       <i class="fa fa-arrow-right"></i>
                     </a>
                   </div>
                   <div class="col-12">
-                    <% @event_list = EventStudentMember.where(student_member_id: @user.id).first(3)%>
+                    <% @event_list = EventStudentMember.where(student_member_id: @user.id).first(3)%>   <!-- Find first 3 events that the member has registered for-->
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                       <div class="carousel-inner">
                         <div class="carousel-item active">
                           <div class="row">
-                            <% @event_list.each do |event| %>
+                            <% submit_counter = 0 %>
+                            <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
+                              <% submit_counter += 1 %>
                               <% @event_info = Event.find(event.event_id) %>
                               <div class="col-md-4 mb-3">
                                 <div class="card" style="height: 18vh">
                                   <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                    <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
-                                    <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
-                                    <p style="margin: 0">Location: <%= @event_info.location %></p>
-                                    <p style="margin: 0">Description: <%= "The student Chapter of the American Society of Landscape Architects at Texas A&M is a student organization aimed at advancing the profession of Landscape Architecture through advocacy, communication, education, professional development, and fellowship. The general objective of this organization shall be to unite interested graduate and undergraduate Landscape Architecture students in an effort to combine interests and desires toward fulfilling educational and social needs as well as broadening the understanding of the profession and the Society." %></p>
-                                    <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>                    
+                                    <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>                    
                                   </div>
-                                  <div class="row" style="padding: 20px">
-                                      <div class="col event-button" onclick="openForm()" style="text-align: center;">
-                                        <span style="font-size: 1em">Enter Code</span>
-                                      </div>
-                                      <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_user.id, event_id: event.id) %>
-                                      <div class="form-popup" id="myForm"> 
-                                        <% if @event_student_member %>
-                                            <%= form_tag(eventcode_student_member_path(id: @student_user.id), method: "get") do %>
-                                            <%= hidden_field_tag :eid, event.id %>
-                                            <%= hidden_field_tag :mid, @student_user.id %>
-                                            <%= number_field_tag :event_code_entered %>
-                                            <%= button_tag 'Submit Code', class: "col event-button" %>
-                                            <% end %>
-                                        <% end %>
-                                      </div>
-                                      <script>
-                                        function openForm() {
-                                          document.getElementById("myForm").style.display = "block";
-                                        }
-
-                                        function closeForm() {
-                                          document.getElementById("myForm").style.display = "none";
-                                        }
-                                      </script>
+                                  <div class="row" style="padding: 1.8vh;">
+                                    <div class="col event-button" onclick="toggleSubmit('<%=submit_counter%>')" id='event_code__<%=submit_counter%>' style="text-align: center;">
+                                      <span style="font-size: 1em">Enter Code</span>
                                     </div>
+                                    <div class="form-popup" id="myForm__<%=submit_counter%>">
+                                      <%= form_tag(eventcode_student_member_path(id: @student_user.id), method: "get") do %>
+                                      <%= hidden_field_tag :eid, event.event_id %>
+                                      <%= hidden_field_tag :mid, @student_user.id %>
+                                      <div class="row">
+                                        <div class="col" style="float: left; padding: 0">
+                                          <%= number_field_tag :event_code_entered %>
+                                        </div>
+                                        <div class="col" style="padding: 0">
+                                          <%= button_tag '🡢', class: "col event-button"%>
+                                        </div>
+                                      </div>
+                                      <% end %>
+                                    </div>
+                                    <script>
+                                      function toggleSubmit(id) {
+                                        btn = document.getElementById('event_code__'+id);
+                                        form = document.getElementById('myForm__'+id);
+                                        form.style.display = "block";
+                                        btn.style.display = "none";
+                                      } 
+                                    </script>
+                                  </div>
                                 </div>
                               </div>
                             <% end %>
                           </div>
                         </div>
-                        <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>
-                        <% @counter_events = 0%>
-                        <% @counter_2 = 0%>
+                        <% @event_list = EventStudentMember.where(student_member_id: @user.id).drop(3)%>
+                        <% @div_counter = 0%>
+                        <% submit_counter2 = 0 %>
                         <% @event_list.each do |event| %>
                           <% @event_info = Event.find(event.event_id) %>
-                          <% if (@event_list.count > 3)  &&  (@counter_events > 2) %>
-                            <% if @counter_2 == 0 %>
+                            <% if @div_counter == 0 %>
                               <div class="carousel-item">
                                 <div class="row">
                             <% end %>
-                            <% @counter_2 += 1%>
+                            <% @div_counter += 1%>
+                            <% submit_counter2 += 1 %>
                             <div class="col-md-4 mb-3">
                               <div class="card" style="height: 18vh">
-                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
-                                  <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
-                                  <p style="margin: 0">Location: <%= @event_info.location %></p>
-                                  <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>                    
-                                  <p style="margin: 0">Event Type: <%=@event_info.event_type %></p> 
+                              <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
+                              </div>
+                              <div class="row" style="padding: 1.8vh;">
+                                <div class="col event-button" onclick="toggleSubmit2('<%=submit_counter2%>')" id="enter_code_<%=submit_counter2%>" style="text-align: center;">
+                                  <span style="font-size: 1em">Enter Code</span>
                                 </div>
-                                <div class="row" style="padding: 20px">
-                                  <div class="col event-button" onclick="openForm()" style="text-align: center;">
-                                    <span style="font-size: 1em">Enter Code</span>
-                                  </div>
+                                <div class="form-popup" id="myForm2_<%=submit_counter2%>">
+                                  <%= form_tag(eventcode_student_member_path(id: @student_user.id), method: "get") do %>
+                                  <%= hidden_field_tag :eid, event.id %>
+                                  <%= hidden_field_tag :mid, @student_user.id %>
+                                  <%= number_field_tag :event_code_entered %>
+                                  <%= button_tag '🡢', class: "col event-button" %>
+                                  <% end %>
                                 </div>
+                                <script>
+                                  function toggleSubmit2(id) {
+                                      btn = document.getElementById('enter_code_'+ id);
+                                      form = document.getElementById('myForm2_' + id);
+                                      form.style.display = "block";
+                                      btn.style.display = "none";
+                                  } 
+                                </script>
                               </div>
                             </div>
-                            <% if @counter_2 == 3 %>
-                                </div>
+                          </div>
+                          <% if @div_counter == 3 %>
                               </div>
-                              <% @counter_2 = 0%>
-                            <% end %>
+                            </div>
+                            <% @div_counter = 0%>
                           <% end %>
-                          <% @counter_events += 1%>
                         <% end %>
                       </div>
                     </div>
@@ -320,28 +339,30 @@
           </div>
         </div>
       </div>
-    </div>
     <% end %>
   </div>
+  <!----------------------------------------------------------- End of first row ---------------------------------------->
+  <!----------------------------------------------------------- Beginning of second row ---------------------------------------->
   <div class="row">
+    <!----------------------------------------------------------- Officer tools column ---------------------------------------->
     <% if session[:isAdmin] %>
-      <div class="col-md-4" style="padding: 10px">
-        <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%; padding-top: 0"> <!-- height difference -->
-          <div class="card-body" style= "padding: 5px;">
-            <h2>Officer Tools</h2>
+      <div class="col-md-4" style="padding: 1vh">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%; padding-top: 0"> <!-- height difference -->
+          <div class="card-body" style= "padding: 1.11vh;">
+            <h2 style="color: #500000">Officer Tools</h2>
             <div class="row" style="justify-content: center;">
-              <div class="card" style="width: 40vh; padding: 10px;">
+              <div class="card" style="width: 40vh; padding: 1vh;">
                 <h4>Email Copying</h4>
                 <form style="text-align: center" action="/pages/user_dashboard" method="get" id="mail_form">
                   <input type="checkbox" id="group1" name="group1" value="officers">
-                  <label for="group1" style="font-size: 20px">Officers</label>
+                  <label for="group1" style="font-size: 2.5vh">Officers</label>
                   <br>
                   <input type="checkbox" id="group2" name="group2" value="non_officers">
-                  <label for="group2" style="font-size: 20px">Non-Officer Students</label>
+                  <label for="group2" style="font-size: 2.5vh">Non-Officer Students</label>
                   <br>
                   <input type="checkbox" id="group3" name="group3" value="business">
-                  <label for="group3" style="font-size: 20px">Business Professionals</label>
-                  <input type="submit" style="font-size: 20px" value="Copy to Clipboard">
+                  <label for="group3" style="font-size: 2.5vh">Business Professionals</label>
+                  <input type="submit" style="font-size: 2.5vh" value="Copy to Clipboard" class="event-button">
                 </form>
                 <p id="success"></p>
                 <% if @recipients_str %>
@@ -353,7 +374,7 @@
                 <% end %>
               </div>
               <div class="card" style="width: 40vh">
-                <div class="reset-stuff" style="font-size: 20px; padding: 10px;">
+                <div class="reset-stuff" style="font-size: 2.5vh; padding: 1vh;">
                   <h4>Reset Dues/Points</h4>
                   <form action="user_dashboard" style="text-align: center" method="get" id="user_dashboard">
                     <input type="checkbox" id="group4" name="dues" value="dues">
@@ -362,19 +383,18 @@
                     <input type="checkbox" id="group5" name="points" value="points">
                     <label for="group5">Points</label>
                     <br>
-                    <input type="submit" value="Reset" onclick="return confirm('Are you sure you would like to reset the selected categories?')" }>
+                    <input type="submit" value="Reset" class="event-button" onclick="return confirm('Are you sure you would like to reset the selected categories?')" }>
                   </form>
                 </div> 
               </div>
               <div class="card" style="width: 40vh">
-                <div class="set_points_req" style="font-size: 20px; padding: 10px;">
+                <div class="set_points_req" style="font-size: 2.5vh; padding: 1vh;">
                   <% file = File.open("global_variables.txt")%>
                   <h4>Set Points Requirement</h4>
                   <form action="user_dashboard" style="text-align: center" method="get" id="user_dashboard">
                     <label>Current Required Points: <%= file_info = file.read()%></label>
-                    <label for="group1">Required Points</label>
-                    <input type="number" min="1" id="group3" name="required_points">
-                    <input type="submit" value="Update">
+                    <input type="number" min="1" id="group3" name="required_points" style="width: 50%">
+                    <input type="submit" value="Update" class="event-button">
                   </form>
                 </div>
               </div>
@@ -383,15 +403,16 @@
         </div>
       </div>
     <% end %>
-    <div class="col-md-3" style="padding: 10px"> 
-      <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%">
-        <div class="card-body" style= "padding: 5px">
-          <h2 style="padding: 5px; padding-top: 0">Points Leaderboard</h2>
+    <!----------------------------------------------------------- Points Leaderboard column ---------------------------------------->
+    <div class="col-md-3" style="padding: 1vh"> 
+      <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%">
+        <div class="card-body" style= "padding: 1.11vh">
+          <h2 style="padding: 1.11vh; padding-top: 0; color: #500000">Points Leaderboard</h2>
           <% @point_leaders = @student_members.first(3) %>
           <div class="row">
             <% @point_leaders.each do |leader| %>
               <% if @point_leaders.find_index(leader) + 1 == 1%>
-                <div class="row" style="padding: 10px; padding-top: 5px; position: relative">
+                <div class="row" style="padding: 1vh; padding-top: 1.11vh; position: relative">
                   <div class="col" style="float: left">
                     <div class="quiz-medal">
                       <div class="quiz-medal__circle quiz-medal__circle--gold">
@@ -399,14 +420,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col" style="padding: 10px; text-align: center">
+                  <div class="col" style="padding: 1vh; text-align: center">
                     <h2 style="color:#f9ad0e;"><%= leader.first_name %></h2>
                     <h2 style="color:#f9ad0e;"><%= leader.last_name %></h2>
                     <h1 style="color:#f9ad0e;"><%= leader.total_points %> points</h1>
                   </div>
                 </div>
               <% elsif @point_leaders.find_index(leader) + 1 == 2%>
-                <div class="row" style="padding: 10px; padding-top: 5px">
+                <div class="row" style="padding: 1vh; padding-top: 1.11vh">
                   <div class="col" style="float: left">
                     <div class="quiz-medal">
                       <div class="quiz-medal__circle quiz-medal__circle--silver">
@@ -414,14 +435,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col" style="padding: 10px; text-align: center;">
+                  <div class="col" style="padding: 1vh; text-align: center;">
                     <h2 style="color:#d1d7da"><%= leader.first_name %></h2>
                     <h2 style="color:#d1d7da"><%= leader.last_name %></h2>
                     <h1 style="color:#d1d7da"><%= leader.total_points %> points</h1>
                   </div>
                 </div>
               <% else %>
-                <div class="row" style="padding: 10px; padding-top: 5px">
+                <div class="row" style="padding: 1vh; padding-top: 1.11vh">
                   <div class="col" style="float: left">
                     <div class="quiz-medal">
                       <div class="quiz-medal__circle quiz-medal__circle--bronze">
@@ -429,7 +450,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col" style="padding: 10px; text-align: center">
+                  <div class="col" style="padding: 1vh; text-align: center">
                     <h2 style="color:#df7e08;"><%= leader.first_name %></h2>
                     <h2 style="color:#df7e08;"><%= leader.last_name %></h2>
                     <h1 style="color:#df7e08;"><%= leader.total_points %> points</h1>
@@ -438,87 +459,89 @@
               <% end %>
             <% end %>
           </div>
-          <div>
-        </div>
+        <div>
       </div>
     </div>
+    </div>  
     </div>
-    <div class="col-md-5" style="padding: 10px; padding-right: 0">
-      <div class="card shadow border-start-primary py-2" style="padding-left: 10px; height: 100%"> <!-- height difference -->
-        <div class="card-body" style= "padding: 5px">
-          <h2>Attended Events</h2>
+    <!----------------------------------------------------------- Attend events column and carousel ---------------------------------------->
+    <div class="col-md-5" style="padding: 1vh; padding-right: 0">
+      <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%"> <!-- height difference -->
+        <div class="card-body" style= "padding: 1.11vh">
+          <h2 style="color: #500000">Attended Events</h2>
             <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
-            <section>
-              <div class="container">
-                <div class="row">
-                  <div class="col-6 text-right">
-                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev" style="margin-bottom: 10px !important;">
-                      <i class="fa fa-arrow-left"></i>
-                    </a>
-                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next" style="margin-bottom: 10px !important;">
-                      <i class="fa fa-arrow-right"></i>
-                    </a>
-                  </div>
-                  <div class="col-12">
-                    <% @event_list = MemberAttendance.where(student_member_id: @user.id).first(3)%>
-                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <div class="row">
-                            <% @event_list.each do |event| %>
-                              <% @event_info = Event.find(event.event_id) %>
-                              <div class="col-md-4 mb-3">
-                                <div class="card" style="height: 20vh">
-                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                    <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
-                                    <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
-                                    <p style="margin: 0">Location: <%= @event_info.location %></p>
-                                    <p style="margin: 0">Description: <%= "dfnsjfjskdfjsnldkfnsldkfnsdlfknsdkfnsodklfsdlkfnskdfnsdlkfsndfklsnfklsdnflsdkflnsdklfsdklfnsdklfsdnklcnzodcnsoindslkcnsdcljksdncsldkncsdklcsdncklsdncklscnks" %></p>
-                                    <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>
-                                  </div>
-                                </div>
-                              </div>
-                            <% end %>
-                          </div>
-                        </div>
-                        <% @event_list = MemberAttendance.where(student_member_id: @user.id)%>
-                        <% @counter_events = 0%>
-                        <% @counter_2 = 0%>
-                        <% @event_list.each do |event| %>
-                          <% @event_info = Event.find(event.event_id) %>
-                          <% if (@event_list.count > 3)  &&  (@counter_events > 2) %>
-                            <% if @counter_2 == 0 %>
-                              <div class="carousel-item">
-                                <div class="row">
-                            <% end %>
-                            <% @counter_2 += 1%>
-                              <div class="col-md-4 mb-3">
-                                <div class="card" style="height: 20vh">
-                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <p style="margin: 0;">Event Name: <%= @event_info.name %></p>
-                                  <p style="margin: 0">Event Date: <%= @event_info.date.strftime('%B %-d, %Y') %></p>
-                                  <p style="margin: 0">Location: <%= @event_info.location %></p>
-                                  <p style="margin: 0">Time: <%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p>
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-6 text-right">
+                  <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev" style="margin-bottom: 1vh !important;">
+                    <i class="fa fa-arrow-left"></i>
+                  </a>
+                  <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next" style="margin-bottom: 1vh !important;">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+                <div class="col-12">
+                  <% @event_list = MemberAttendance.where(student_member_id: @user.id).first(3)%>
+                  <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <div class="row">
+                          <% @event_list.each do |event| %>
+                            <% @event_info = Event.find(event.event_id) %>
+                            <div class="col-md-4 mb-3">
+                              <div class="card" style="height: 20vh">
+                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                  <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
                                 </div>
                               </div>
                             </div>
-                            <% if @counter_2 == 3 %>
-                                </div>
-                              </div>
-                              <% @counter_2 = 0%>
-                            <% end %>
                           <% end %>
-                          <% @counter_events += 1%>
-                        <% end %>
+                        </div>
                       </div>
+                      <% @event_list = MemberAttendance.where(student_member_id: @user.id).drop(3)%>
+                      <% @div_counter = 0%>
+                      <% @event_list.each do |event| %>
+                      <% @event_info = Event.find(event.event_id) %>
+                        <% if @div_counter == 0 %>
+                          <div class="carousel-item">
+                            <div class="row">
+                        <% end %>
+                        <% @div_counter += 1%>
+                          <div class="col-md-4 mb-3">
+                            <div class="card" style="height: 20vh">
+                              <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
+                              </div>
+                            </div>
+                          </div>
+                        <% if @div_counter == 3 %>
+                            </div>
+                          </div>
+                          <% @div_counter = 0%>
+                        <% end %>
+                      <% end %>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-            <!-- End of carousel -->
+            </div>
+          </section>
+          <!-- End of carousel -->
         </div>
       </div>
     </div>
+    <!----------------------------------------------------------- End of attend events column and carousel ---------------------------------------->
   </div>
 </div>
+

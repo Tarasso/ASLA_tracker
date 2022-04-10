@@ -3,6 +3,7 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy events]
   before_action :admin?, only: [:destroy]
+  before_action :account_created?, only: [:new]
   before_action :account_creating?, only: %i[index attended events edit show]
   before_action :allowed_to_view_student?, only: %i[edit update]
   before_action :allowed_to_view_student_info?, only: [:show]
@@ -160,19 +161,19 @@ class StudentMembersController < ApplicationController
     respond_to do |format|
       if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
         @student_member.update!(meeting_point_amount: @meeting_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
         @student_member.update!(social_point_amount: @social_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
         @student_member.update!(informational_point_amount: @informational_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
         @student_member.update!(fundraiser_point_amount: @fundraising_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
       else
         Rails.logger.debug(@event.event_type)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect code entered. PLease try again.') }
       end
     end
   end

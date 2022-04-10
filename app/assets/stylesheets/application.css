@@ -81,8 +81,6 @@ html {
   margin-left: 30px;
 }
 
-
-
 .show-box {
   margin-top: auto;
   margin-bottom: auto;
@@ -120,8 +118,4 @@ html {
 .index-title {
   text-align: center;
   color: #500000;
-}
-
-.border-primary {
-  border: 1px solid #500000 !important;
 }

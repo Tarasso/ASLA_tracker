@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
   def about; end
 
-  def contact; end
+  def faq; end
 
   def officers
     @officer_pics = OfficerPic.all
