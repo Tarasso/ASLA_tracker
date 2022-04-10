@@ -48,7 +48,7 @@
             <% @event_info = Event.find(event.id) %>  
             <div class="col-4 card">
               <h4> <%= @event_info.name %> </h4>
-              <h6>Location: <%= @event_info.location %></6>
+              <h6>Location: <%= @event_info.location %></h6>
               <h6>When: <%= @event_info.date.strftime('%A, %B %d, %Y') %> at <%= daylight_savings(@event_info.start_time).strftime('%l:%M %p') %> </h6>
               <p> <%= @event_info.description %> </p>
               <p>Event Type: <%= @event_info.event_type %></p>

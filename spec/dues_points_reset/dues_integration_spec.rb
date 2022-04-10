@@ -24,7 +24,7 @@ RSpec.describe('Reseting dues and points', type: :feature) do
     select('May', from: 'student_member_expected_graduation_date_2i')
     click_on('Create account')
     page.set_rack_session(isAdmin: true)
-    visit(student_members_path)
+    visit('/pages/user_dashboard')
     page.check('Dues Paid')
     page.check('Points')
     click_on('Reset')
