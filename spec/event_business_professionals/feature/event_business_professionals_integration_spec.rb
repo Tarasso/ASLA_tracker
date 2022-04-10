@@ -29,14 +29,14 @@ RSpec.describe('Registering business professional for event', type: :feature) do
     page.set_rack_session(isAdmin: true)
   end
 
-    it 'register business professional' do
-      visit(business_professionals_path)
-      visit events_business_professional_path(BusinessProfessional.last)
-      click_on 'Register'
-      expect(page).to(have_content('You have registered for the event.'))
-      click_on 'Unregister'
-      expect(page).to(have_content('You have unregistered for the event.'))
-      click_on 'Register'
-      click_on 'Attended'
-    end
+  it 'register business professional' do
+    visit(business_professionals_path)
+    visit events_business_professional_path(BusinessProfessional.last)
+    click_on 'Register'
+    expect(page).to(have_content('You have registered for the event.'))
+    click_on 'Unregister'
+    expect(page).to(have_content('You have unregistered for the event.'))
+    click_on 'Register'
+    click_on 'Attended'
+  end
 end
