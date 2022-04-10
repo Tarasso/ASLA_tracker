@@ -145,7 +145,7 @@
                                       <p style="margin: 0;">Event Name: <%= event.name %></p>
                                       <p style="margin: 0">Event Date: <%= event.date.strftime('%B %-d, %Y') %></p>
                                       <p style="margin: 0">Location: <%= event.location %></p>
-                                      <p style="margin: 0">Time: <%=event.start_time.strftime('%H:%M %p')%>-<%=event.finish_time.strftime('%H:%M %p') %></p>
+                                      <p style="margin: 0">Time: <%=daylight_savings(event.start_time).strftime('%H:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%H:%M %p') %></p>
                                     </div>
                                   </div>
                                   <div class="row" style="padding: 20px">
