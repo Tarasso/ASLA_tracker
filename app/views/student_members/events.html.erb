@@ -18,7 +18,7 @@
   <tbody>
 
 <h1>Current Events</h1>
-    <% @events_all.each do |event| %>  <!-- Loop through events -->
+    <% @events.each do |event| %>  <!-- Loop through events -->
       <tr>
         <% @ev = Event.find(event.id) %>
         <% @attended = MemberAttendance.find_by(student_member_id: @student_member.id, event_id: event.id)%>
