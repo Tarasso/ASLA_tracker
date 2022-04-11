@@ -32,7 +32,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def events
     @business_professional = BusinessProfessional.find(params[:id])
-    @events = Event.where("date >= ?", Date.current)
+    @events = Event.where('date >= ?', Date.current)
     @event_business_professional = EventBusinessProfessional.all
   end
 

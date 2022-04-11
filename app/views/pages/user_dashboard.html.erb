@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <!----------------------------------------------------------- Point breakdown column: only for officers + students ---------------------------------------->
+    <!----------------------------------------------------------- Shortcuts column ---------------------------------------->
     <div class="col-md-3" style="padding: 1vh">
       <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
         <div class="card-body" style= "padding: 1.11vh">
@@ -361,6 +361,7 @@
   </div>
   <!----------------------------------------------------------- End of first row ---------------------------------------->
   <!----------------------------------------------------------- Beginning of second row ---------------------------------------->
+  <!------------------------------------------Point breakdown column: only for officers + students ---------------------------------------->
   <% if @is_student %>
     <div class="row">
       <div class="col-md-4" style="padding: 1vh">
@@ -423,7 +424,7 @@
       <!----------------------------------------------------------- Officer tools column ---------------------------------------->
       <% if session[:isAdmin] %>
         <div class="col-md-4" style="padding: 1vh">
-          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%; padding-top: 0"> <!-- height difference -->
+          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%; padding-top: 0"> 
             <div class="card-body" style= "padding: 1.11vh;">
               <h2 style="color: #500000">Officer Tools</h2>
               <div class="row">
