@@ -91,12 +91,12 @@ ActiveRecord::Schema.define(version: 2022_04_08_195405) do
     t.date "date"
     t.string "name"
     t.string "location"
-    t.time "start_time"
+    t.datetime "start_time"
+    t.datetime "finish_time"
     t.string "description"
     t.integer "event_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.time "finish_time"
     t.integer "event_code"
   end
 
@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 2022_04_08_195405) do
   end
 
   create_table "newsletters", force: :cascade do |t|
-    t.date "date_posted"
     t.string "message"
     t.string "title"
     t.datetime "created_at", precision: 6, null: false

@@ -42,7 +42,7 @@
       <h2> Upcoming Events</h2>
       <div class="container text-center">
         <div class="row justify-content-around">
-          <% @event_not_started = Event.where("date > ?", Date.current) %>
+          <% @event_not_started = Event.where("date >= ?", Date.current) %>
           <% @first_three_events = @event_not_started.first(3) %>
           <% @first_three_events.each do |event| %>
             <% @event_info = Event.find(event.id) %>  
@@ -52,7 +52,13 @@
               <h6>When: <%= @event_info.date.strftime('%A, %B %d, %Y') %> at <%= daylight_savings(@event_info.start_time).strftime('%l:%M %p') %> </h6>
               <p> <%= @event_info.description %> </p>
               <p>Event Type: <%= @event_info.event_type %></p>
-              <a class="btn col-6 btn-primary mx-auto text-white" href="/pages/events" role="button">Register Now</a>
+              <% if @is_student%>
+                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= events_student_member_path(@user.id) %>" role="button">Register Now</a>
+              <% elsif session[:isBusinessProfessional] %>
+                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= events_business_professional_path(@user.id) %>" role="button">Register Now</a>
+              <% else %>
+                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= user_google_oauth2_omniauth_authorize_path %>" role="button">Register Now</a>
+              <% end %>
             </div>
           <% end %> 
         </div>
@@ -60,20 +66,34 @@
     </div>
 
     <% if @newsletter%>
-      <div class="container_fluid text-center mt-5 mb-5">
-        <h2>Most Recent Newsletter</h2>
-        <div class="card mx-auto" style="width: 40rem;">
-        <div class="card-body">
-          <h3 class="card-title"><%= @newsletter.title %></h3>
-          <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
-          <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
-          <p class="card-text"><%= @newsletter.message %></p>
+      <div class="container_fluid mt-5 mb-5">
+        <h2 style="text-align:center;">Most Recent Newsletter</h2>
+          <div class="card mb-3 mx-auto" style="max-width: 540px;">
+            <div class="row no-gutters">
+
+              <% if @newsletter.images.count > 0 %>
+                <div class="col-md-4">
+                  <%= image_tag(@newsletter.images[0], style:'height: 100%; object-fit: cover;', class: 'card-img')%>
+                </div>
+              <% end %>
+
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h3 class="card-title"><%= @newsletter.title %></h3>
+                  <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
+                  <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= @newsletter.message %></p>
+                  <%= link_to 'Show', @newsletter, class: 'btn btn-primary btn-sm' %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-      </div>
     <% end %>
+    
     <% if session[:isAdmin] %>
       <%= link_to "Edit Carousel", carousels_path, class: 'btn btn-primary mx-auto text-white' %>
+      <br>
     <% end %>
 
     

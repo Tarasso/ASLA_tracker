@@ -54,10 +54,10 @@
         </div>
       </div>
     </div>
-    <!----------------------------------------------------------- Point breakdown column: only for officers + students ---------------------------------------->
+    <!----------------------------------------------------------- Shortcuts column ---------------------------------------->
     <div class="col-md-3" style="padding: 1vh">
       <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
-        <div class="card-body">
+        <div class="card-body" style= "padding: 1.11vh">
           <h2 style="color: #500000">Shortcuts</h2>
           <div style="position: relative; padding: 1.11vh;"> 
             <%= link_to 'View ASLA Student Members', "/student_members", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
@@ -89,7 +89,7 @@
       </div>
     </div>
     <!----------------------------------------------------------- Upcoming Events column and carousel ---------------------------------------->
-    <div class="col-md-5" style="padding: 10px; padding-left: 20px">
+    <div class="col-md-5" style="padding: 1vh; padding-left: 20px">
       <div class="row" style="padding-bottom: 10px; height: 50%;">
         <div class="card shadow border-start-primary py-2">
           <h2 style="color: #500000">Upcoming Events</h2>
@@ -272,6 +272,7 @@
                                     <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
                                     <%= hidden_field_tag :eid, event.event_id %>
                                     <%= hidden_field_tag :mid, @user.id %>
+                                    <%= hidden_field_tag :wid, 1 %>
                                     <%= number_field_tag :event_code_entered %>
                                     <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."} %>
                                     <% end %>
@@ -325,6 +326,7 @@
                                 <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
                                 <%= hidden_field_tag :eid, event.id %>
                                 <%= hidden_field_tag :mid, @user.id %>
+                                <%= hidden_field_tag :wid, 1 %>
                                 <%= number_field_tag :event_code_entered %>
                                 <%= button_tag '🡢', class: "col event-button" %>
                                 <% end %>
@@ -361,12 +363,12 @@
   </div>
   <!----------------------------------------------------------- End of first row ---------------------------------------->
   <!----------------------------------------------------------- Beginning of second row ---------------------------------------->
+  <!------------------------------------------Point breakdown column: only for officers + students ---------------------------------------->
   <% if @is_student %>
     <div class="row">
-      <% if !session[:isAdmin] %>
-        <div class="col-md-4" style="padding: 1vh">
-          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
-            <div class="card-body">
+      <div class="col-md-4" style="padding: 1vh">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
+          <div class="card-body">
             <h2 style="color: #500000">Point Breakdown</h2>
             <div class="card" style="border: none">
               <div class=row>
@@ -400,32 +402,31 @@
                     var myLineChart = new Chart(ctxD, {
                       type: 'doughnut',
                       data: {
-                        labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
-                        datasets: [{
-                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
-                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true}}); 
-                  </script>
-                <% else %>
-                  <script>
-                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                    var myLineChart = new Chart(ctxD, {
-                      type: 'doughnut',
-                      data: {
-                        labels: ["Meeting", "Social", "Informational", "Fundraising"],
-                        datasets: [{
-                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
-                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true}}); 
-                  </script>
-                <% end %>
-              </div>
+                      labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true}}); 
+                </script>
+              <% else %>
+                <script>
+                  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                  var myLineChart = new Chart(ctxD, {
+                    type: 'doughnut',
+                    data: {
+                      labels: ["Meeting", "Social", "Informational", "Fundraising"],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true}}); 
+                </script>
+              <% end %>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
       <!----------------------------------------------------------- Officer tools column ---------------------------------------->
       <% if session[:isAdmin] %>
         <div class="col-md-4" style="padding: 1vh">
-          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%; padding-top: 0"> <!-- height difference -->
+          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%; padding-top: 0"> 
             <div class="card-body" style= "padding: 1.11vh;">
               <h2 style="color: #500000">Officer Tools</h2>
               <div class="row">
@@ -485,7 +486,7 @@
         <div class="col-md-3" style="padding: 1vh"> 
           <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%">
             <div class="card-body" style= "padding: 1.11vh">
-              <h2 style="padding: 1.11vh; padding-top: 0; color: #500000">Points Leaderboard</h2>
+              <h2 style="color: #500000">Points Leaderboard</h2>
               <% @point_leaders = @student_members.first(3) %>
               <div class="row">
                 <% @point_leaders.each do |leader| %>
