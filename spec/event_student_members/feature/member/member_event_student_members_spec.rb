@@ -45,7 +45,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     event_code = Event.last.event_code
 
     page.set_rack_session(isAdmin: true)
-    visit events_student_member_path(StudentMember.last)
+    visit '/pages/user_dashboard'
     click_on 'Register'
     expect(page).to(have_content('You have registered for the event.'))
     click_on 'Unregister'
