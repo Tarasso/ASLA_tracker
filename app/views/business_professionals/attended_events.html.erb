@@ -16,12 +16,12 @@
 <% @records.each do |record| %>
     <% @event = Event.find(record.event_id) %>
     <tr>
-          <td><%= @event.date.strftime('%B %-d, %Y') %></td>
-          <td><%= @event.name %></td>
-          <td><%= @event.location %></td>
-          <td><%= @event.start_time.strftime('%H:%M %p')%> - <%=@event.finish_time.strftime('%H:%M %p') %></td>
-          <td><%= @event.description %></td>
-          <td><%= @event.event_type %></td>  
+      <td><%= @event.date.strftime('%B %-d, %Y') %></td>
+      <td><%= @event.name %></td>
+      <td><%= @event.location %></td>
+      <td><%= @event.start_time.strftime('%H:%M %p')%> - <%=@event.finish_time.strftime('%H:%M %p') %></td>
+      <td><%= @event.description %></td>
+      <td><%= @event.event_type %></td>  
     </tr>
 <% end %>
 </table>
