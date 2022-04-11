@@ -24,14 +24,14 @@ class PagesController < ApplicationController
   def unauthorized; end
 
   def req_points
-    if params.key?(:required_points)
+    if params.key?(:required_points) && session[:isAdmin]
       @group3 = params[:required_points]
       File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
     end
   end
 
   def reset_values
-    if params.key?(:dues) || params.key?(:points)
+    if (params.key?(:dues)  && session[:isAdmin]) || (params.key?(:points) && session[:isAdmin])
 
       @group4 = params[:dues]
       @group5 = params[:points]
