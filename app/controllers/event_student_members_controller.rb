@@ -2,7 +2,7 @@
 
 class EventStudentMembersController < ApplicationController
   before_action :set_event_student_member, only: %i[show edit update destroy]
-  before_action :student?, only: %i[register unregister]
+  # before_action :student?, only: %i[register unregister]
   before_action :account_creating?, only: %i[index show new edit update destroy]
   before_action :admin?, only: %i[index show new edit update destroy]
   # GET /event_student_members or /event_student_members.json
@@ -11,7 +11,7 @@ class EventStudentMembersController < ApplicationController
     @event_student_members = EventStudentMember.select('event_student_members.id as id, first_name, name, uin, last_name, email, date').joins(:event).joins(:student_member)
     @event_student_members = @event_student_members.page(params[:page]).per(@page_size)
     @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @event_student_members.where("CONCAT_WS(' ', first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR name LIKE :search OR email LIKE :search OR uin LIKE :search", search: "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @event_student_members = @event_student_members.where("CONCAT_WS(' ', first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR name LIKE :search OR email LIKE :search OR uin LIKE :search", search: "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_student_members/1 or /event_student_members/1.json
@@ -32,7 +32,14 @@ class EventStudentMembersController < ApplicationController
     @event_student_member.save!
     respond_to do |format|
       if @event_student_member.save
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'You have registered.') }
+
+        case params[:wid]
+        when '1'
+          format.html { redirect_to('/pages/user_dashboard', notice: 'You have registered for the event.') }
+        when '2'
+          format.html { redirect_to(events_student_member_path(@student_member.id), notice: 'You have registered for the event.') }
+        end
+
         format.json { render(:show, status: :created, location: @event_student_member) }
       else
         format.html { render(:new, status: :unprocessable_entity) }
@@ -48,7 +55,13 @@ class EventStudentMembersController < ApplicationController
     @event_student_member.destroy!
 
     respond_to do |format|
-      format.html { redirect_to(events_student_member_path(@student_member), notice: 'You have unregistered.') }
+      case params[:wid]
+      when '1'
+        format.html { redirect_to('/pages/user_dashboard', notice: 'You have unregistered for the event.') }
+      when '2'
+        format.html { redirect_to(events_student_member_path(@student_member.id), notice: 'You have unregistered for the event.') }
+      end
+
       format.json { head(:no_content) }
     end
   end

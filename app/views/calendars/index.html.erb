@@ -1,25 +1,6 @@
 <p id="notice"><%= notice %></p>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-    <title>ASLA | Calendar</title>
-  </thead>
-
-  <tbody>
-    <% @calendars.each do |calendar| %>
-      <tr>
-        <td><%= link_to 'Show', calendar %></td>
-        <td><%= link_to 'Edit', edit_calendar_path(calendar) %></td>
-        <td><%= link_to 'Delete', calendar, method: :delete, data: { confirm: 'Are you sure you would like to delete this item?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
   
-  <h1>Google Calendar</h1>
+  <h1 class="index-title">Google Calendar</h1>
 
   <div>
     <iframe src="https://calendar.google.com/calendar/embed?src=c_7fp5itunv5umsldk6tiuvsd5n4%40group.calendar.google.com&ctz=America%2FChicago" 

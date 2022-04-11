@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Events Attended</h1>
 <table>
    <thead> 
     <tr>
@@ -12,16 +11,18 @@
       <th>Event Type</th>
     </tr>
   </thead>
-<% @records = MemberAttendance.where(student_member_id: session[:userID]) %>
-<% @records.each do |record| %>
+<tbody>
+  <h1 style="color: #500000">Events Attended</h1>
+  <% @records = MemberAttendance.where(student_member_id: session[:userID]) %>
+  <% @records.each do |record| %>
     <% @event = Event.find(record.event_id) %>
     <tr>
           <td><%= @event.date.strftime('%B %-d, %Y') %></td>
           <td><%= @event.name %></td>
           <td><%= @event.location %></td>
-          <td><%= @event.start_time.strftime('%H:%M %p')%> - <%=@event.finish_time.strftime('%H:%M %p') %></td>
+          <td><%= daylight_savings(@event.start_time).strftime('%l:%M %p')%> - <%=daylight_savings(@event.finish_time).strftime('%l:%M %p') %></td>
           <td><%= @event.description %></td>
           <td><%= @event.event_type %></td>  
     </tr>
-<% end %>
+  <% end %>
 </table>
