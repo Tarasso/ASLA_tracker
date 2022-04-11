@@ -76,7 +76,12 @@ class BusinessProfessionalsController < ApplicationController
     @business_professional = BusinessProfessional.find(params[:bid])
     @mem_attendance = BusinessAttendance.create!(business_professional_id: params[:bid], event_id: params[:eid])
     respond_to do |format|
-      format.html { redirect_to('/pages/user_dashboard', notice: 'Attendance confirmed.') }
+      case params[:wid]
+      when '1'
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Attendance confirmed.') }
+      when '2'
+        format.html { redirect_to(attended_events_business_professional_path(@business_professional.id), notice: 'Attendance confirmed.') }
+      end
     end
   end
 
