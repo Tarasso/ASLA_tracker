@@ -11,7 +11,7 @@ class EventStudentMembersController < ApplicationController
     @event_student_members = EventStudentMember.select('event_student_members.id as id, first_name, name, uin, last_name, email, date').joins(:event).joins(:student_member)
     @event_student_members = @event_student_members.page(params[:page]).per(@page_size)
     @event_student_members = @event_student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present? && params[:sort].present?
-    @event_student_members.where("CONCAT_WS(' ', first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR name LIKE :search OR email LIKE :search OR uin LIKE :search", search: "%#{params[:q]}%") if params[:q].present? && params[:q].present?
+    @event_student_members = @event_student_members.where("CONCAT_WS(' ', first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR name LIKE :search OR email LIKE :search OR uin LIKE :search", search: "%#{params[:q]}%") if params[:q].present? && params[:q].present?
   end
 
   # GET /event_student_members/1 or /event_student_members/1.json

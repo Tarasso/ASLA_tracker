@@ -18,7 +18,15 @@ class StudentMembersController < ApplicationController
     @page_size = Integer((params[:page_size] || 10))
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
+<<<<<<< HEAD
     @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
+=======
+    if params[:q].present?
+      @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR member_title LIKE :search OR class_year LIKE :search OR program_level LIKE :search",
+                                                search: "%#{params[:q]}%"
+                                               )
+    end
+>>>>>>> dev
   end
 
   # GET /student_members/1 or /student_members/1.json
