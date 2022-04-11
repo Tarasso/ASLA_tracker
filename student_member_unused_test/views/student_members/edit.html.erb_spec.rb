@@ -17,7 +17,6 @@ RSpec.describe('student_members/edit', type: :view) do
                                                 meeting_point_amount: '',
                                                 fundraiser_point_amount: '',
                                                 informational_point_amount: '',
-                                                officer_title: 'MyString',
                                                 dues_paid: '',
                                                 picture: ''
                                               )
@@ -51,8 +50,6 @@ RSpec.describe('student_members/edit', type: :view) do
       assert_select 'input[name=?]', 'student_member[fundraiser_point_amount]'
 
       assert_select 'input[name=?]', 'student_member[informational_point_amount]'
-
-      assert_select 'input[name=?]', 'student_member[officer_title]'
 
       assert_select 'input[name=?]', 'student_member[dues_paid]'
 
