@@ -59,29 +59,29 @@
       <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
         <div class="card-body">
           <h2 style="color: #500000">Shortcuts</h2>
-          <div style="position: relative; padding: 1.11vh;"> 
+          <div style="position: relative; padding: 1vh;"> 
             <%= link_to 'View ASLA Student Members', "/student_members", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
           </div>
-          <div style="position: relative; padding: 1.11vh"> 
+          <div style="position: relative; padding: 1vh"> 
             <%= link_to 'View Latest ASLA News', "/newsletters", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
           </div>
           <% if session[:isAdmin] %>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Business Professionals', "/business_professionals", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
           <% end %>
           <% if @is_student %>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Upcoming Events', events_student_member_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Attended Events', student_member_attended_events_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
           <% else %>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Upcoming Events', events_business_professional_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Attended Events', attended_events_business_professional_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
           <% end %>
@@ -232,16 +232,30 @@
                   </a>
                 </div>
                 <div class="col-12">
+                  <% @initial_list ||= [] %>
                   <% if @is_student %>
-                    <% @event_list = EventStudentMember.where(student_member_id: @user.id).first(3)%>   <!-- Find first 3 events that the member has registered for-->
+                    <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>   <!-- Find first 3 events that the member has registered for-->
+                    <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
+                      <% @event_info = Event.find(event.event_id) %>
+                      <% if (@event_info.date >= Date.current) %>
+                        <% @initial_list.push(@event_info) %>
+                      <% end %>    
+                    <% end %>
                   <% else %>
-                    <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id).first(3)%> 
+                    <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id)%> 
+                    <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
+                      <% @event_info = Event.find(event.event_id) %>
+                      <% if (@event_info.date >= Date.current) %>
+                        <% @initial_list.push(@event_info) %>
+                      <% end %>    
+                    <% end %>
                   <% end %>
+                  <% event_counter = 0%>
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
                         <div class="row">
-                          <% if @event_list.count == 0 %>
+                          <% if @initial_list.count == 0 %>
                             <div class="col-md-4 mb-3">
                               <div class="card" style="height: 18vh; border-color: #500000">
                                 <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
@@ -254,54 +268,58 @@
                           <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
                             <% submit_counter += 1 %>
                             <% @event_info = Event.find(event.event_id) %>
-                            <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 18vh; border-color: #500000">
-                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>                    
+                            <% if (@event_info.date >= Date.current) && (event_counter != 3) %>
+                              <% event_counter += 1%>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 18vh; border-color: #500000">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                    <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>                    
+                                  </div>
+                                  <% if @is_student %>
+                                    <div class="col event-button" onclick="toggleSubmit('<%=submit_counter%>')" id='event_code__<%=submit_counter%>' style="text-align: center;">
+                                      <span style="font-size: 1em">Enter Code</span>
+                                    </div>
+                                    <div style="width: 100%" class="form-popup" id="myForm__<%=submit_counter%>">
+                                      <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
+                                      <%= hidden_field_tag :eid, event.event_id %>
+                                      <%= hidden_field_tag :mid, @user.id %>
+                                      <%= hidden_field_tag :wid, 1 %>
+                                      <%= number_field_tag :event_code_entered %>
+                                      <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."} %>
+                                      <% end %>
+                                    </div>
+                                    <script>
+                                      function toggleSubmit(id) {
+                                        btn = document.getElementById('event_code__'+id);
+                                        form = document.getElementById('myForm__'+id);
+                                        form.style.display = "block";
+                                        btn.style.display = "none";
+                                      } 
+                                    </script>
+                                  <% else %>
+                                    <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                                  <% end %>
                                 </div>
-                                <% if @is_student %>
-                                  <div class="col event-button" onclick="toggleSubmit('<%=submit_counter%>')" id='event_code__<%=submit_counter%>' style="text-align: center;">
-                                    <span style="font-size: 1em">Enter Code</span>
-                                  </div>
-                                  <div style="width: 100%" class="form-popup" id="myForm__<%=submit_counter%>">
-                                    <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
-                                    <%= hidden_field_tag :eid, event.event_id %>
-                                    <%= hidden_field_tag :mid, @user.id %>
-                                    <%= hidden_field_tag :wid, 1 %>
-                                    <%= number_field_tag :event_code_entered %>
-                                    <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."} %>
-                                    <% end %>
-                                  </div>
-                                  <script>
-                                    function toggleSubmit(id) {
-                                      btn = document.getElementById('event_code__'+id);
-                                      form = document.getElementById('myForm__'+id);
-                                      form.style.display = "block";
-                                      btn.style.display = "none";
-                                    } 
-                                  </script>
-                                <% else %>
-                                  <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
-                                <% end %>
                               </div>
-                            </div>
+                            <% end %>
                           <% end %>
                         </div>
                       </div>
                       <% if @is_student %>
-                        <% @event_list = EventStudentMember.where(student_member_id: @user.id).drop(3)%>   <!-- Find first 3 events that the member has registered for-->
+                        <% @event_list = EventStudentMember.where(student_member_id: @user.id).drop(event_counter)%>   <!-- Find first 3 events that the member has registered for-->
                       <% else %>
-                        <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id).drop(3)%> 
+                        <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id).drop(event_counter)%> 
                       <% end %>
                       <% @div_counter = 0%>
                       <% submit_counter2 = 0 %>
                       <% @event_list.each do |event| %>
                         <% @event_info = Event.find(event.event_id) %>
+                        <% if (@event_info.date >= Date.current) %>
                           <% if @div_counter == 0 %>
                             <div class="carousel-item">
                               <div class="row">
@@ -310,44 +328,45 @@
                           <% submit_counter2 += 1 %>
                           <div class="col-md-4 mb-3">
                             <div class="card" style="height: 18vh; border-color: #500000">
-                            <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                              <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
-                            </div>
-                            <% if @is_student %>
-                              <div class="col event-button" onclick="toggleSubmit2('<%=submit_counter2%>')" id="enter_code_<%=submit_counter2%>" style="text-align: center;">
-                                <span style="font-size: 1em">Enter Code</span>
+                              <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= @event_info.name %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=@event_info.start_time.strftime('%H:%M %p')%>-<%=@event_info.finish_time.strftime('%H:%M %p') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
                               </div>
-                              <div style="width: 100%" class="form-popup" id="myForm2_<%=submit_counter2%>">
-                                <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
-                                <%= hidden_field_tag :eid, event.id %>
-                                <%= hidden_field_tag :mid, @user.id %>
-                                <%= hidden_field_tag :wid, 1 %>
-                                <%= number_field_tag :event_code_entered %>
-                                <%= button_tag '🡢', class: "col event-button" %>
-                                <% end %>
-                              </div>
-                              <script>
-                                function toggleSubmit2(id) {
-                                    btn = document.getElementById('enter_code_'+ id);
-                                    form = document.getElementById('myForm2_' + id);
-                                    form.style.display = "block";
-                                    btn.style.display = "none";
-                                } 
-                              </script>
-                            <% else %>
-                              <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
-                            <% end %>
-                          </div>
-                        </div>
-                        <% if @div_counter == 3 %>
+                              <% if @is_student %>
+                                <div class="col event-button" onclick="toggleSubmit2('<%=submit_counter2%>')" id="enter_code_<%=submit_counter2%>" style="text-align: center;">
+                                  <span style="font-size: 1em">Enter Code</span>
+                                </div>
+                                <div style="width: 100%" class="form-popup" id="myForm2_<%=submit_counter2%>">
+                                  <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
+                                  <%= hidden_field_tag :eid, event.id %>
+                                  <%= hidden_field_tag :mid, @user.id %>
+                                  <%= hidden_field_tag :wid, 1 %>
+                                  <%= number_field_tag :event_code_entered %>
+                                  <%= button_tag '🡢', class: "col event-button" %>
+                                  <% end %>
+                                </div>
+                                <script>
+                                  function toggleSubmit2(id) {
+                                      btn = document.getElementById('enter_code_'+ id);
+                                      form = document.getElementById('myForm2_' + id);
+                                      form.style.display = "block";
+                                      btn.style.display = "none";
+                                  } 
+                                </script>
+                              <% else %>
+                                <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                              <% end %>
                             </div>
                           </div>
-                          <% @div_counter = 0%>
+                          <% if @div_counter == 3 %>
+                              </div>
+                            </div>
+                            <% @div_counter = 0%>
+                          <% end %>
                         <% end %>
                       <% end %>
                     </div>
@@ -361,69 +380,67 @@
       </div>
     </div>
   </div>
-  <!----------------------------------------------------------- End of first row ---------------------------------------->
   <!----------------------------------------------------------- Beginning of second row ---------------------------------------->
+  <!----------------------------------------------------------- Point breakdown/chart ------------------------------------------>
   <% if @is_student %>
     <div class="row">
-      <% if !session[:isAdmin] %>
-        <div class="col-md-4" style="padding: 1vh">
-          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
-            <div class="card-body">
-            <h2 style="color: #500000">Point Breakdown</h2>
-            <div class="card" style="border: none">
-              <div class=row>
-                <div class=col>
-                  <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Total Points</span></div>
-                  <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
-                </div>
-                <div class=col style="padding-right: 0">
-                  <% file = File.open("global_variables.txt")%>
-                  <% req_points = file.read()%>
-                  <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Required Points</span></div>
-                  <div class="text-dark fw-bold h5 mb-0"><span><%= req_points%></span></div>
-                </div>
+      <div class="col-md-4" style="padding: 1vh">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
+          <div class="card-body">
+          <h2 style="color: #500000">Point Breakdown</h2>
+          <div class="card" style="border: none">
+            <div class=row>
+              <div class=col>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Total Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
               </div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Meeting Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0"><span><%=@user.meeting_point_amount%></span></div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Social Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0"><span><%=@user.social_point_amount%></span></div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Informational Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.informational_point_amount%></span></div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Fundraising Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0"><span><%=@user.fundraiser_point_amount%></span></div>
+              <div class=col style="padding-right: 0">
+                <% file = File.open("global_variables.txt")%>
+                <% req_points = file.read()%>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Required Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0"><span><%= req_points%></span></div>
+              </div>
             </div>
-            <% @remaining_points = req_points.to_i - (@user.meeting_point_amount + @user.social_point_amount + @user.informational_point_amount + @user.fundraiser_point_amount) %>
-            <div class="card" style="border: none">
-              <canvas id="doughnutChart"></canvas>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
-                <% if @remaining_points > 0 %>
-                  <script>
-                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                    var myLineChart = new Chart(ctxD, {
-                      type: 'doughnut',
-                      data: {
-                        labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
-                        datasets: [{
-                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
-                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true}}); 
-                  </script>
-                <% else %>
-                  <script>
-                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                    var myLineChart = new Chart(ctxD, {
-                      type: 'doughnut',
-                      data: {
-                        labels: ["Meeting", "Social", "Informational", "Fundraising"],
-                        datasets: [{
-                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
-                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true}}); 
-                  </script>
-                <% end %>
-              </div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Meeting Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0"><span><%=@user.meeting_point_amount%></span></div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Social Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0"><span><%=@user.social_point_amount%></span></div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Informational Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.informational_point_amount%></span></div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Fundraising Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0"><span><%=@user.fundraiser_point_amount%></span></div>
+          </div>
+          <% @remaining_points = req_points.to_i - (@user.meeting_point_amount + @user.social_point_amount + @user.informational_point_amount + @user.fundraiser_point_amount) %>
+          <div class="card" style="border: none">
+            <canvas id="doughnutChart"></canvas>
+              <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+              <% if @remaining_points > 0 %>
+                <script>
+                  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                  var myLineChart = new Chart(ctxD, {
+                    type: 'doughnut',
+                    data: {
+                      labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true}}); 
+                </script>
+              <% else %>
+                <script>
+                  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                  var myLineChart = new Chart(ctxD, {
+                    type: 'doughnut',
+                    data: {
+                      labels: ["Meeting", "Social", "Informational", "Fundraising"],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true}}); 
+                </script>
+              <% end %>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
       <!----------------------------------------------------------- Officer tools column ---------------------------------------->
       <% if session[:isAdmin] %>
         <div class="col-md-4" style="padding: 1vh">

@@ -52,7 +52,13 @@
               <h6>When: <%= @event_info.date.strftime('%A, %B %d, %Y') %> at <%= daylight_savings(@event_info.start_time).strftime('%l:%M %p') %> </h6>
               <p> <%= @event_info.description %> </p>
               <p>Event Type: <%= @event_info.event_type %></p>
-              <a class="btn col-6 btn-primary mx-auto text-white" href="/pages/events" role="button">Register Now</a>
+              <% if @is_student%>
+                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= events_student_member_path(@user.id) %>" role="button">Register Now</a>
+              <% elsif session[:isBusinessProfessional] %>
+                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= events_business_professional_path(@user.id) %>" role="button">Register Now</a>
+              <% else %>
+                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= user_google_oauth2_omniauth_authorize_path %>" role="button">Register Now</a>
+              <% end %>
             </div>
           <% end %> 
         </div>
@@ -89,6 +95,9 @@
       <%= link_to "Edit Carousel", carousels_path, class: 'btn btn-primary mx-auto text-white' %>
       <br>
     <% end %>
+
+    
+    
 
     
     
