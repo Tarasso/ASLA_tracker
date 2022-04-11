@@ -7,6 +7,7 @@ class StudentMembersController < ApplicationController
   before_action :account_creating?, only: %i[index attended events edit show]
   before_action :allowed_to_view_student?, only: %i[edit update]
   before_action :allowed_to_view_student_info?, only: [:show]
+  before_action :valid_code?, only: %i[eventcode attended]
   before_action :points_add, only: %i[eventcode]
   before_action :student_member_event_delete, only: %i[destroy]
   before_action :student_event_attendance_delete, only: %i[destroy]
@@ -96,12 +97,6 @@ class StudentMembersController < ApplicationController
 
   def attended
     @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered]
-    if @ec == ""
-      @ec_i = 0
-    else
-      @ec_i = Integer(@ec, 10)
-    end
     @student_member = StudentMember.find(params[:mid])
     @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
     if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
@@ -120,11 +115,11 @@ class StudentMembersController < ApplicationController
   def event_student_member_delete
     @event = Event.find(params[:eid])
     @ec = params[:event_code_entered]
-    if @ec == ""
-      @ec_i = 0
-    else
-      @ec_i = Integer(@ec, 10)
-    end
+    @ec_i = if @ec == ''
+              0
+            else
+              Integer(@ec, 10)
+            end
     if @ec_i == @event.event_code
       @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
       @event_student_members.destroy!
@@ -149,13 +144,16 @@ class StudentMembersController < ApplicationController
     end
   end
 
+  def valid_code?
+    @ec_i = if params[:event_code_entered] == ''
+              0
+            else
+              Integer(params[:event_code_entered], 10)
+            end
+  end
+
   def eventcode
     @event = Event.find(params[:eid])
-    if params[:event_code_entered] == ""
-      @ec_i = 0
-    else
-      @ec_i = Integer(params[:event_code_entered], 10)
-    end
     @student_member = StudentMember.find(params[:mid])
     respond_to do |format|
       if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')

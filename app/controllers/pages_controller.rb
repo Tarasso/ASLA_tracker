@@ -68,26 +68,17 @@ class PagesController < ApplicationController
             else
               BusinessProfessional.find(session[:userID])
             end
-
-    if (params.key?(:group1) && session[:isAdmin]) || (params.key?(:group2) && session[:isAdmin]) || (params.key?(:group3) && session[:isAdmin])
-
+    if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
       @group1 = params[:group1]
       @group2 = params[:group2]
       @group3 = params[:group3]
-
       # recipients is an array
       recipients = []
-
       recipients += StudentMember.where(member_title: 'officer').pluck(:email) if @group1 == 'officers'
-
       recipients += StudentMember.where(member_title: 'member').pluck(:email) if @group2 == 'non_officers'
-
       recipients += BusinessProfessional.pluck(:email) if @group3 == 'business'
-
       recipients = recipients.uniq
-
       @recipients_str = recipients.join('\n')
-
     end
     @student_members = StudentMember.all
     @student_members = @student_members.sort_by(&:total_points).reverse
