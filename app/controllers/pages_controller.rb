@@ -9,6 +9,12 @@ class PagesController < ApplicationController
   def home
     @newsletter = Newsletter.order(:created_at).reverse_order.first
     @carousel_pics = Carousel.all
+    @is_student = !StudentMember.where(uid: session[:uid]).empty?
+    @user = if @is_student
+              StudentMember.find(session[:userID])
+            elsif session[:isBusinessProfessional]
+              BusinessProfessional.find(session[:userID])
+            end
   end
 
   def help; end
@@ -63,7 +69,7 @@ class PagesController < ApplicationController
               BusinessProfessional.find(session[:userID])
             end
 
-    if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
+    if (params.key?(:group1) && session[:isAdmin]) || (params.key?(:group2) && session[:isAdmin]) || (params.key?(:group3) && session[:isAdmin])
 
       @group1 = params[:group1]
       @group2 = params[:group2]
