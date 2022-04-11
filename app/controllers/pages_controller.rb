@@ -31,7 +31,7 @@ class PagesController < ApplicationController
   end
 
   def reset_values
-    if (params.key?(:dues)  && session[:isAdmin]) || (params.key?(:points) && session[:isAdmin])
+    if (params.key?(:dues) && session[:isAdmin]) || (params.key?(:points) && session[:isAdmin])
 
       @group4 = params[:dues]
       @group5 = params[:points]

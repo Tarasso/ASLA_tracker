@@ -32,8 +32,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def events
     @business_professional = BusinessProfessional.find(params[:id])
-    @events = Event.where('finish_time > ?', Time.zone.now)
-    @events_all = Event.all
+    @events = Event.where('date >= ?', Date.current)
     @event_business_professional = EventBusinessProfessional.all
   end
 
