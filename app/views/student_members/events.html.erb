@@ -17,7 +17,7 @@
 
   <tbody>
     <h1 style="color: #500000">Current Events</h1>
-    <% @events_all.each do |event| %>  <!-- Loop through events -->
+    <% @events.each do |event| %>  <!-- Loop through events -->
     <div class="card" style="border: none">
       <tr>
         <% @ev = Event.find(event.id) %>
