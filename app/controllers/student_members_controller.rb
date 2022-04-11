@@ -3,54 +3,23 @@
 class StudentMembersController < ApplicationController
   before_action :set_student_member, only: %i[show edit update destroy events]
   before_action :admin?, only: [:destroy]
+  before_action :account_created?, only: [:new]
   before_action :account_creating?, only: %i[index attended events edit show]
   before_action :allowed_to_view_student?, only: %i[edit update]
   before_action :allowed_to_view_student_info?, only: [:show]
+  before_action :valid_code?, only: %i[eventcode attended]
   before_action :points_add, only: %i[eventcode]
   before_action :student_member_event_delete, only: %i[destroy]
   before_action :student_event_attendance_delete, only: %i[destroy]
   after_action :attended, only: %i[eventcode]
   after_action :event_student_member_delete, only: %i[eventcode]
-  after_action :req_points, only: %i[index]
-  after_action :reset_values, only: %i[index]
-
-  def reset_values
-    if params.key?(:dues) || params.key?(:points)
-
-      @group1 = params[:dues]
-      @group2 = params[:points]
-
-      @student_members = StudentMember.all
-
-      if @group1 == 'dues'
-        @student_members.each do |student|
-          student.update!(dues_paid: false)
-        end
-      end
-      if @group2 == 'points'
-        @student_members.each do |student|
-          student.update!(meeting_point_amount: 0)
-          student.update!(social_point_amount: 0)
-          student.update!(informational_point_amount: 0)
-          student.update!(fundraiser_point_amount: 0)
-        end
-      end
-    end
-  end
 
   # GET /student_members or /student_members.json
   def index
     @page_size = Integer((params[:page_size] || 10))
     @student_members = StudentMember.page(params[:page]).per(@page_size)
     @student_members = @student_members.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
-    @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
-  end
-
-  def req_points
-    if params.key?(:required_points)
-      @group3 = params[:required_points]
-      File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
-    end
+    @student_members = @student_members.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR class_year LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /student_members/1 or /student_members/1.json
@@ -124,8 +93,6 @@ class StudentMembersController < ApplicationController
 
   def attended
     @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
     @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
     if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
@@ -144,34 +111,62 @@ class StudentMembersController < ApplicationController
   def event_student_member_delete
     @event = Event.find(params[:eid])
     @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
+    @ec_i = if @ec == ''
+              0
+            else
+              Integer(@ec, 10)
+            end
     if @ec_i == @event.event_code
       @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
       @event_student_members.destroy!
     end
   end
 
+  def relocation(format)
+    case params[:wid]
+    when '1'
+      format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+    when '2'
+      format.html { redirect_to(student_member_attended_events_path(@student_member.id), notice: 'Thank You for attending this event. Your points have been updated') }
+    end
+  end
+
+  def inc_relocation(format)
+    case params[:wid]
+    when '1'
+      format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect Code entered') }
+    when '2'
+      format.html { redirect_to(events_student_member_path(@student_member.id), notice: 'Incorrect Code entered') }
+    end
+  end
+
+  def valid_code?
+    @ec_i = if params[:event_code_entered] == ''
+              0
+            else
+              Integer(params[:event_code_entered], 10)
+            end
+  end
+
   def eventcode
     @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
     respond_to do |format|
       if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
         @student_member.update!(meeting_point_amount: @meeting_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
         @student_member.update!(social_point_amount: @social_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
         @student_member.update!(informational_point_amount: @informational_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
         @student_member.update!(fundraiser_point_amount: @fundraising_points)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Points have been updated') }
+        relocation(format)
       else
         Rails.logger.debug(@event.event_type)
-        format.html { redirect_to(events_student_member_path(@student_member), notice: 'Incorrect Code entered') }
+        inc_relocation(format)
       end
     end
   end
@@ -216,7 +211,7 @@ class StudentMembersController < ApplicationController
   def student_member_params
     params.require(:student_member).permit(:uin, :first_name, :last_name, :class_year, :join_date, :member_title, :email, :phone_number,
                                            :expected_graduation_date, :social_point_amount, :meeting_point_amount, :fundraiser_point_amount,
-                                           :informational_point_amount, :officer_title, :dues_paid, :picture, :uid, :program_level, :student_classification
+                                           :informational_point_amount, :dues_paid, :picture, :uid, :program_level, :student_classification
     )
   end
 end

@@ -1,31 +1,6 @@
-<% if false %>
-<%= form_tag :search_student_members, method: :get, class: "search" do %>
-  <%= text_field_tag "q", params[:q], placeholder: "Full name"%>
-  <%= submit_tag "Search" %>
-<% end %>
-<% end %>
-
 <p id="notice"><%= notice %></p>
-<h1>Members</h1>
-<% if session[:isAdmin] %>
-  <br>
-    <form action="student_members" method="get" id="student_members">
-      <input type="checkbox" id="group1" name="dues" value="dues">
-      <label for="group1">Dues Paid</label>
-      <input type="checkbox" id="group2" name="points" value="points">
-      <label for="group2">Points</label>
-      <input type="submit" value="Reset" onclick="return confirm('Are you sure you would like to reset the selected categories?')" }>
-    </form>
-    <br>
-    <% file = File.open("global_variables.txt")%>
-    <label>Current Required Points: <%= file_info = file.read()%></label>
-    <form action="student_members" method="get" id="student_members">
-      <label for="group1">Required Points</label>
-      <input type="number" min="1" id="group3" name="required_points">
-      <input type="submit" value="Update">
-    </form>
-  <br>
-<% end %>
+<h1 class="index-title" >Students</h1>
+<div class="container">
 <div id="tabular" class="tabular-demo"></div>
 
 <script>
@@ -59,8 +34,5 @@
     });
   });
 </script>
-
+</div>
 <br>
-<% if session[:isAdmin] %>
-  <%= link_to 'Create a new member', new_student_member_path %>
-<% end %>

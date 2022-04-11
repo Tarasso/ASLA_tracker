@@ -35,23 +35,23 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select '22', from: 'event_date_3i'
     fill_in 'Name', with: 'Football'
     fill_in 'Location', with: 'Kyle Field'
-    select '13', from: 'event_start_time_4i'
-    select '30', from: 'event_start_time_5i'
-    select '16', from: 'event_finish_time_4i'
-    select '30', from: 'event_finish_time_5i'
+    select('01 PM', from: 'event_start_time_4i')
+    select('00', from: 'event_start_time_5i')
+    select('02 PM', from: 'event_finish_time_4i')
+    select('00', from: 'event_finish_time_5i')
     fill_in 'Description', with: 'Having fun'
     select 'Social', from: 'event_event_type'
     click_on 'Create Event'
     event_code = Event.last.event_code
 
     page.set_rack_session(isAdmin: true)
-    visit events_student_member_path(StudentMember.last)
+    visit '/pages/user_dashboard'
     click_on 'Register'
-    expect(page).to(have_content('You have registered.'))
+    expect(page).to(have_content('You have registered for the event.'))
     click_on 'Unregister'
-    expect(page).to(have_content('You have unregistered.'))
+    expect(page).to(have_content('You have unregistered for the event.'))
     click_on 'Register'
     fill_in 'event_code_entered', with: event_code
-    click_on 'Enter Code'
+    # click_on 'Enter Code'
   end
 end

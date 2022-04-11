@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   before_action :event_business_member_delete, only: %i[destroy]
   before_action :event_student_attendance_delete, only: %i[destroy]
   before_action :event_business_attendance_delete, only: %i[destroy]
-  before_action :admin?, only: %i[index show new edit create update destroy]
+  before_action :admin?, only: %i[index new edit create update destroy]
   # GET /events or /events.json
   def index
     @page_size = Integer((params[:page_size] || 10))

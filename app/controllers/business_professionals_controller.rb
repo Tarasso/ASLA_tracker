@@ -3,6 +3,7 @@
 class BusinessProfessionalsController < ApplicationController
   before_action :set_business_professional, only: %i[show edit update destroy]
   before_action :admin?, only: [:destroy]
+  before_action :account_created?, only: [:new]
   before_action :account_creating?, only: %i[index show edit destroy events attended]
   before_action :allowed_to_view_bpro?, only: %i[show edit update]
   before_action :business_member_event_delete, only: %i[destroy]
@@ -14,7 +15,7 @@ class BusinessProfessionalsController < ApplicationController
     @business_professionals = BusinessProfessional.page(params[:page]).per(@page_size)
     @business_professionals = @business_professionals.order(params[:sort][:name] => params[:sort][:dir]) if params[:sort].present?
 
-    @business_professionals.where("CONCAT(first_name, ' ', last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR org_name LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
+    @business_professionals = @business_professionals.where("CONCAT_WS(' ',first_name, last_name) LIKE :search OR first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR org_name LIKE :search", search: "%#{params[:q]}%") if params[:q].present?
   end
 
   # GET /business_professionals/1 or /business_professionals/1.json
@@ -31,8 +32,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def events
     @business_professional = BusinessProfessional.find(params[:id])
-    @events = Event.where('finish_time > ?', Time.zone.now)
-    @events_all = Event.all
+    @events = Event.where('date >= ?', Date.current)
     @event_business_professional = EventBusinessProfessional.all
   end
 
@@ -76,7 +76,12 @@ class BusinessProfessionalsController < ApplicationController
     @business_professional = BusinessProfessional.find(params[:bid])
     @mem_attendance = BusinessAttendance.create!(business_professional_id: params[:bid], event_id: params[:eid])
     respond_to do |format|
-      format.html { redirect_to(attended_events_business_professional_path(@business_professional), notice: 'Attendance confirmed.') }
+      case params[:wid]
+      when '1'
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Attendance confirmed.') }
+      when '2'
+        format.html { redirect_to(attended_events_business_professional_path(@business_professional.id), notice: 'Attendance confirmed.') }
+      end
     end
   end
 

@@ -1,6 +1,10 @@
-<h1>Editing Business Attendance</h1>
+<section class="show-box">
+<div class="info">
+<h1>Editing Entry <%=@business_attendance.id%> of the Professional Attendance Table</h1>
 
 <%= render 'form', business_attendance: @business_attendance %>
 
-<%= link_to 'Show', @business_attendance %> |
-<%= link_to 'Back', business_attendances_path %>
+<%= link_to 'Show', @business_attendance , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', business_attendances_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>
