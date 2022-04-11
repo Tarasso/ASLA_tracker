@@ -6,6 +6,15 @@
   zoom: normal;
 }
 
+.event-name {
+  color: black;
+}
+
+.event-name:hover {
+  color: maroon;
+  text-decoration: none;
+}
+
 /*Wave animation from https://jarv.is/notes/css-waving-hand-emoji */
 .wave:hover {
   animation-name: wave-animation;
