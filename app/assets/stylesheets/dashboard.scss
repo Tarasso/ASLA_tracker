@@ -6,6 +6,26 @@
   zoom: normal;
 }
 
+/*Wave animation from https://jarv.is/notes/css-waving-hand-emoji */
+.wave:hover {
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
+  display: inline-block;
+}
+
+@keyframes wave-animation {
+    0% { transform: rotate( 0.0deg) }
+   10% { transform: rotate(14.0deg) }
+   20% { transform: rotate(-8.0deg) }
+   30% { transform: rotate(14.0deg) }
+   40% { transform: rotate(-4.0deg) }
+   50% { transform: rotate(10.0deg) }
+   60% { transform: rotate( 0.0deg) }
+  100% { transform: rotate( 0.0deg) }
+}
+
 /*Medal code from https://codepen.io/ViRPo/pen/WNNoRKB*/
 .quiz-medal {
     margin: 30px 0 0 30px;
@@ -115,3 +135,44 @@
       top: 5px;
     }
   }
+
+  .event-button {
+    color: #500000;
+    background: white;
+    border: 2px solid #500000;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  .event-button:hover {
+    background: #500000;
+    color: white !important;
+  }
+
+  .event-dashboard-card.flipped {
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+
+.form-popup {
+  display: none;
+  width: 50%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}

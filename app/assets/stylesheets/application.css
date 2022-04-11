@@ -13,26 +13,6 @@
  *= require_tree .
  *= require_self
  */
- /*Wave animation from https://jarv.is/notes/css-waving-hand-emoji */
- .wave:hover {
-  animation-name: wave-animation;
-  animation-duration: 2.5s;
-  animation-iteration-count: infinite;
-  transform-origin: 70% 70%;
-  display: inline-block;
-}
-
-@keyframes wave-animation {
-    0% { transform: rotate( 0.0deg) }
-   10% { transform: rotate(14.0deg) }
-   20% { transform: rotate(-8.0deg) }
-   30% { transform: rotate(14.0deg) }
-   40% { transform: rotate(-4.0deg) }
-   50% { transform: rotate(10.0deg) }
-   60% { transform: rotate( 0.0deg) }
-  100% { transform: rotate( 0.0deg) }
-}
-
  .profile-pic {
     border-radius: 50%;
     width: 50%;
@@ -66,14 +46,42 @@
     border-color: #500000 !important;
   }
 
+  .btn-secondary {
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+    
+  }
+
+  .btn-secondary:hover {
+    background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  }
+
+  .fas:hover{
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+
+  .fa-instagram:hover{
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+  
+
   .nav-link {
-    font-size: 20px !important;
+    background-color: #500000 !important;
+    font-size: 18px !important;
     color: white !important;
   }
 
   .nav-link:hover {
-    background-color: #500000 !important;
-    color: #a7a7a7 !important;
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
   }
 
   .navbar-brand:hover {
@@ -89,7 +97,7 @@ html {
 .footer {
   margin-top: auto;
   width: 100%;
-  background-color: #eaeaea;
+  background-color: #500000;
   padding: 1%;
 }
 
@@ -97,20 +105,15 @@ html {
   text-align: center;
 }
 
-
-
-
-
-
 .shift_right {
   margin-left: 30px;
 }
 
-
-
 .show-box {
-  background: #f1f7fc;
-  padding: 80px 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: #f6f6f6;
+  padding: 10%;
 }
 
 @media (max-width:767px) {
@@ -131,12 +134,43 @@ html {
 }
 
 
-.show-box h2 {
+.show-box h1 {
+  color:#500000;
   margin-top: 5px;
   font-weight: bold;
   font-size: 28px;
   margin-bottom: 36px;
-  color: inherit;
 }
+
+
+.index-title {
+  text-align: center;
+  color: #500000;
+}
+
+
+.footer-text:hover{
+  
+  background-color: white !important;
+  color: #500000 !important;
+  border-color: #500000 !important;
+}
+
+.dropdown-item:hover{
+  background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  
+}
+
+.dropdown-item{
+  background-color: white !important;
+  color: #500000 !important;
+  border-color: #500000 !important;
+}
+
+
+
+
 
 

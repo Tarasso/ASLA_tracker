@@ -18,19 +18,19 @@
   <tbody>
 
 <h1>Current Events</h1>
-    <% @events_all.each do |event| %>
+    <% @events_all.each do |event| %>  <!-- Loop through events -->
       <tr>
         <% @ev = Event.find(event.id) %>
         <% @attended = MemberAttendance.find_by(student_member_id: @student_member.id, event_id: event.id)%>
-        <% if !@attended %>
+        <% if !@attended %>    <!-- If member has attended event, dont show -->
           <td><%= event.date.strftime('%B %-d, %Y') %></td>
           <td><%= event.name %></td>
           <td><%= event.location %></td>
-          <td><%= event.start_time.strftime('%H:%M %p')%> - <%=event.finish_time.strftime('%H:%M %p') %></td>
+          <td><%= daylight_savings(event.start_time).strftime('%l:%M %p')%> - <%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></td>
           <td><%= event.description %></td>
           <td><%= event.event_type %></td>  
           <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_member.id, event_id: event.id) %>
-          <% if @event_student_member %>
+          <% if @event_student_member %> <!-- If member has signed up for event, show unregister button -->
               <td>Registered</td>
               <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: "registration-button" %></td>
           <% else %>

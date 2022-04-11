@@ -1,13 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Officer Pics</h1>
 
-<table>
+<div class="container">
+<h1 class="index-title">Officer Pics</h1>
+<br>
+<%= link_to 'New Officer Pic', new_officer_pic_path , class: 'btn btn-primary btn-sm'%>
+<br>
+
+
+<table class="table table-bordered">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Officer title</th>
-      <th colspan="3"></th>
+    <th>Name</th>
+    <th>Officer title</th>
+    <th>Officer Bio</th>
+    <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -17,7 +24,6 @@
         <td><%= officer_pic.name %></td>
         <td><%= officer_pic.officer_title %></td>
         <td><%= officer_pic.officer_bio %></td>
-        <%= image_tag(officer_pic.image, style:'width:10%') %>
         <td><%= link_to 'Show', officer_pic %></td>
         <td><%= link_to 'Edit', edit_officer_pic_path(officer_pic) %></td>
         <td><%= link_to 'Delete', officer_pic, method: :delete, data: { confirm: 'Are you sure you want to delete the picture: ' + officer_pic.name + '?' } %></td>
@@ -25,7 +31,5 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
-
-<%= link_to 'New Officer Pic', new_officer_pic_path %>
