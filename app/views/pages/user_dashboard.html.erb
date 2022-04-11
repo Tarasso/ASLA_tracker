@@ -140,16 +140,16 @@
                                   <% if @is_student%> 
                                     <% @event_student_member = EventStudentMember.find_by(student_member_id: @user.id, event_id: event.id) %>
                                     <% if @event_student_member %>
-                                      <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                      <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
                                     <% else %>
-                                      <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                      <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
                                     <% end %>
                                   <% else %>
                                     <% @event_business_member = EventBusinessProfessional.find_by(business_professional_id: @user.id, event_id: event.id) %>
                                     <% if @event_business_member %>
-                                      <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                      <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
                                     <% else %>
-                                      <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                      <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
                                     <% end %>
                                   <% end %>
                                 <% end %> 
@@ -185,16 +185,16 @@
                               <% if @is_student %>
                                 <% @event_student_member = EventStudentMember.find_by(student_member_id: @user.id, event_id: event.id) %>
                                 <% if @event_student_member %>
-                                    <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                    <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
                                 <% else %>
-                                    <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                    <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
                                 <% end %>
                               <% else %>
                                 <% @event_business_member = EventBusinessProfessional.find_by(business_professional_id: @user.id, event_id: event.id) %>
                                 <% if @event_business_member %>
-                                  <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                  <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
                                 <% else %>
-                                  <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                  <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
                                 <% end %>
                               <% end %>
                             <% end %>  
@@ -272,6 +272,7 @@
                                     <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
                                     <%= hidden_field_tag :eid, event.event_id %>
                                     <%= hidden_field_tag :mid, @user.id %>
+                                    <%= hidden_field_tag :wid, 1 %>
                                     <%= number_field_tag :event_code_entered %>
                                     <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."} %>
                                     <% end %>
@@ -285,7 +286,7 @@
                                     } 
                                   </script>
                                 <% else %>
-                                  <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                                  <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
                                 <% end %>
                               </div>
                             </div>
@@ -325,6 +326,7 @@
                                 <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
                                 <%= hidden_field_tag :eid, event.id %>
                                 <%= hidden_field_tag :mid, @user.id %>
+                                <%= hidden_field_tag :wid, 1 %>
                                 <%= number_field_tag :event_code_entered %>
                                 <%= button_tag '🡢', class: "col event-button" %>
                                 <% end %>
@@ -338,7 +340,7 @@
                                 } 
                               </script>
                             <% else %>
-                              <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                              <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
                             <% end %>
                           </div>
                         </div>

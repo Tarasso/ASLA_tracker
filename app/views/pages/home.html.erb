@@ -60,20 +60,34 @@
     </div>
 
     <% if @newsletter%>
-      <div class="container_fluid text-center mt-5 mb-5">
-        <h2>Most Recent Newsletter</h2>
-        <div class="card mx-auto" style="width: 40rem;">
-        <div class="card-body">
-          <h3 class="card-title"><%= @newsletter.title %></h3>
-          <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
-          <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
-          <p class="card-text"><%= @newsletter.message %></p>
+      <div class="container_fluid mt-5 mb-5">
+        <h2 style="text-align:center;">Most Recent Newsletter</h2>
+          <div class="card mb-3 mx-auto" style="max-width: 540px;">
+            <div class="row no-gutters">
+
+              <% if @newsletter.images.count > 0 %>
+                <div class="col-md-4">
+                  <%= image_tag(@newsletter.images[0], style:'height: 100%; object-fit: cover;', class: 'card-img')%>
+                </div>
+              <% end %>
+
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h3 class="card-title"><%= @newsletter.title %></h3>
+                  <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
+                  <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= @newsletter.message %></p>
+                  <%= link_to 'Show', @newsletter, class: 'btn btn-primary btn-sm' %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-      </div>
     <% end %>
+    
     <% if session[:isAdmin] %>
       <%= link_to "Edit Carousel", carousels_path, class: 'btn btn-primary mx-auto text-white' %>
+      <br>
     <% end %>
 
     
