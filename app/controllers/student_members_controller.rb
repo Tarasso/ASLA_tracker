@@ -34,7 +34,7 @@ class StudentMembersController < ApplicationController
                       else
                         StudentMember.find_by(uid: session[:uid])
                       end
-    @events = Event.where("date >= ?", Date.current)
+    @events = Event.where('date >= ?', Date.current)
     @event_student_members = EventStudentMember.all
   end
 
