@@ -16,8 +16,8 @@
 
   <tbody>
 
-<h1>Events</h1>
-    <% @events_all.each do |event| %>
+<h1>Current Events</h1>
+    <% @events.each do |event| %>
       <% @businessattend = BusinessAttendance.find_by(business_professional_id: @business_professional.id, event_id: event.id) %>
       <% if !@businessattend %>
         <tr>
@@ -30,11 +30,11 @@
           <% @event_business_professional = EventBusinessProfessional.find_by(business_professional_id: @business_professional.id, event_id: event.id) %>
           <% if @event_business_professional %>
               <td>Registered</td>
-              <td><%= link_to 'Unregister', unregister_event_business_professional_path(bid: @business_professional.id, eid: event.id), class: "registration-button" %></td>
-              <td><%= link_to 'Attended', attended_business_professional_path(bid: @business_professional.id, eid: event.id), class: "registration-button" %></td>
+              <td><%= link_to 'Unregister', unregister_event_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "registration-button" %></td>
+              <td><%= link_to 'Attended', attended_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "registration-button" %></td>
           <% else %>
               <td>Not registered</td>
-              <td><%= link_to 'Register', register_event_business_professional_path(bid: @business_professional.id, eid: event.id), class: "registration-button" %></td>
+              <td><%= link_to 'Register', register_event_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "registration-button" %></td>
           <% end %>
         </tr>
       <% end %>

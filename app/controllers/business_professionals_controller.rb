@@ -32,8 +32,7 @@ class BusinessProfessionalsController < ApplicationController
 
   def events
     @business_professional = BusinessProfessional.find(params[:id])
-    @events = Event.where('finish_time > ?', Time.zone.now)
-    @events_all = Event.all
+    @events = Event.where('date >= ?', Date.current)
     @event_business_professional = EventBusinessProfessional.all
   end
 
@@ -77,7 +76,12 @@ class BusinessProfessionalsController < ApplicationController
     @business_professional = BusinessProfessional.find(params[:bid])
     @mem_attendance = BusinessAttendance.create!(business_professional_id: params[:bid], event_id: params[:eid])
     respond_to do |format|
-      format.html { redirect_to('/pages/user_dashboard', notice: 'Attendance confirmed.') }
+      case params[:wid]
+      when '1'
+        format.html { redirect_to('/pages/user_dashboard', notice: 'Attendance confirmed.') }
+      when '2'
+        format.html { redirect_to(attended_events_business_professional_path(@business_professional.id), notice: 'Attendance confirmed.') }
+      end
     end
   end
 
