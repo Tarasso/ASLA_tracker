@@ -59,29 +59,29 @@
       <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
         <div class="card-body">
           <h2 style="color: #500000">Shortcuts</h2>
-          <div style="position: relative; padding: 1.11vh;"> 
+          <div style="position: relative; padding: 1vh;"> 
             <%= link_to 'View ASLA Student Members', "/student_members", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
           </div>
-          <div style="position: relative; padding: 1.11vh"> 
+          <div style="position: relative; padding: 1vh"> 
             <%= link_to 'View Latest ASLA News', "/newsletters", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
           </div>
           <% if session[:isAdmin] %>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Business Professionals', "/business_professionals", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
           <% end %>
           <% if @is_student %>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Upcoming Events', events_student_member_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Attended Events', student_member_attended_events_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
           <% else %>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Upcoming Events', events_business_professional_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
-            <div style="position: relative; padding: 1.11vh"> 
+            <div style="position: relative; padding: 1vh"> 
               <%= link_to 'View All Attended Events', attended_events_business_professional_path(@user.id), class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
             </div>
           <% end %>
@@ -380,69 +380,67 @@
       </div>
     </div>
   </div>
-  <!----------------------------------------------------------- End of first row ---------------------------------------->
   <!----------------------------------------------------------- Beginning of second row ---------------------------------------->
+  <!----------------------------------------------------------- Point breakdown/chart ------------------------------------------>
   <% if @is_student %>
     <div class="row">
-      <% if !session[:isAdmin] %>
-        <div class="col-md-4" style="padding: 1vh">
-          <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
-            <div class="card-body">
-            <h2 style="color: #500000">Point Breakdown</h2>
-            <div class="card" style="border: none">
-              <div class=row>
-                <div class=col>
-                  <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Total Points</span></div>
-                  <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
-                </div>
-                <div class=col style="padding-right: 0">
-                  <% file = File.open("global_variables.txt")%>
-                  <% req_points = file.read()%>
-                  <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Required Points</span></div>
-                  <div class="text-dark fw-bold h5 mb-0"><span><%= req_points%></span></div>
-                </div>
+      <div class="col-md-4" style="padding: 1vh">
+        <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
+          <div class="card-body">
+          <h2 style="color: #500000">Point Breakdown</h2>
+          <div class="card" style="border: none">
+            <div class=row>
+              <div class=col>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Total Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.social_point_amount+@user.meeting_point_amount+@user.informational_point_amount+@user.fundraiser_point_amount%></span></div>
               </div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Meeting Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0"><span><%=@user.meeting_point_amount%></span></div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Social Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0"><span><%=@user.social_point_amount%></span></div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Informational Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.informational_point_amount%></span></div>
-              <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Fundraising Points</span></div>
-              <div class="text-dark fw-bold h5 mb-0"><span><%=@user.fundraiser_point_amount%></span></div>
+              <div class=col style="padding-right: 0">
+                <% file = File.open("global_variables.txt")%>
+                <% req_points = file.read()%>
+                <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000; padding-top: 1%; font-size: large;"><span>Required Points</span></div>
+                <div class="text-dark fw-bold h5 mb-0"><span><%= req_points%></span></div>
+              </div>
             </div>
-            <% @remaining_points = req_points.to_i - (@user.meeting_point_amount + @user.social_point_amount + @user.informational_point_amount + @user.fundraiser_point_amount) %>
-            <div class="card" style="border: none">
-              <canvas id="doughnutChart"></canvas>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
-                <% if @remaining_points > 0 %>
-                  <script>
-                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                    var myLineChart = new Chart(ctxD, {
-                      type: 'doughnut',
-                      data: {
-                        labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
-                        datasets: [{
-                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
-                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true}}); 
-                  </script>
-                <% else %>
-                  <script>
-                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                    var myLineChart = new Chart(ctxD, {
-                      type: 'doughnut',
-                      data: {
-                        labels: ["Meeting", "Social", "Informational", "Fundraising"],
-                        datasets: [{
-                          data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
-                          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true}}); 
-                  </script>
-                <% end %>
-              </div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Meeting Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0"><span><%=@user.meeting_point_amount%></span></div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Social Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0"><span><%=@user.social_point_amount%></span></div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Informational Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0" ><span><%=@user.informational_point_amount%></span></div>
+            <div class="text-uppercase fw-bold text-xs mb-1" style="color: #800000;  padding-top: 1%; font-size: large;"><span>Fundraising Points</span></div>
+            <div class="text-dark fw-bold h5 mb-0"><span><%=@user.fundraiser_point_amount%></span></div>
+          </div>
+          <% @remaining_points = req_points.to_i - (@user.meeting_point_amount + @user.social_point_amount + @user.informational_point_amount + @user.fundraiser_point_amount) %>
+          <div class="card" style="border: none">
+            <canvas id="doughnutChart"></canvas>
+              <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+              <% if @remaining_points > 0 %>
+                <script>
+                  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                  var myLineChart = new Chart(ctxD, {
+                    type: 'doughnut',
+                    data: {
+                      labels: ["Meeting", "Social", "Informational", "Fundraising", 'Points Remaining'],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>, <%= @remaining_points %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]}]}, options: { responsive: true}}); 
+                </script>
+              <% else %>
+                <script>
+                  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                  var myLineChart = new Chart(ctxD, {
+                    type: 'doughnut',
+                    data: {
+                      labels: ["Meeting", "Social", "Informational", "Fundraising"],
+                      datasets: [{
+                        data: [<%= @user.meeting_point_amount %>, <%= @user.social_point_amount %>, <%= @user.informational_point_amount %>, <%= @user.fundraiser_point_amount %>],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"], hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"] }]}, options: { responsive: true}}); 
+                </script>
+              <% end %>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
       <!----------------------------------------------------------- Officer tools column ---------------------------------------->
       <% if session[:isAdmin] %>
         <div class="col-md-4" style="padding: 1vh">
