@@ -119,27 +119,44 @@ class StudentMembersController < ApplicationController
     end
   end
 
+  def relocation(format)
+    case params[:wid]
+    when '1'
+      format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+    when '2'
+      format.html { redirect_to(student_member_attended_events_path(@student_member.id), notice: 'Thank You for attending this event. Your points have been updated') }
+    end
+  end
+
+  def inc_relocation(format)
+    case params[:wid]
+    when '1'
+      format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect Code entered') }
+    when '2'
+      format.html { redirect_to(events_student_member_path(@student_member.id), notice: 'Incorrect Code entered') }
+    end
+  end
+
   def eventcode
     @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
+    @ec_i = Integer(@params[:event_code_entered], 10)
     @student_member = StudentMember.find(params[:mid])
     respond_to do |format|
       if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
         @student_member.update!(meeting_point_amount: @meeting_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
         @student_member.update!(social_point_amount: @social_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
         @student_member.update!(informational_point_amount: @informational_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
         @student_member.update!(fundraiser_point_amount: @fundraising_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       else
         Rails.logger.debug(@event.event_type)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect code entered. PLease try again.') }
+        inc_relocation(format)
       end
     end
   end
