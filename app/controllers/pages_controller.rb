@@ -9,6 +9,12 @@ class PagesController < ApplicationController
   def home
     @newsletter = Newsletter.order(:created_at).reverse_order.first
     @carousel_pics = Carousel.all
+    @is_student = !StudentMember.where(uid: session[:uid]).empty?
+    @user = if @is_student
+              StudentMember.find(session[:userID])
+            elsif session[:isBusinessProfessional]
+              BusinessProfessional.find(session[:userID])
+            end
   end
 
   def help; end
@@ -24,14 +30,14 @@ class PagesController < ApplicationController
   def unauthorized; end
 
   def req_points
-    if params.key?(:required_points)
+    if params.key?(:required_points) && session[:isAdmin]
       @group3 = params[:required_points]
       File.open('global_variables.txt', 'w') { |f| f.write(@group3) } if @group3
     end
   end
 
   def reset_values
-    if params.key?(:dues) || params.key?(:points)
+    if (params.key?(:dues) && session[:isAdmin]) || (params.key?(:points) && session[:isAdmin])
 
       @group4 = params[:dues]
       @group5 = params[:points]
@@ -49,6 +55,7 @@ class PagesController < ApplicationController
           student.update!(social_point_amount: 0)
           student.update!(informational_point_amount: 0)
           student.update!(fundraiser_point_amount: 0)
+          student.update!(total_points: 0)
         end
       end
     end
@@ -62,7 +69,7 @@ class PagesController < ApplicationController
               BusinessProfessional.find(session[:userID])
             end
 
-    if params.key?(:group1) || params.key?(:group2) || params.key?(:group3)
+    if (params.key?(:group1) && session[:isAdmin]) || (params.key?(:group2) && session[:isAdmin]) || (params.key?(:group3) && session[:isAdmin])
 
       @group1 = params[:group1]
       @group2 = params[:group2]
