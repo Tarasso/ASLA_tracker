@@ -15,8 +15,9 @@
   <%= link_to 'Back', newsletters_path , class: 'btn btn-primary btn-sm'%>
 
   <br><br>
+  <p> Click on the images to view the full image! </p>
   <% (0...@newsletter.images.count).each do |image| %>
-    <a href = "<%= url_for(@newsletter.images[image])%>">
+    <a href = "<%= url_for(@newsletter.images[image])%>" target="_blank" rel="noopener noreferrer">
       <%= image_tag(@newsletter.images[image], style:'width: 100px; height: 100px; object-fit: cover;', class: "card-img-top")%>
     </a>
   <% end %>

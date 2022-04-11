@@ -7,6 +7,7 @@ class StudentMembersController < ApplicationController
   before_action :account_creating?, only: %i[index attended events edit show]
   before_action :allowed_to_view_student?, only: %i[edit update]
   before_action :allowed_to_view_student_info?, only: [:show]
+  before_action :valid_code?, only: %i[eventcode attended]
   before_action :points_add, only: %i[eventcode]
   before_action :student_member_event_delete, only: %i[destroy]
   before_action :student_event_attendance_delete, only: %i[destroy]
@@ -96,8 +97,6 @@ class StudentMembersController < ApplicationController
 
   def attended
     @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
     @mem_attendance = MemberAttendance.new(student_member_id: params[:mid], event_id: params[:eid])
     if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
@@ -116,34 +115,62 @@ class StudentMembersController < ApplicationController
   def event_student_member_delete
     @event = Event.find(params[:eid])
     @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
+    @ec_i = if @ec == ''
+              0
+            else
+              Integer(@ec, 10)
+            end
     if @ec_i == @event.event_code
       @event_student_members = EventStudentMember.find_by(student_member_id: params[:mid], event_id: params[:eid])
       @event_student_members.destroy!
     end
   end
 
+  def relocation(format)
+    case params[:wid]
+    when '1'
+      format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+    when '2'
+      format.html { redirect_to(student_member_attended_events_path(@student_member.id), notice: 'Thank You for attending this event. Your points have been updated') }
+    end
+  end
+
+  def inc_relocation(format)
+    case params[:wid]
+    when '1'
+      format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect Code entered') }
+    when '2'
+      format.html { redirect_to(events_student_member_path(@student_member.id), notice: 'Incorrect Code entered') }
+    end
+  end
+
+  def valid_code?
+    @ec_i = if params[:event_code_entered] == ''
+              0
+            else
+              Integer(params[:event_code_entered], 10)
+            end
+  end
+
   def eventcode
     @event = Event.find(params[:eid])
-    @ec = params[:event_code_entered]
-    @ec_i = Integer(@ec, 10)
     @student_member = StudentMember.find(params[:mid])
     respond_to do |format|
       if (@ec_i == @event.event_code) && (@event.event_type == 'meeting')
         @student_member.update!(meeting_point_amount: @meeting_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'social')
         @student_member.update!(social_point_amount: @social_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'informational')
         @student_member.update!(informational_point_amount: @informational_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       elsif (@ec_i == @event.event_code) && (@event.event_type == 'fundraising')
         @student_member.update!(fundraiser_point_amount: @fundraising_points)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Thank You for attending this event. Your points have been updated') }
+        relocation(format)
       else
         Rails.logger.debug(@event.event_type)
-        format.html { redirect_to('/pages/user_dashboard', notice: 'Incorrect code entered. PLease try again.') }
+        inc_relocation(format)
       end
     end
   end
