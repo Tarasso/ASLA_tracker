@@ -5,5 +5,10 @@
   <%= @carousel.pic_name %>
 </p>
 
+<p>
+  <strong>Picture: </strong>
+  <%= image_tag(@carousel.image, style: 'height:400px;width:80%;') %>
+</p>
+
 <%= link_to 'Edit', edit_carousel_path(@carousel) %> |
 <%= link_to 'Back', carousels_path %>
