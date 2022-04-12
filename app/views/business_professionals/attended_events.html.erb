@@ -19,7 +19,7 @@
       <td><%= @event.date.strftime('%B %-d, %Y') %></td>
       <td><%= @event.name %></td>
       <td><%= @event.location %></td>
-      <td><%= @event.start_time.strftime('%H:%M %p')%> - <%=@event.finish_time.strftime('%H:%M %p') %></td>
+      <td><%= daylight_savings(@event.start_time).strftime('%l:%M %p')%> - <%= daylight_savings(@event.finish_time).strftime('%l:%M %p') %></td>
       <td><%= @event.description %></td>
       <td><%= @event.event_type %></td>  
     </tr>
