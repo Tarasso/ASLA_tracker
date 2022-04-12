@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
+<h1>Viewing Entry <%=@student_member.id%> of the Students Table</h1>
 <p>
   <strong>Uin:</strong>
   <%= @student_member.uin %>
@@ -18,6 +20,16 @@
 <p>
   <strong>Class year:</strong>
   <%= @student_member.class_year %>
+</p>
+
+<p>
+  <strong>Student Classification:</strong>
+  <%= @student_member.student_classification %>
+</p>
+
+<p>
+  <strong>Program Level:</strong>
+  <%= @student_member.program_level %>
 </p>
 
 <p>
@@ -74,11 +86,12 @@
   <%= @student_member.member_title %>
 </p>
 
-<p>
-  <strong>Officer title:</strong>
-  <%= @student_member.officer_title %>
-</p>
 
-<%= link_to 'All members', student_members_path%> |
-<%= link_to 'Edit', edit_student_member_path(@student_member) %> |
-<%= link_to 'Back', :back %>
+
+<%= link_to 'All members', student_members_path, class: 'btn btn-primary btn-sm' %> 
+<% if session[:isAdmin] %>
+<%= link_to 'Edit', edit_student_member_path(@student_member) , class: 'btn btn-primary btn-sm' %> 
+<% end %>
+<%= link_to 'Back', :back , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

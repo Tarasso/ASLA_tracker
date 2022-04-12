@@ -13,16 +13,164 @@
  *= require_tree .
  *= require_self
  */
- 
  .profile-pic {
     border-radius: 50%;
-    width: 50%
+    width: 50%;
  }
 
+.info-column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
  .disabled input{
    background: #dddddd;
    border-color: #bbbbbb;
    pointer-events:none;
  }
 
- 
+ .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+ .btn-primary {
+    background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  }
+
+  .btn-primary:hover {
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+
+  .btn-secondary {
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+    
+  }
+
+  .btn-secondary:hover {
+    background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  }
+
+  .fas:hover{
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+
+  .fa-instagram:hover{
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+  
+
+  .nav-link {
+    background-color: #500000 !important;
+    font-size: 18px !important;
+    color: white !important;
+  }
+
+  .nav-link:hover {
+    background-color: white !important;
+    color: #500000 !important;
+    border-color: #500000 !important;
+  }
+
+  .navbar-brand:hover {
+    background-color: #500000 !important;
+  }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+.footer {
+  margin-top: auto;
+  width: 100%;
+  background-color: #500000;
+  padding: 1%;
+}
+
+.list-group-item {
+  text-align: center;
+}
+
+.shift_right {
+  margin-left: 30px;
+}
+
+.show-box {
+  margin-top: auto;
+  margin-bottom: auto;
+  background: #f6f6f6;
+  padding: 10%;
+}
+
+@media (max-width:767px) {
+  .show-box {
+    padding: 20px 0;
+  }
+}
+
+.show-box .info {
+  max-width: 480px;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 4px;
+  color: #505e6c;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+
+.show-box h1 {
+  color:#500000;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 36px;
+}
+
+
+.index-title {
+  text-align: center;
+  color: #500000;
+}
+
+
+.footer-text:hover{
+  
+  background-color: white !important;
+  color: #500000 !important;
+  border-color: #500000 !important;
+}
+
+.dropdown-item:hover{
+  background-color: #500000 !important;
+    color: white !important;
+    border-color: #500000 !important;
+  
+}
+
+.dropdown-item{
+  background-color: white !important;
+  color: #500000 !important;
+  border-color: #500000 !important;
+}
+
+
+
+
+
+

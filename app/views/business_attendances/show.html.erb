@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<section class="show-box">
+<div class="info">
+<h1>Viewing Entry <%=@business_attendance.id%> of the Professional Attendance Table</h1>
+<p>
+  <strong>Business Professional:</strong>
+  <%= BusinessProfessional.find(@business_attendance.business_professional_id).first_name%>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= Event.find(@business_attendance.event_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_business_attendance_path(@business_attendance) , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', business_attendances_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

@@ -10,7 +10,7 @@ RSpec.describe(StudentMember, type: :model) do
                         email: 'happy.boi@gmail.com', phone_number: '+19365551234',
                         expected_graduation_date: Date.new(2078, 2, 4), social_point_amount: 3,
                         fundraiser_point_amount: 4, informational_point_amount: 5, meeting_point_amount: 6,
-                        officer_title: 'joker', dues_paid: true
+                        dues_paid: true, student_classification: 1, program_level: 1
     )
   end
 

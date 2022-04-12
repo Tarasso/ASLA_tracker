@@ -2,6 +2,8 @@
 
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: %i[show edit update destroy]
+  before_action :admin?, only: %i[edit create update destroy new show]
+  skip_before_action :authenticate_user!
 
   # GET /calendars or /calendars.json
   def index

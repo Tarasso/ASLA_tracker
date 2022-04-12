@@ -12,6 +12,7 @@ RSpec.describe('Creating an Carousel Pic', type: :feature) do
   end
 
   it 'valid inputs create' do
+    page.set_rack_session(isAdmin: true)
     visit new_carousel_path
 
     fill_in 'Pic name', with: 'Fil pic 1'

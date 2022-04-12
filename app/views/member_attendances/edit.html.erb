@@ -1,0 +1,12 @@
+<section class="show-box">
+<div class="info">
+<h1>Editing Entry <%=@member_attendance.id%> of the Student Attendance Table</h1>
+
+<%= render 'form', member_attendance: @member_attendance %>
+
+<%= link_to 'Show', @member_attendance, class: 'btn btn-primary btn-sm'  %> 
+<%= link_to 'Back', member_attendances_path, class: 'btn btn-primary btn-sm'  %>
+
+
+</div>
+</section>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :business_attendances
+  resources :member_attendances
   # resources :carousels
   # resources :officer_pics
   resources :event_business_professionals
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
   resources :student_members do
     get 'search', on: :collection
     get :events
+    get :attended_events
   end
   resources :newsletters
   resources :business_professionals do
@@ -39,11 +42,13 @@ Rails.application.routes.draw do
   resources :business_professionals do
     member do
       get :events
+      get :attended_events
+      get :attended
     end
   end
+
   resources :student_members do
     member do
-      get :dashboard
       get :events
       get :eventcode
     end
@@ -53,12 +58,13 @@ Rails.application.routes.draw do
   resources :officer_pics
   resources :carousels
 
-  get 'pages/about'
-  get 'pages/contact'
+  get 'pages/faq'
   get 'pages/home'
-  get 'pages/mail'
   get 'pages/officers'
+  get 'pages/help'
   get 'pages/unauthorized'
   get 'pages/user_dashboard'
   get 'pages/select_account_type'
+  get 'pages/events'
+  get 'pages/points_leaderboard'
 end

@@ -1,8 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Carousels</h1>
 
-<table>
+<div class="container">
+<h1 class="index-title">Carousels</h1>
+<br>
+<%= link_to 'New Carousel Image', new_carousel_path , class: 'btn btn-primary btn-sm'%>
+<br>
+
+
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Pic name</th>
@@ -16,12 +22,13 @@
         <td><%= carousel.pic_name %></td>
         <td><%= link_to 'Show', carousel %></td>
         <td><%= link_to 'Edit', edit_carousel_path(carousel) %></td>
-        <td><%= link_to 'Destroy', carousel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', carousel, method: :delete, data: { confirm: 'Are you sure you would like to delete the photo: ' + carousel.pic_name + '?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
 
-<%= link_to 'New Carousel Image', new_carousel_path %>
+
+

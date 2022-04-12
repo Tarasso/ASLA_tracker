@@ -1,6 +1,12 @@
-<h1>Editing Carousel</h1>
+<section class="show-box">
+<div class="info">
+<h1>Editing Carousel Entry <%=@carousel.id%> </h1>
+
+
 
 <%= render 'form', carousel: @carousel %>
 
-<%= link_to 'Show', @carousel %> |
-<%= link_to 'Back', carousels_path %>
+<%= link_to 'Show', @carousel , class: 'btn btn-primary btn-sm'%> 
+<%= link_to 'Back', carousels_path , class: 'btn btn-primary btn-sm'%>
+</div>
+</section>

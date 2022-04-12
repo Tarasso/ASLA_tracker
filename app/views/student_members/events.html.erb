@@ -17,30 +17,34 @@
 
   <tbody>
 
-<h1>Events</h1>
-    <% @events.each do |event| %>
+<h1>Current Events</h1>
+    <% @events.each do |event| %>  <!-- Loop through events -->
       <tr>
-        <td><%= event.date.strftime('%B %-d, %Y') %></td>
-        <td><%= event.name %></td>
-        <td><%= event.location %></td>
-        <td><%= event.start_time.strftime('%H:%M %p')%> - <%=event.finish_time.strftime('%H:%M %p') %></td>
-        <td><%= event.description %></td>
-        <td><%= event.event_type %></td>  
-        <% @event_student_member = EventStudentMember.find_by(member_id: @student_member.id, event_id: event.id) %>
-        <% if @event_student_member %>
-            <td>Registered</td>
-            <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), data: { confirm: 'Are you sure?' }, class: "registration-button" %></td>
-        <% else %>
-            <td>Not registered</td>
-            <td><%= link_to 'Register', register_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id), class: "registration-button" %></td>
-        <% end %>
         <% @ev = Event.find(event.id) %>
-        <% if @event_student_member %>
-          <%= form_tag(eventcode_student_member_path(id: @student_member.id), method: "get") do %>
-          <td><%= hidden_field_tag :eid, event.id %></td>
-          <td><%= hidden_field_tag :mid, @student_member.id %></td>
-          <td><%= number_field_tag :event_code_entered %></td>
-          <td><%= button_tag 'Enter Code', class: "registration-button"%></td>
+        <% @attended = MemberAttendance.find_by(student_member_id: @student_member.id, event_id: event.id)%>
+        <% if !@attended %>    <!-- If member has attended event, dont show -->
+          <td><%= event.date.strftime('%B %-d, %Y') %></td>
+          <td><%= event.name %></td>
+          <td><%= event.location %></td>
+          <td><%= daylight_savings(event.start_time).strftime('%l:%M %p')%> - <%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></td>
+          <td><%= event.description %></td>
+          <td><%= event.event_type %></td>  
+          <% @event_student_member = EventStudentMember.find_by(student_member_id: @student_member.id, event_id: event.id) %>
+          <% if @event_student_member %> <!-- If member has signed up for event, show unregister button -->
+              <td>Registered</td>
+              <td><%= link_to 'Unregister', unregister_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id, wid: 2), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?' }, class: "registration-button" %></td>
+          <% else %>
+              <td>Not registered</td>
+              <td><%= link_to 'Register', register_event_student_member_path(mid: @student_member.id, eid: event.id, id: @student_member.id, wid: 2), class: "registration-button" %></td>
+          <% end %>
+          <% if @event_student_member%>
+            <%= form_tag(eventcode_student_member_path(id: @student_member.id), method: "get") do %>
+            <%= hidden_field_tag :eid, event.id %>
+            <%= hidden_field_tag :mid, @student_member.id %>
+            <%= hidden_field_tag :wid, 2 %>
+            <td><%= number_field_tag :event_code_entered %></td>
+            <td><%= button_tag 'Enter Code', class: "registration-button"%></td>
+            <% end %>
           <% end %>
         <% end %>
       </tr>

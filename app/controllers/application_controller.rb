@@ -6,12 +6,15 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  before_action :print_session
 
   def print_session
     Rails.logger.debug(session[:profile_pic])
     Rails.logger.debug('ID:')
     Rails.logger.debug(session[:userID])
+  end
+
+  def student?
+    redirect_to(pages_unauthorized_path) unless session[:isBusinessProfessional] || session[:isAdmin]
   end
 
   def admin?
@@ -21,7 +24,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def allowed_to_view?
-    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]
+  def account_created?
+    redirect_to(pages_unauthorized_path) unless session[:creatingAccount]
+  end
+
+  def account_creating?
+    redirect_to(pages_select_account_type_path, notice: 'Please finish creating your account.') if session[:creatingAccount]
+  end
+
+  def allowed_to_view_student?
+    redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && !session[:isMember])
+  end
+
+  def allowed_to_view_bpro?
+    redirect_to(pages_unauthorized_path) if (Integer(params[:id], 10) != session[:userID] && !session[:isAdmin]) || (Integer(params[:id], 10) == session[:userID] && (!session[:isBusinessProfessional] && !session[:isAdmin]))
+  end
+
+  def allowed_to_view_student_info?
+    redirect_to(pages_unauthorized_path) if Integer(params[:id], 10) != session[:userID] && !session[:isAdmin] && !session[:isBusinessProfessional]
   end
 end

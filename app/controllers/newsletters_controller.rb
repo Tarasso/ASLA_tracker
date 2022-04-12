@@ -23,8 +23,6 @@ class NewslettersController < ApplicationController
   # POST /newsletters or /newsletters.json
   def create
     @newsletter = Newsletter.new(newsletter_params)
-    @newsletter[:date_posted] = Date.current
-
     respond_to do |format|
       if @newsletter.save
         format.html { redirect_to(newsletter_url(@newsletter), notice: 'Newsletter was successfully created.') }
@@ -68,6 +66,6 @@ class NewslettersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def newsletter_params
-    params.require(:newsletter).permit(:date_posted, :message, :title)
+    params.require(:newsletter).permit(:message, :title, images: [])
   end
 end

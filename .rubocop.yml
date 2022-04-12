@@ -38,6 +38,7 @@ AllCops:
         - "**/Rakefile"
         - "**/rails"
         - "**/vendor/**/*"
+        - "vendor/**/*"
         - "**/spec_helper.rb"
         - "node_modules/**/*"
         - "bin/*"
@@ -114,7 +115,7 @@ Layout/LineEndStringConcatenationIndentation: # (new in 1.18)
     Enabled: true
 
 Layout/LineLength:
-    Max: 200
+    Max: 300
     Exclude:
         - "**/spec/**/*"
 
@@ -265,7 +266,7 @@ Lint/UselessMethodDefinition:
 ###########################################################
 
 Metrics/AbcSize:
-    Max: 49
+    Max: 53
 
 Metrics/BlockLength:
     CountComments: false

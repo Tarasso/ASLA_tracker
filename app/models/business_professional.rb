@@ -2,6 +2,8 @@
 
 class BusinessProfessional < ApplicationRecord
   has_many :event
+  has_many :event_business_professional
+  has_many :business_attendance
   validates :org_name, :first_name, :last_name, :phone_num, :email, presence: true
 
   validates :org_name, :first_name, :last_name, format: { with: /\A[a-zA-Z0-9 ,.'-]+\z/, message: 'contains invalid characters' }

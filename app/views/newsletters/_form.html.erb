@@ -19,8 +19,13 @@
   <div class="field">
     <%= form.label :message %><br>
     <div style="margin-left: 30px">
-      <%= form.text_area(:message, cols: 50, rows: 10)%>
+      <%= form.text_area(:message, cols: 45, rows: 10)%>
     </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
   </div>
 
   <div class="actions">

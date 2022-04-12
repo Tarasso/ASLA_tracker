@@ -1,14 +1,18 @@
 <p id="notice"><%= notice %></p>
-
+<section class="show-box">
+<div class="info">
+<h1>Viewing Entry <%=@event_business_professional.id%> of the Professionals Registration Table</h1>
 <p>
-  <strong>Organization:</strong>
-  <%= @event_business_professional.organization_id %>
+  <strong>Business Professional:</strong>
+  <%= BusinessProfessional.find(@event_business_professional.business_professional_id).first_name%>
 </p>
 
 <p>
   <strong>Event:</strong>
-  <%= @event_business_professional.event_id %>
+  <%= Event.find(@event_business_professional.event_id).name %>
 </p>
 
-<%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) %> |
-<%= link_to 'Back', event_business_professionals_path %>
+<%= link_to 'Edit', edit_event_business_professional_path(@event_business_professional) , class: 'btn btn-primary btn-sm' %> 
+<%= link_to 'Back', event_business_professionals_path , class: 'btn btn-primary btn-sm' %>
+</div>
+</section>

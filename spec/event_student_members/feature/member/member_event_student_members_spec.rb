@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# frozen_string_literal: true
 
 # location: spec/feature/integration_spec.rb
 require 'rails_helper'
@@ -6,7 +7,7 @@ require 'rails_helper'
 RSpec.describe('Creating a Student Member', type: :feature) do
   before do
     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_user]
+    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_admin]
     visit root_path
     click_on 'Sign in'
   end
@@ -26,6 +27,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select 'May', from: 'student_member_expected_graduation_date_2i'
     click_on 'Create account'
 
+    page.set_rack_session(isAdmin: true)
     visit new_event_path
 
     select '2022', from: 'event_date_1i'
@@ -33,18 +35,23 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     select '22', from: 'event_date_3i'
     fill_in 'Name', with: 'Football'
     fill_in 'Location', with: 'Kyle Field'
-    select '13', from: 'event_start_time_4i'
-    select '30', from: 'event_start_time_5i'
-    select '16', from: 'event_finish_time_4i'
-    select '30', from: 'event_finish_time_5i'
+    select('01 PM', from: 'event_start_time_4i')
+    select('00', from: 'event_start_time_5i')
+    select('02 PM', from: 'event_finish_time_4i')
+    select('00', from: 'event_finish_time_5i')
     fill_in 'Description', with: 'Having fun'
     select 'Social', from: 'event_event_type'
     click_on 'Create Event'
+    event_code = Event.last.event_code
 
-    visit events_student_member_path(StudentMember.last)
+    page.set_rack_session(isAdmin: true)
+    visit '/pages/user_dashboard'
     click_on 'Register'
-    expect(page).to(have_content('You have registered.'))
+    expect(page).to(have_content('You have registered for the event.'))
     click_on 'Unregister'
-    expect(page).to(have_content('You have unregistered.'))
+    expect(page).to(have_content('You have unregistered for the event.'))
+    click_on 'Register'
+    fill_in 'event_code_entered', with: event_code
+    # click_on 'Enter Code'
   end
 end

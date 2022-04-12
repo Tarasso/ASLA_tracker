@@ -1,0 +1,33 @@
+<%= form_with(model: member_attendance) do |form| %>
+  <% if member_attendance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(member_attendance.errors.count, "error") %> prohibited this member_attendance from being saved:</h2>
+
+      <ul>
+        <% member_attendance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :student_member_id %>
+    <%= form.select :student_member_id, StudentMember.order(:first_name).map { |student_member| [student_member.first_name, student_member.id] }, include_blank: true, id: "id_of_the_student_member_id_select_box" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.select :event_id, Event.order(:name).map { |event| [event.name, event.id] }, include_blank: true, id: "id_of_the_event_id_select_box" %>
+  </div>
+
+
+  <div class="field">
+  <%= form.label :point_type %>
+  <%= form.select :point_type, options_for_select(MemberAttendance.point_types.map {|key, value| [key.humanize.capitalize, MemberAttendance.point_types.key(value)]}, @member_attendance.point_type) %>
+  </div>
+  
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
