@@ -56,12 +56,14 @@ The application can be seen using a browser and navigating to http://localhost:3
 
 ## Environmental Variables/Files ##
 
-There are currently two envrionment variables that need to be configured. They can be set manually in the `config/environments/development.rb`, but for other environments, one should configure these variables in Heroku deployment config variables
+There are currently four envrionment variables that need to be configured. They can be set manually in the `config/environments/development.rb` for local development, but for other environments, one should configure these variables in Heroku deployment config variables
 
 * `GOOGLE_OAUTH_CLIENT_ID`
 * `GOOGLE_OAUTH_CLIENT_SECRET`
+* `AMAZON_ACCESS_KEY_ID`
+* `AMAZON_SECRET_ACCESS_KEY`
 
-A more in depth guide for user authentication can be found in [this](https://medium.com/craft-academy/encrypted-credentials-in-ruby-on-rails-9db1f36d8570) Medium article.
+A more in depth guide for user authentication can be found in [this](https://medium.com/craft-academy/encrypted-credentials-in-ruby-on-rails-9db1f36d8570) Medium article for setting the Google authentication. The AWS key and secret are linked to an AWS S3 bucket to store dyanmically updated pictures. This information can be accessed directly through the AWS portal.
 
 ## Deployment ##
 
@@ -85,7 +87,9 @@ To add enviornment variables to enable google oauth2 functionality, head over to
  
 Scroll down until `Reveal config vars`
  
-Add both your client id and your secret id, with fields `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` respectively
+Add both your Google client id and your secret id, with fields `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` respectively
+
+Also, add both your AWS bucket key and secret, with fields `AMAZON_ACCESS_KEY_ID` and `AMAZON_SECRET_ACCESS_KEY` respectively
  
 Now once your pipeline has built the apps, select `Open app` to open the app
  
@@ -96,7 +100,8 @@ And now your application is setup and in production mode!
 
 ## CI/CD ##
 
-For continuous development, we set up Heroku to automatically deploy our apps when their respective github branches are updated. Currently there are two live deployments of this web app:
+For continuous development, we set up Heroku to automatically deploy our apps when their respective github branches are updated. Currently there are three live deployments of this web app:
+* [Development Envrionment](https://asla-dev-jeqxdjdfahoremlqfyk5v.herokuapp.com/)
 * [Testing Envrionment](https://asla-test-rz8igoalpfq53fy3oqfi.herokuapp.com/)
 * [Production Envrionment](https://tamu-asla.herokuapp.com/)
 
@@ -110,8 +115,8 @@ For continuous integration, we set up a Github action to run our specs, security
 
 ## Support ##
 
-Admins looking for support should first look at the application help page.
-Users looking for help seek out assistance from the customer.
+Admins looking for support should first look at the application help page which can be found at `/pages/help`.
+Users looking for help should reference the FAQ page and seek out assistance from the ASLA officers.
 
 ## Credit ##
 
