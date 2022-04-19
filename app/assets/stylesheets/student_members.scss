@@ -2,3 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 // CSS reset START
+
+input[type='number']{
+    width: 100px;
+    vertical-align: middle;
+} 
