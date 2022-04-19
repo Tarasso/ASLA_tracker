@@ -45,8 +45,8 @@
       <h2> Upcoming Events</h2>
       <div class="container">
         <div class="row justify-content-around">
-          <% @event_not_started = Event.where("date >= ?", Date.current) %>
-          <% @first_three_events = @event_not_started.first(3) %>
+          <% @upcoming, @past = Event.order('date ASC').partition{ |e| e[:date] >= Date.current } %>
+          <% @first_three_events = @upcoming.first(3) %>
           <% @first_three_events.each do |event| %>
             <% @event_info = Event.find(event.id) %>  
             <div class="col-4 card" style="width: 300px">
