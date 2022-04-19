@@ -8,7 +8,7 @@
 <% end %>
 
 <div class="container py-2">
-    <div id="images_box" class="row" data-masonry='{"percentPosition": true }'>
+    <div class="row" data-masonry='{"percentPosition": true }'>
     
       <% @newsletters.each do |newsletter| %>
         <div class="col-sm-4 col-md-3 py-3">
@@ -20,9 +20,9 @@
 
                 <div class="card-body">
                   <h3 class="card-title"><%= newsletter.title %></h3>
-                  <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(newsletter.created_at).strftime('%B %-d, %Y') %></h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
-                  <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= newsletter.message %></p>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Date posted:</b> <%= daylight_savings(newsletter.created_at).strftime('%B %-d, %Y') %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Last modified at:</b> <%= daylight_savings(newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
+                  <p class="card-text"><%= newsletter.message %></p>
           
                   <%= link_to 'Show', newsletter, class: 'btn btn-primary btn-sm' %>
                   <% if session[:isAdmin] %>
