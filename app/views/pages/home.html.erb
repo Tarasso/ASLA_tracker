@@ -45,7 +45,7 @@
       <h2> Upcoming Events</h2>
       <div class="container text-center">
         <div class="row justify-content-around">
-          <% @event_not_started = Event.where("date > ?", Date.current) %>
+          <% @event_not_started = Event.where("date >= ?", Date.current) %>
           <% @first_three_events = @event_not_started.first(3) %>
           <% @first_three_events.each do |event| %>
             <% @event_info = Event.find(event.id) %>  
