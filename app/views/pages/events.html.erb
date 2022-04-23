@@ -24,12 +24,12 @@
     </li>
   <% end %>
 <% if session[:isMember] %>
-<li class="list-group-item"><%= link_to 'Register myself', events_student_member_path(@student_member.id) , class: 'btn btn-primary btn-lg'%></li>
-<li class="list-group-item"><%= link_to 'Events I attended', student_member_attended_events_path(@student_member.id), class: 'btn btn-primary btn-lg'%></li>
+<li class="list-group-item"><%= link_to 'Upcoming Events', events_student_member_path(@student_member.id) , class: 'btn btn-primary btn-lg'%></li>
+<li class="list-group-item"><%= link_to 'Attended Events', student_member_attended_events_path(@student_member.id), class: 'btn btn-primary btn-lg'%></li>
 <% end %>
 <% if session[:isBusinessProfessional] %>
-<li class="list-group-item"><%= link_to 'Register myself', events_business_professional_path(@business_professional), class: 'btn btn-primary btn-lg'%></li>
-<li class="list-group-item"><%= link_to 'Events I attended', attended_events_business_professional_path(@business_professional), class: 'btn btn-primary btn-lg'%></li>
+<li class="list-group-item"><%= link_to 'Upcoming Events', events_business_professional_path(@business_professional), class: 'btn btn-primary btn-lg'%></li>
+<li class="list-group-item"><%= link_to 'Attended Events', attended_events_business_professional_path(@business_professional), class: 'btn btn-primary btn-lg'%></li>
 <% end %>
 </ul>
 </div>

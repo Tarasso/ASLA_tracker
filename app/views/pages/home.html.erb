@@ -50,7 +50,7 @@
     <div class="container_fluid text-center mt-5">
       <h2> Upcoming Events</h2>
       <div class="container">
-        <div class="row justify-content-around">
+        <div class="row justify-content-center">
           <% @upcoming, @past = Event.order('date ASC').partition{ |e| e[:date] >= Date.current } %>
           <% @first_three_events = @upcoming.first(3) %>
           <% @first_three_events.each do |event| %>
@@ -86,13 +86,13 @@
 
               <% if @newsletter.images.count > 0 %>
                 <div class="col-md-4">
-                  <%= image_tag(@newsletter.images[0], style:'height: 100%; object-fit: cover;', class: 'card-img')%>
+                  <%= image_tag(@newsletter.images[0], style:'height: 200px; object-fit: cover;', class: 'card-img')%>
                 </div>
               <% end %>
 
               <div class="col-md-8">
                 <div class="card-body">
-                  <h3 class="card-title"><%= @newsletter.title %></h3>
+                  <h3 class="card-title" style="text-overflow: ellipsis; overflow-x: hidden; white-space: nowrap; height: 35px;"><%= @newsletter.title %></h3>
                   <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Date posted:</b> <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
                   <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Last modified at:</b> <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
                   <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= @newsletter.message %></p>

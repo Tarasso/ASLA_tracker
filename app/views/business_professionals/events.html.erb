@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="index-title">Register Myself</h1>
+<h1 class="index-title">Upcoming Events</h1>
 <div class="container">
 <%= link_to 'Back to dashboard', pages_user_dashboard_path, class: "btn btn-primary btn-sm" %>
 </div>
@@ -8,10 +8,11 @@
 <div class="container py-2">
   <div class="row" data-masonry='{"percentPosition": true }'>
     
-    <% @events.each do |event| %>  <!-- Loop through events -->
-      <% @ev = Event.find(event.id) %>
+    <% @upcoming, @past = Event.order('date ASC').partition{ |e| e[:date] >= Date.current } %>
+
+    <% @upcoming.each do |event| %>  <!-- Loop through events -->
+
         <% @businessattend = BusinessAttendance.find_by(business_professional_id: @business_professional.id, event_id: event.id) %>
-          <% if !@businessattend %>
 
             <div class="col-sm-4 col-md-3 py-3">
                 <div class="card shadow">
@@ -25,24 +26,31 @@
                       <p class="card-text"><%= event.description %></p>
 
 
-                      <div>
-                      <% @event_business_professional = EventBusinessProfessional.find_by(business_professional_id: @business_professional.id, event_id: event.id) %>
-                      <% if @event_business_professional %>
-                          Registered
-                          <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "btn btn-primary btn-sm" %>
-                          <%= link_to 'Attended', attended_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "btn btn-primary btn-sm" %>
-                      <% else %>
-                          <td>Not registered</td>
-                          <td><%= link_to 'Register', register_event_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "btn btn-primary btn-sm" %></td>
+                      <% if !@businessattend %>
+
+                        <div>
+                        <% @event_business_professional = EventBusinessProfessional.find_by(business_professional_id: @business_professional.id, event_id: event.id) %>
+                        <% if @event_business_professional %>
+                            <b>Registered</b>
+                            <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "btn btn-primary btn-sm" %>
+                            <%= link_to 'Attended', attended_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "btn btn-primary btn-sm" %>
+                        <% else %>
+                            <b>Not registered</b>
+                            <%= link_to 'Register', register_event_business_professional_path(bid: @business_professional.id, eid: event.id, wid: 2), class: "btn btn-primary btn-sm" %>
+                        <% end %>
+                        </div>
+
+                      <% elsif %>
+                      
+                        <b>Attended</b>
+
                       <% end %>
-                      </div>
 
                       <br>
                     </div>
                 </div>
             </div>
 
-          <% end %>
     <% end %>
   </div>
 </div>
