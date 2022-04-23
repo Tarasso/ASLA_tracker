@@ -18,7 +18,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     page.set_rack_session(isAdmin: true)
     visit new_student_member_path
 
-    fill_in 'Uin', with: '328004941'
+    fill_in 'UIN', with: '328004941'
     fill_in 'First name', with: 'Jiaming'
     fill_in 'Last name', with: 'Fu'
     fill_in 'Class year', with: '2023'
