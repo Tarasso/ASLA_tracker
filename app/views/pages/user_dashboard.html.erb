@@ -350,7 +350,7 @@
                                     <%= hidden_field_tag :mid, @user.id %>
                                     <%= hidden_field_tag :wid, 1 %>
                                     <%= number_field_tag :event_code_entered %>
-                                    <%= button_tag '🡢', class: "col event-button" %>
+                                    <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."}%>
                                     <% end %>
                                   </div>
                                   <script>
