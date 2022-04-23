@@ -26,7 +26,7 @@
       <div class="carousel-inner">
         <% @carousel_pics.each_with_index do |carousel_pic, index| %>
           <div id="carousel_item_<%= index %>" class="carousel-item <%= index == 0 ? 'active' : '' %>">
-            <%= image_tag(carousel_pic.image, style:'height:400px;width:100%;') %>
+            <%= image_tag(carousel_pic.image, style:'height:400px; width:100%; object-fit: cover;') %>
           </div>
         <% end %>
       </div>
