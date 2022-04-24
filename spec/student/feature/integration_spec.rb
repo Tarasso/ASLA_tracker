@@ -57,7 +57,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
 
     visit edit_student_member_path(other_account_id)
 
-    fill_in 'Uin', with: '123456789'
+    fill_in 'UIN', with: '123456789'
     click_on 'Update account'
 
     expect(page).to(have_content('123456789'))
@@ -128,7 +128,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
     create_student_member(page)
 
     visit edit_student_member_path(StudentMember.last.id)
-    fill_in 'Uin', with: '123456789'
+    fill_in 'UIN', with: '123456789'
     click_on 'Update account'
 
     expect(page).to(have_content('123456789'))
@@ -176,7 +176,7 @@ RSpec.describe('Creating a Student Member', type: :feature) do
 
   def create_student_member(_page)
     visit(new_student_member_path)
-    fill_in('Uin', with: '328004941')
+    fill_in('UIN', with: '328004941')
     fill_in('First name', with: 'Jiaming')
     fill_in('Last name', with: 'Fu')
     fill_in('Class year', with: '2023')

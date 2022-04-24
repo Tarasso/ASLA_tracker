@@ -34,13 +34,11 @@
                         <li class="nav-item"><%= link_to "Sign Out", destroy_user_session_path, class:'nav-link' %></li>
                     <% end %>
                     <% if session[:creatingAccount] == false ||  session[:creatingAccount] == nil%>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src=<%=session[:profile_pic]%> width="40" height="40" class="rounded-circle">
+                      </a>
                     
-                    <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src=<%=session[:profile_pic]%> width="40" height="40" class="rounded-circle">
-  </button>
-
-  
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/pages/user_dashboard">Dashboard</a></li>
                         <li><a class="dropdown-item" href="/student_members">Students</a></li>
@@ -54,7 +52,7 @@
                           <% end %>
                           <li ><%= link_to "Sign Out", destroy_user_session_path, class: 'dropdown-item' %></li>
                         </ul>
-                      </div>
+                      </li>
                       
                     <% end %>
                 <% end %>

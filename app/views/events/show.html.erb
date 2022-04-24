@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <section class="show-box">
 <div class="info">
-<h1>Viewing Entry <%=@event.id%> of the Events Table</h1>
+<h1>Viewing Event Information</h1>
 <p>
   <strong>Date:</strong>
   <%= @event.date.strftime('%B %-d, %Y') %>
@@ -36,6 +36,17 @@
   <p>
     <strong>Event Code:</strong>
     <%= @event.event_code %>
+  </p>
+
+  <strong>Event Participation</strong>
+  <p>
+    <strong>Registered:</strong>
+    <%= EventStudentMember.where(event_id: @event.id).count %>
+  </p>
+
+  <p>
+    <strong>Attended: </strong>
+    <%= MemberAttendance.where(event_id: @event.id).count %>
   </p>
 
   <%= link_to 'Edit', edit_event_path(@event) , class: 'btn btn-primary btn-sm'%> 

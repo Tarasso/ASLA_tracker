@@ -1,10 +1,16 @@
 <head>
   <style>
     h1 {
-      text-shadow: 2px 1px #555555;
+      text-shadow: 1px 1px #000, 
+                    -1px 1px #000, 
+                    1px -1px #000, 
+                    -1px -1px #000;
     }
     h5 {
-      text-shadow: 1px 1px #555555;
+      text-shadow: 1px 1px #000,
+                    -1px 1px #000, 
+                    1px -1px #000, 
+                    -1px -1px #000;
     }
   </style>
 
@@ -20,7 +26,7 @@
       <div class="carousel-inner">
         <% @carousel_pics.each_with_index do |carousel_pic, index| %>
           <div id="carousel_item_<%= index %>" class="carousel-item <%= index == 0 ? 'active' : '' %>">
-            <%= image_tag(carousel_pic.image, style:'height:400px;width:100%;') %>
+            <%= image_tag(carousel_pic.image, style:'height:400px; width:100%; object-fit: cover;') %>
           </div>
         <% end %>
       </div>
@@ -43,25 +49,29 @@
 
     <div class="container_fluid text-center mt-5">
       <h2> Upcoming Events</h2>
-      <div class="container text-center">
-        <div class="row justify-content-around">
-          <% @event_not_started = Event.where("date >= ?", Date.current) %>
-          <% @first_three_events = @event_not_started.first(3) %>
+      <div class="container">
+        <div class="row justify-content-center">
+          <% @upcoming, @past = Event.order('date ASC').partition{ |e| e[:date] >= Date.current } %>
+          <% @first_three_events = @upcoming.first(3) %>
           <% @first_three_events.each do |event| %>
             <% @event_info = Event.find(event.id) %>  
-            <div class="col-4 card">
-              <h4> <%= @event_info.name %> </h4>
-              <h6>Location: <%= @event_info.location %></h6>
-              <h6>When: <%= @event_info.date.strftime('%A, %B %d, %Y') %> at <%= daylight_savings(@event_info.start_time).strftime('%l:%M %p') %> </h6>
-              <p> <%= @event_info.description %> </p>
-              <p>Event Type: <%= @event_info.event_type %></p>
+            <div class="col-4 card" style="width: 300px">
+              <br>
+              <h3 class="card-title"><%= event.name %></h3>
+              <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">When:</b> <%= event.date.strftime('%B %-d, %Y') %></h6>
+              <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Location:</b> <%= event.location %></h6>
+              <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Time:</b> <%= daylight_savings(event.start_time).strftime('%l:%M %p')%> - <%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></h6>
+              <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Event Type:</b> <%= event.event_type %></h6>
+              <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= event.description %></p>
+
               <% if @is_student%>
-                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= events_student_member_path(@user.id) %>" role="button">Register Now</a>
+                <a class="btn btn-primary mx-auto text-white" href="<%= events_student_member_path(@user.id) %>" role="button">Show</a>
               <% elsif session[:isBusinessProfessional] %>
-                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= events_business_professional_path(@user.id) %>" role="button">Register Now</a>
+                <a class="btn btn-primary mx-auto text-white" href="<%= events_business_professional_path(@user.id) %>" role="button">Show</a>
               <% else %>
-                <a class="btn col-6 btn-primary mx-auto text-white" href="<%= user_google_oauth2_omniauth_authorize_path %>" role="button">Register Now</a>
+                <a class="btn btn-primary mx-auto text-white" href="<%= user_google_oauth2_omniauth_authorize_path %>" role="button">Show</a>
               <% end %>
+              <br>
             </div>
           <% end %> 
         </div>
@@ -76,15 +86,15 @@
 
               <% if @newsletter.images.count > 0 %>
                 <div class="col-md-4">
-                  <%= image_tag(@newsletter.images[0], style:'height: 100%; object-fit: cover;', class: 'card-img')%>
+                  <%= image_tag(@newsletter.images[0], style:'height: 200px; object-fit: cover;', class: 'card-img')%>
                 </div>
               <% end %>
 
               <div class="col-md-8">
                 <div class="card-body">
-                  <h3 class="card-title"><%= @newsletter.title %></h3>
-                  <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
+                  <h3 class="card-title" style="text-overflow: ellipsis; overflow-x: hidden; white-space: nowrap; height: 35px;"><%= @newsletter.title %></h3>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Date posted:</b> <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Last modified at:</b> <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
                   <p class="card-text" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><%= @newsletter.message %></p>
                   <%= link_to 'Show', @newsletter, class: 'btn btn-primary btn-sm' %>
                 </div>

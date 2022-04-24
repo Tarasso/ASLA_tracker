@@ -7,9 +7,9 @@
   <!----------------------------------------------------------- First row of columns ---------------------------------------->
   <div class="row">
       <!----------------------------------------------------------- Your Information column ---------------------------------------->
-    <div class="col-md-4" style="padding: 1vh">
-      <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%"> <!-- height difference -->
-        <div class="card-body" style= "padding: 1.11vh">
+    <div class="col-md-4" style="padding: 10px">
+      <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%">
+        <div class="card-body" style="border: none; padding-top: 0; padding-left: 1vh">
           <h2 style="color: #500000">Your Information</h2>
           <div class=row>
             <div class=col>   
@@ -55,9 +55,9 @@
       </div>
     </div>
     <!----------------------------------------------------------- Point breakdown column: only for officers + students ---------------------------------------->
-    <div class="col-md-3" style="padding: 1vh">
+    <div class="col-md-3" style="padding: 10px">
       <div class="card shadow border-start-primary py-2" style="padding-left: 1vh; height: 100%;">
-        <div class="card-body">
+        <div class="card-body" style="border: none; padding-top: 0; padding-left: 1vh">
           <h2 style="color: #500000">Shortcuts</h2>
           <div style="position: relative; padding: 1vh;"> 
             <%= link_to 'View ASLA Student Members', "/student_members", class: 'btn btn-primary btn-lg', style: "width: 100%", data: {disable_with: "Please wait."}%>
@@ -90,276 +90,116 @@
     </div>
     <!----------------------------------------------------------- Upcoming Events column and carousel ---------------------------------------->
     <div class="col-md-5" style="padding: 10px; padding-left: 20px">
-      <div class="row" style="padding-bottom: 10px; height: 50%;">
-        <div class="card shadow border-start-primary py-2">
-          <h2 style="color: #500000">Upcoming Events</h2>
-            <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
-          <section>
-            <div class="container">
-              <div class="row">
-                <div class="col-6 text-right">
-                  <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-bottom: 1.11vh !important;">
-                    <i class="fa fa-arrow-left"></i>
-                  </a>
-                  <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-bottom: 1.11vh !important;">
-                    <i class="fa fa-arrow-right"></i>
-                  </a>
-                </div>
-                <div class="col-12">
-                  <% @event_list = Event.where("date >= ?", Date.current).first(3) %>
-                  <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" data-interval="false">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <div class="row">
-                          <% if @event_list.count == 0 %>
-                            <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 18vh; border-color: #500000">
-                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <div class="row"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">No upcoming events at the moment.</span></div>
-                                </div>
-                              </div>
-                            </div>
-                          <% end %>
-                          <% @event_list.each do |event| %>
-                            <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 18vh; border-color: #500000">
-                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to event.name, event_url(event.id), class: "event-name" %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(event.start_time).strftime('%l:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
-                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
-                                </div>
-                                <% if @is_student %>
-                                  <% @attended = MemberAttendance.find_by(student_member_id: @user.id, event_id: event.id)%>
-                                <% else %>
-                                  <% @attended = BusinessAttendance.find_by(business_professional_id: @user.id, event_id: event.id)%> 
-                                <% end %>
-                                <% if !@attended %>    <!-- If member has attended event, dont show -->
-                                  <% if @is_student%> 
-                                    <% @event_student_member = EventStudentMember.find_by(student_member_id: @user.id, event_id: event.id) %>
-                                    <% if @event_student_member %>
-                                      <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
-                                    <% else %>
-                                      <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
-                                    <% end %>
-                                  <% else %>
-                                    <% @event_business_member = EventBusinessProfessional.find_by(business_professional_id: @user.id, event_id: event.id) %>
-                                    <% if @event_business_member %>
-                                      <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
-                                    <% else %>
-                                      <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
-                                    <% end %>
-                                  <% end %>
-                                <% end %> 
-                              </div>
-                            </div>  
-                          <% end %>
-                        </div>
-                      </div>
-                      <% @event_list = Event.where("date >= ?", Date.current).drop(3) %>
-                      <% @div_counter = 0 %>
-                      <% @event_list.each do |event| %>
-                        <% if @div_counter == 0 %>
-                          <div class="carousel-item">
-                            <div class="row">
-                        <% end %>
-                        <% @div_counter += 1%>
-                        <div class="col-md-4 mb-3">
-                          <div class="card" style="height: 18vh; border-color: #500000">
-                            <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                              <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to event.name, event_url(event.id), class: "event-name" %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(event.start_time).strftime('%l:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
-                              <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
-                            </div>
-                            <% if @is_student %>
-                              <% @attended = MemberAttendance.find_by(student_member_id: @user.id, event_id: event.id)%>
-                            <% else %>
-                              <% @attended = BusinessAttendance.find_by(business_professional_id: @user.id, event_id: event.id)%> 
-                            <% end %>
-                            <% if !@attended %>
-                              <% if @is_student %>
-                                <% @event_student_member = EventStudentMember.find_by(student_member_id: @user.id, event_id: event.id) %>
-                                <% if @event_student_member %>
-                                    <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
-                                <% else %>
-                                    <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
-                                <% end %>
-                              <% else %>
-                                <% @event_business_member = EventBusinessProfessional.find_by(business_professional_id: @user.id, event_id: event.id) %>
-                                <% if @event_business_member %>
-                                  <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
-                                <% else %>
-                                  <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
-                                <% end %>
-                              <% end %>
-                            <% end %>  
-                          </div>
-                        </div>
-                        <% if @div_counter == 3 %>
-                            </div>
-                          </div>
-                          <% @div_counter = 0%>
-                        <% end %>
-                      <% end %>
-                    </div>
+      <div class="card" style="border: none">
+        <div class="row" style="padding-bottom: 10px; height: 50%;">
+          <div class="card shadow border-start-primary py-2">
+            <h2 style="color: #500000">Upcoming Events</h2>
+              <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-bottom: 1.11vh !important;">
+                      <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-bottom: 1.11vh !important;">
+                      <i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        <!-- End of carousel -->
-        </div>
-      </div>
-    <!----------------------------------------------------------- Registered Events column and carousel ---------------------------------------->
-    <div class="row" style="height: 50%">
-      <div class="card shadow border-start-primary py-2">
-        <h2 style="color: #500000">Registered Events</h2>
-                      <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
-          <section>
-            <div class="container">
-              <div class="row">
-                <div class="col-6 text-right" style="float: right !important">
-                  <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-bottom: 1vh !important;">
-                    <i class="fa fa-arrow-left"></i>
-                  </a>
-                  <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-bottom: 1vh !important;">
-                    <i class="fa fa-arrow-right"></i>
-                  </a>
-                </div>
-                <div class="col-12">
-                  <% @initial_list ||= [] %>
-                  <% if @is_student %>
-                    <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>   <!-- Find first 3 events that the member has registered for-->
-                    <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
-                      <% @event_info = Event.find(event.event_id) %>
-                      <% if (@event_info.date >= Date.current) %>
-                        <% @initial_list.push(@event_info) %>
-                      <% end %>    
-                    <% end %>
-                  <% else %>
-                    <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id)%> 
-                    <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
-                      <% @event_info = Event.find(event.event_id) %>
-                      <% if (@event_info.date >= Date.current) %>
-                        <% @initial_list.push(@event_info) %>
-                      <% end %>    
-                    <% end %>
-                  <% end %>
-                  <% event_counter = 0%>
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <div class="row">
-                          <% if @initial_list.count == 0 %>
-                            <div class="col-md-4 mb-3">
-                              <div class="card" style="height: 18vh; border-color: #500000">
-                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                  <div class="row"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">You are not registered for any events at the moment.</span></div>
-                                </div>
-                              </div>
-                            </div>
-                          <% end %>
-                          <% submit_counter = 0 %>
-                          <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
-                            <% submit_counter += 1 %>
-                            <% @event_info = Event.find(event.event_id) %>
-                            <% if (@event_info.date >= Date.current) && (event_counter != 3) %>
-                              <% event_counter += 1%>
+                  <div class="col-12"> 
+                    <% @upcoming, @past = Event.order('date ASC').partition{ |e| e[:date] >= Date.current } %>
+                    <% @event_list = @upcoming.first(3) %>
+                    <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" data-interval="false">
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row">
+                            <% if @event_list.count == 0 %>
                               <div class="col-md-4 mb-3">
                                 <div class="card" style="height: 18vh; border-color: #500000">
                                   <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                    <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to @event_info.name, event_url(@event_info.id), class: "event-name" %></p></div>
-                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
-                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
-                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%= daylight_savings(@event_info.start_time).strftime('%l:%M %p')%>-<%= daylight_savings(@event_info.finish_time).strftime('%l:%M %p') %></p></div>
-                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
-                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>                    
+                                    <div class="row"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">No upcoming events at the moment.</span></div>
                                   </div>
-                                  <% if @is_student %>
-                                    <div class="col event-button" onclick="toggleSubmit('<%=submit_counter%>')" id='event_code__<%=submit_counter%>' style="text-align: center;">
-                                      <span style="font-size: 1em">Enter Code</span>
-                                    </div>
-                                    <div style="width: 100%" class="form-popup" id="myForm__<%=submit_counter%>">
-                                      <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
-                                      <%= hidden_field_tag :eid, event.event_id %>
-                                      <%= hidden_field_tag :mid, @user.id %>
-                                      <%= hidden_field_tag :wid, 1 %>
-                                      <%= number_field_tag :event_code_entered %>
-                                      <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."} %>
-                                      <% end %>
-                                    </div>
-                                    <script>
-                                      function toggleSubmit(id) {
-                                        btn = document.getElementById('event_code__'+id);
-                                        form = document.getElementById('myForm__'+id);
-                                        form.style.display = "block";
-                                        btn.style.display = "none";
-                                      } 
-                                    </script>
-                                  <% else %>
-                                    <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
-                                  <% end %>
                                 </div>
                               </div>
                             <% end %>
-                          <% end %>
+                            <% @event_list.each do |event| %>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 18vh; border-color: #500000">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                    <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to event.name, event_url(event.id), class: "event-name" %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(event.start_time).strftime('%l:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
+                                    <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
+                                  </div>
+                                  <% if @is_student %>
+                                    <% @attended = MemberAttendance.find_by(student_member_id: @user.id, event_id: event.id)%>
+                                  <% else %>
+                                    <% @attended = BusinessAttendance.find_by(business_professional_id: @user.id, event_id: event.id)%> 
+                                  <% end %>
+                                  <% if !@attended %>    <!-- If member has attended event, dont show -->
+                                    <% if @is_student%> 
+                                      <% @event_student_member = EventStudentMember.find_by(student_member_id: @user.id, event_id: event.id) %>
+                                      <% if @event_student_member %>
+                                        <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                      <% else %>
+                                        <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                      <% end %>
+                                    <% else %>
+                                      <% @event_business_member = EventBusinessProfessional.find_by(business_professional_id: @user.id, event_id: event.id) %>
+                                      <% if @event_business_member %>
+                                        <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                      <% else %>
+                                        <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                      <% end %>
+                                    <% end %>
+                                  <% end %> 
+                                </div>
+                              </div>  
+                            <% end %>
+                          </div>
                         </div>
-                      </div>
-                      <% if @is_student %>
-                        <% @event_list = EventStudentMember.where(student_member_id: @user.id).drop(event_counter)%>   <!-- Find first 3 events that the member has registered for-->
-                      <% else %>
-                        <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id).drop(event_counter)%> 
-                      <% end %>
-                      <% @div_counter = 0%>
-                      <% submit_counter2 = 0 %>
-                      <% @event_list.each do |event| %>
-                        <% @event_info = Event.find(event.event_id) %>
-                        <% if (@event_info.date >= Date.current) %>
+                        <% @event_list = @upcoming.drop(3) %>
+                        <% @div_counter = 0 %>
+                        <% @event_list.each do |event| %>
                           <% if @div_counter == 0 %>
                             <div class="carousel-item">
                               <div class="row">
                           <% end %>
                           <% @div_counter += 1%>
-                          <% submit_counter2 += 1 %>
                           <div class="col-md-4 mb-3">
                             <div class="card" style="height: 18vh; border-color: #500000">
                               <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
-                                <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to @event_info.name, event_url(@event_info.id), class: "event-name" %></p></div>
-                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
-                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
-                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(@event_info.start_time).strftime('%l:%M %p')%>-<%=daylight_savings(@event_info.finish_time).strftime('%l:%M %p') %></p></div>
-                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
-                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
+                                <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to event.name, event_url(event.id), class: "event-name" %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= event.date.strftime('%B %-d, %Y') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= event.location %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(event.start_time).strftime('%l:%M %p')%>-<%=daylight_savings(event.finish_time).strftime('%l:%M %p') %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=event.event_type %></p></div>
+                                <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=event.description %></p></div>
                               </div>
                               <% if @is_student %>
-                                <div class="col event-button" onclick="toggleSubmit2('<%=submit_counter2%>')" id="enter_code_<%=submit_counter2%>" style="text-align: center;">
-                                  <span style="font-size: 1em">Enter Code</span>
-                                </div>
-                                <div style="width: 100%" class="form-popup" id="myForm2_<%=submit_counter2%>">
-                                  <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
-                                  <%= hidden_field_tag :eid, event.id %>
-                                  <%= hidden_field_tag :mid, @user.id %>
-                                  <%= hidden_field_tag :wid, 1 %>
-                                  <%= number_field_tag :event_code_entered %>
-                                  <%= button_tag '🡢', class: "col event-button" %>
-                                  <% end %>
-                                </div>
-                                <script>
-                                  function toggleSubmit2(id) {
-                                      btn = document.getElementById('enter_code_'+ id);
-                                      form = document.getElementById('myForm2_' + id);
-                                      form.style.display = "block";
-                                      btn.style.display = "none";
-                                  } 
-                                </script>
+                                <% @attended = MemberAttendance.find_by(student_member_id: @user.id, event_id: event.id)%>
                               <% else %>
-                                <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                                <% @attended = BusinessAttendance.find_by(business_professional_id: @user.id, event_id: event.id)%> 
                               <% end %>
+                              <% if !@attended %>
+                                <% if @is_student %>
+                                  <% @event_student_member = EventStudentMember.find_by(student_member_id: @user.id, event_id: event.id) %>
+                                  <% if @event_student_member %>
+                                      <%= link_to 'Unregister', unregister_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                  <% else %>
+                                      <%= link_to 'Register', register_event_student_member_path(mid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                  <% end %>
+                                <% else %>
+                                  <% @event_business_member = EventBusinessProfessional.find_by(business_professional_id: @user.id, event_id: event.id) %>
+                                  <% if @event_business_member %>
+                                    <%= link_to 'Unregister', unregister_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), data: { confirm: 'Are you sure you want to unregister for the event: ' + event.name + '?', disable_with: "Please wait." }, class: "col event-button", style:"text-align: center; color: #500000;" %>
+                                  <% else %>
+                                    <%= link_to 'Register', register_event_business_professional_path(bid: @user.id, eid: event.id, id: @user.id, wid: 1), class: "col event-button", style:"text-align: center; color: #500000", data: {disable_with: "Please wait."} %>
+                                  <% end %>
+                                <% end %>
+                              <% end %>  
                             </div>
                           </div>
                           <% if @div_counter == 3 %>
@@ -368,14 +208,179 @@
                             <% @div_counter = 0%>
                           <% end %>
                         <% end %>
-                      <% end %>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
           <!-- End of carousel -->
+          </div>
+        </div>
+      </div>
+    <!----------------------------------------------------------- Registered Events column and carousel ---------------------------------------->
+    <div class="card" style="border: none">
+      <div class="row" style="height: 50%">
+        <div class="card shadow border-start-primary py-2">
+          <h2 style="color: #500000">Registered Events</h2>
+                        <!--Carousel from https://bootstraptor.com/snippets/bootstrap-4-snippet-carousel-with-cards/--> 
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 text-right" style="float: right !important">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-bottom: 1vh !important;">
+                      <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-bottom: 1vh !important;">
+                      <i class="fa fa-arrow-right"></i>
+                    </a>
+                  </div>
+                  <div class="col-12">
+                    <% @initial_list ||= [] %>
+                    <% if @is_student %>
+                      <% @event_list = EventStudentMember.where(student_member_id: @user.id)%>   <!-- Find first 3 events that the member has registered for-->
+                      <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
+                        <% @event_info = Event.find(event.event_id) %>
+                        <% if (@event_info.date >= Date.current) %>
+                          <% @initial_list.push(@event_info) %>
+                        <% end %>    
+                      <% end %>
+                    <% else %>
+                      <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id)%> 
+                      <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
+                        <% @event_info = Event.find(event.event_id) %>
+                        <% if (@event_info.date >= Date.current) %>
+                          <% @initial_list.push(@event_info) %>
+                        <% end %>    
+                      <% end %>
+                    <% end %>
+                    <% event_counter = 0 %>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row">
+                            <% if @initial_list.count == 0 %>
+                              <div class="col-md-4 mb-3">
+                                <div class="card" style="height: 18vh; border-color: #500000">
+                                  <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                    <div class="row"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">You are not registered for any events at the moment.</span></div>
+                                  </div>
+                                </div>
+                              </div>
+                            <% end %>
+                            <% submit_counter = 0 %>
+                            <% @event_list.each do |event| %>  <!-- For each event member has registered for... -->
+                              <% submit_counter += 1 %>
+                              <% @event_info = Event.find(event.event_id) %>
+                              <% if (@event_info.date >= Date.current) && (event_counter != 3) %>
+                                <% event_counter += 1%>
+                                <div class="col-md-4 mb-3">
+                                  <div class="card" style="height: 18vh; border-color: #500000">
+                                    <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                      <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to @event_info.name, event_url(@event_info.id), class: "event-name" %></p></div>
+                                      <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                      <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                      <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%= daylight_savings(@event_info.start_time).strftime('%l:%M %p')%>-<%= daylight_savings(@event_info.finish_time).strftime('%l:%M %p') %></p></div>
+                                      <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                      <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>                    
+                                    </div>
+                                    <% if @is_student %>
+                                      <div class="col event-button" onclick="toggleSubmit('<%=submit_counter%>')" id='event_code__<%=submit_counter%>' style="text-align: center;">
+                                        <span style="font-size: 1em">Enter Code</span>
+                                      </div>
+                                      <div style="width: 100%" class="form-popup" id="myForm__<%=submit_counter%>">
+                                        <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
+                                        <%= hidden_field_tag :eid, event.event_id %>
+                                        <%= hidden_field_tag :mid, @user.id %>
+                                        <%= hidden_field_tag :wid, 1 %>
+                                        <%= number_field_tag :event_code_entered %>
+                                        <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."} %>
+                                        <% end %>
+                                      </div>
+                                      <script>
+                                        function toggleSubmit(id) {
+                                          btn = document.getElementById('event_code__'+id);
+                                          form = document.getElementById('myForm__'+id);
+                                          form.style.display = "block";
+                                          btn.style.display = "none";
+                                        } 
+                                      </script>
+                                    <% else %>
+                                      <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </div>
+                        <% if @is_student %>
+                          <% @event_list = EventStudentMember.where(student_member_id: @user.id).drop(event_counter)%>   <!-- Find first 3 events that the member has registered for-->
+                        <% else %>
+                          <% @event_list = EventBusinessProfessional.where(business_professional_id: @user.id).drop(event_counter)%> 
+                        <% end %>
+                        <% @div_counter = 0%>
+                        <% submit_counter2 = 0 %>
+                        <% @event_list.each do |event| %>
+                          <% @event_info = Event.find(event.event_id) %>
+                          <% if (@event_info.date >= Date.current) %>
+                            <% if @div_counter == 0 %>
+                              <div class="carousel-item">
+                                <div class="row">
+                            <% end %>
+                            <% @div_counter += 1%>
+                            <% submit_counter2 += 1 %>
+                            <div class="col-md-4 mb-3">
+                              <div class="card" style="height: 18vh; border-color: #500000">
+                                <div class="card-body scroll" style="height: 70%; overflow-x: hidden; overflow-y: scroll;">
+                                  <div class="row"><p style="margin: 0;"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Name</span><br><%= link_to @event_info.name, event_url(@event_info.id), class: "event-name" %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Date</span><br><%= @event_info.date.strftime('%B %-d, %Y') %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Location</span><br><%= @event_info.location %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Time</span><br><%=daylight_savings(@event_info.start_time).strftime('%l:%M %p')%>-<%=daylight_savings(@event_info.finish_time).strftime('%l:%M %p') %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Event Type</span><br><%=@event_info.event_type %></p></div>
+                                  <div class="row"><p style="margin: 0"><span style="color: #500000; font-weight: bold;" class="text-uppercase fw-bold text-xs mb-1">Description</span><br><%=@event_info.description %></p></div>
+                                </div>
+                                <% if @is_student %>
+                                  <div class="col event-button" onclick="toggleSubmit2('<%=submit_counter2%>')" id="enter_code_<%=submit_counter2%>" style="text-align: center;">
+                                    <span style="font-size: 1em">Enter Code</span>
+                                  </div>
+                                  <div style="width: 100%" class="form-popup" id="myForm2_<%=submit_counter2%>">
+                                    <%= form_tag(eventcode_student_member_path(id: @user.id), method: "get") do %>
+                                    <%= hidden_field_tag :eid, event.id %>
+                                    <%= hidden_field_tag :mid, @user.id %>
+                                    <%= hidden_field_tag :wid, 1 %>
+                                    <%= number_field_tag :event_code_entered %>
+                                    <%= button_tag '🡢', class: "col event-button", data: {disable_with: "Please wait."}%>
+                                    <% end %>
+                                  </div>
+                                  <script>
+                                    function toggleSubmit2(id) {
+                                        btn = document.getElementById('enter_code_'+ id);
+                                        form = document.getElementById('myForm2_' + id);
+                                        form.style.display = "block";
+                                        btn.style.display = "none";
+                                    } 
+                                  </script>
+                                <% else %>
+                                  <%= link_to 'Attended', attended_business_professional_path(bid: @user.id, eid: @event_info.id, id: @user.id, wid: 1), class: "col event-button", data: {disable_with: "Please wait."}, style: "text-align: center" %>
+                                <% end %>
+                              </div>
+                            </div>
+                            <% if @div_counter == 3 %>
+                                </div>
+                              </div>
+                              <% @div_counter = 0%>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- End of carousel -->
+          </div>
         </div>
       </div>
     </div>
@@ -491,7 +496,7 @@
                     <form action="user_dashboard" style="text-align: center" method="get" id="user_dashboard">
                       <label>Current Required Points: <%= file_info = file.read()%></label><br>
                       <input type="number" min="1" id="group3" name="required_points" style="width: 50%">
-                      <input type="submit" value="Update" class="event-button">
+                      <input type="submit" value="Update" class="event-button" onclick="return confirm('Are you sure you would like to update the required points?')">
                     </form>
                   </div>
                 </div>
