@@ -6,10 +6,8 @@
 <% end %>
 
 
-
-<div class="card" style="width: 30%;margin: 0 auto;float: none;margin-bottom: 10px;margin-top:5%;">
+<h1 class="index-title">Event Links</h1>
   <ul class="list-group list-group-flush">
-  <li class="list-group-item"><h1 class="index-title">Event Links</h1></li>
   <% if session[:isAdmin] %>
     <li class="list-group-item"><%= link_to 'Create events', "/events" , class: 'btn btn-primary btn-lg'%></li>
     <li class="list-group-item">
@@ -32,4 +30,3 @@
 <li class="list-group-item"><%= link_to 'Attended Events', attended_events_business_professional_path(@business_professional), class: 'btn btn-primary btn-lg'%></li>
 <% end %>
 </ul>
-</div>

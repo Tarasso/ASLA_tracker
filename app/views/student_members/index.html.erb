@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 <h1 class="index-title" >Students</h1>
-<div class="container">
-<div id="tabular" class="tabular-demo"></div>
-
+<div id="tabular" class="tabular-demo container table-responsive"></div>
 <script>
+
   $(function() {
     tabular.start('#tabular', {
       columns: [
@@ -30,9 +29,9 @@
           { title: '', name: 'show_link2', sort: false }
         <% end %>
       ],
-      source:      '/student_members.json'
+      source:      '/student_members.json',
+      tableClass:  'table table-hover table-bordered'
     });
   });
 </script>
-</div>
 <br>

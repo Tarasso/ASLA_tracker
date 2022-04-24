@@ -4,7 +4,7 @@
 <%= link_to "Create Attendance Entry", new_member_attendance_path, class: 'btn btn-primary btn-sm'%>
 </div>
 <br>
-<div id="tabular" class="tabular-demo container"></div>
+<div id="tabular" class="tabular-demo container table-responsive"></div>
 <script>
   $(function() {
     tabular.start('#tabular', {
@@ -21,7 +21,8 @@
         { title: '', name: 'show_link1', sort: false },
         { title: '', name: 'show_link2', sort: false }
       ],
-      source:      '/member_attendances.json'
+      source:      '/member_attendances.json',
+      tableClass:  'table table-hover table-bordered'
     });
   });
 </script>
