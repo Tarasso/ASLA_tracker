@@ -6,7 +6,9 @@
   $(function() {
     tabular.start('#tabular', {
       columns: [
+        <% if session[:isAdmin] %>
         { title: 'Id', name: 'id' },
+        <% end %>
         { title: 'First Name', name: 'first_name' },
         { title: 'Last Name', name: 'last_name' },
         { title: 'Title', name: 'member_title' },

@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <section class="show-box">
 <div class="info">
-<h1>Viewing Entry <%=@student_member.id%> of the Students Table</h1>
+<h1>Viewing Student Member Information</h1>
 <p>
   <strong>UIN:</strong>
   <%= @student_member.uin %>
@@ -53,11 +53,15 @@
 </p>
 
 <p>
+  <strong>Member title:</strong>
+  <%= @student_member.member_title %>
+</p>
+
+<% if session[:isAdmin] %>
+<p>
   <strong>Dues paid:</strong>
   <%= read_bool(@student_member.dues_paid) %>
 </p>
-
-<br/>
 
 <p>
   <strong>Social point amount:</strong>
@@ -78,13 +82,9 @@
   <strong>Informational point amount:</strong>
   <%= @student_member.informational_point_amount %>
 </p>
+<% end %>
+<br>
 
-<br/>
-
-<p>
-  <strong>Member title:</strong>
-  <%= @student_member.member_title %>
-</p>
 
 
 
