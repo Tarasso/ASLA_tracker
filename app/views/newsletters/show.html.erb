@@ -5,8 +5,8 @@
 <div class="info" style="max-width: 600px">
 
   <h3 class="card-title" style="color: black;"><%= @newsletter.title %></h3>
-  <h6 class="card-subtitle mb-2 text-muted">Date posted: <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
-  <h6 class="card-subtitle mb-2 text-muted">Last modified at: <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
+  <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Date posted:</b> <%= daylight_savings(@newsletter.created_at).strftime('%B %-d, %Y') %></h6>
+  <h6 class="card-subtitle mb-2 text-muted"><b style="color: black">Last modified at:</b> <%= daylight_savings(@newsletter.updated_at).strftime('%B %-d, %Y') %></h6>
   <p class="card-text"><%= @newsletter.message %></p>
 
   <% if session[:isAdmin] %>

@@ -31,7 +31,7 @@
         <br>
         <p>The image does not show in the table on the control page. Use the "show" link corresponding to each entry to view the pictures.</p>
         <br>
-        <p>To manage existing images, use the "edit" or "destroy" links that correspond to each image name on the control page.
+        <p>To manage existing images, use the "edit" or "delete" links that correspond to each image name on the control page.
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@
       <br>
       <p>After clicking on the button, you will be able to put your name, upload an image, and include a short bio.</p>
       <br>
-      <p>To manage existing Officer pictures, use the "edit" or "destroy" links that correspond to each Officer on the control page. </p>
+      <p>To manage existing Officer pictures, use the "edit" or "delete" links that correspond to each Officer on the control page. </p>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@
         <br>
         <p>There is a points leaderboard showing the members with the most points.</p>
         <br>
-        <p>Towards the bottom left of the dashboard, there are some officer tools. Use the "email copying" tool to select your target audience and
+        <p>Towards the bottom left of the dashboard, there are some officer tools. Use the "Email Copying" tool to select your target audience and
          copy their emails. Use the "reset dues/points" tool to set all dues/points to false/0 (use this at end of semesters for a full reset).
           Lastly, use the "Set Points Requirement" tool to declare the number of required points for members.</p>
       </div>
@@ -119,11 +119,16 @@
         <br>
         <p>On the student members page, you will see a listing of all members along with their information. For each member, there will be a "View", "Edit", and "Delete" button. Use these tools to help manage member information. </p>
         <br>
-        <p>There is a search bar to the right side of the page. You can use this to help locate a specific member using their first or last name.</p>
+        <p>There is a search bar to the right side of the page. You can use this to help locate a specific member using their first or last name.
+            When searching, make sure to clear the bar if you want to return to the full original table</p>
         <br>
         <p>Each Column of the table is clickable. Clicking on a column will sort the table by that column.</p>
         <br>
         <p>You can choose how many rows of the table to display with the dropdown menu indicating number of rows. Use the "First", "Previous", "Next", and "Last" buttons to navigate through the table.</p>
+        <br>
+        <p>To reflect elections and change elected members to officers on the website, find their entry on the Student Members table, click "edit", and change their title to "Officer".</p>
+        <br>
+        <p>Additionally, to signify that a member has paid their dues, click "edit" on the table entry, and change the "dues paid" field accordingly.</p>
       </div>
     </div>
   </div>
@@ -144,7 +149,8 @@
       <br>
       <p>On the professionals page, you will see a listing of all professionals along with their information. For each professional, there will be a "View", "Edit", and "Delete" button. Use these tools to help manage member information. </p>
       <br>
-      <p>There is a search bar to the right side of the page. You can use this to help locate a specific professional using their first or last name.</p>
+      <p>There is a search bar to the right side of the page. You can use this to help locate a specific professional using their first or last name.
+          When searching, make sure to clear the bar if you want to return to the full original table</p>
       <br>
       <p>Each Column of the table is clickable. Clicking on a column will sort the table by that column.</p>
       <br>
@@ -167,32 +173,45 @@
         <br>
         <p>A dropdown menu will appear after clicking on the avatar. You can find the "Events" link to the events page.</p>
         <br>
-        <p>The "create/edit/delete events" button links to the main control page for managing events. Click on the button to access it.</p>
+        <p>The "create events" button links to the main control page for managing events. Click on the button to access it.</p>
         <ul>
-          <li>On the control page, use the "Create a New Event" button on the top left to create new events.</li>
+          <li>On the control page, use the "Create a New Event" button on the top left to create new events. When doing this, you can fill out information pertaining to the event, such as date,
+              time, a dropdown for event type (fundraiser, meeting, social, informational), and other fields.</li>
           <br>
-          <li>There will be a random 5 digit code generated for each event. This will be used for keeping track of event attendance.
+          <li>There will be a random 5 digit code generated for each event under the column "Event Code". This will be used for keeping track of event attendance, and is to be distributed by officers
+              at events for all atendees to enter on their accounts.</li>
           <br>
           <li>On the control page, you will see a listing of all created events with their information. For each event, there will be a "View", "Edit", and "Delete" button.</li>
+          <br>
+          <li> If an event spans more than 1 day, this should be visible on the Google Calendar, provided that is kept up to date. Otherwise, on the website events, you can:
+            <ul>
+              <li> Option 1: Create an event for both the start and end dates of the event </li>
+              <br>
+              <li> Option 2: Create an event for each day of the event (if it is more than 2 days)</li>
+              <br>
+              <li> Option 3: Create only an event for the start date, and signify in its description that it spans multiple days. 
+              If the Google Calendar is up to date, the span of the event will be easily visible there as well</li>
+            </ul>
+           </li>
         </ul>
         <br>
-        <p>The "View students' registration" button links to a table that shows student registration for events.  Click on the button to access it.</p>
+        <p>The "Students: Registration" button links to a table that shows student registration for events.  Click on the button to access it.</p>
         <ul>
-          <li>Use the "Register a Member" button on the top left to manually register a student memeber for an event.</li>
+          <li>Use the "Register a Student" button on the top left to manually register a student memeber for an event.</li>
           <br>
           <li>On this page, you will see a listing of all members that registered for events. For each register entry, there will be a "View", "Edit", and "Delete" button.</li>
         </ul>
         <br>
-        <p>The "View students' attendance" button links to a table that shows student attendance for events.  Click on the button to access it.</p>
+        <p>The "Students: Attendance" button links to a table that shows student attendance for events.  Click on the button to access it.</p>
         <ul>
           <li>Use the "Create Attendance Entry" button on the top left to manually mark attendance for a member/event.</li>
           <br>
           <li>On this page, you will see a listing of all attendance entries. For each entry, there will be a "View", "Edit", and "Delete" button.</li>
         </ul>
         <br>
-        <p>The "View professionals' registraion" and "view professionals' attendance" are same as the two described above, but for business professionals.</p>
+        <p>The "Professionals: Registraion" and "Professionals: Attendance" are same as the two described above, but for business professionals.</p>
         <br>
-        <p>The "register myself/enter code for events" button links to a page where you can register for events and enter event codes for attendance.</p>
+        <p>The "Upcoming Events" button links to a page where you can register for events and enter event codes for attendance.</p>
         <ul>
           <li>On this page, you will see a listing of all current events.</li> 
           <br>
@@ -200,7 +219,7 @@
           <br>
           <li>Once you are registered for an event, you will have a bar where you can enter the event's code to account for attendance.</li>
         </ul>
-        <p>The "View events I attended" button links to a table showing events that you have attended.</p>
+        <p>The "Attended Events" button links to a table showing events that you have attended.</p>
       </div>
     </div>
   </div>

@@ -7,12 +7,14 @@
 
 <p id="notice"><%= notice %></p>
 <h1 class="index-title"  >Business Professionals</h1>
-<div id="tabular" class="tabular-demo container"></div>
+<div id="tabular" class="tabular-demo container table-responsive"></div>
 <script>
   $(function() {
     tabular.start('#tabular', {
       columns: [
+        <% if session[:isAdmin] %>
         { title: 'Id', name: 'id' },
+        <% end %>
         { title: 'Organization', name: 'org_name' },
         { title: 'First Name', name: 'first_name' },
         { title: 'Last Name', name: 'last_name' },
@@ -23,7 +25,8 @@
           { title: '', name: 'show_link2', sort: false }
         <% end %>
       ],
-      source:      '/business_professionals.json'
+      source:      '/business_professionals.json',
+      tableClass:  'table table-hover table-bordered'
     });
   });
 </script>
