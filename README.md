@@ -100,8 +100,7 @@ And now your application is setup and in production mode!
 
 ## CI/CD ##
 
-For continuous development, we set up Heroku to automatically deploy our apps when their respective github branches are updated. Now that the app has been fully deployed however, only the production app is available for use:
-* [Production Envrionment](https://tamu-asla.herokuapp.com/)
+For continuous development, we set up Heroku to automatically deploy our apps when their respective github branches are updated. Now that the app has been fully deployed however, only the production app is available for use.
 
 For continuous integration, we set up a Github action to run our specs, security checks, linter, etc. after every push or pull-request. This allows us to automatically ensure that our code is working as intended. The following are ran on every deployment, push, and PR:
 * Rspec tests
